@@ -1,4 +1,17 @@
 export default {
+	colors: {
+		primary: '#1F2937',
+		secondary: '#F0BC74',
+		tertiary: '#31316A',
+		danger: '#E11D48',
+		info: '#2361CE',
+		warning: '#FBA918',
+		success: '#10B981',
+		dark: '#111827',
+		gray: '#374151',
+		light: '#1F2937',
+		white: '#fff',
+	},
 	h1: {
 		fontWeight: 'bold',
 		marginTop: 10,
@@ -21,4 +34,24 @@ export default {
 		alignItems: 'stretch',
 	},
 	backgroundColor: '#F2F4F6',
+	CheckBox: {
+		containerStyle: {
+			backgroundColor: 'transparent',
+			borderColor: 'transparent',
+			marginLeft: 0,
+		},
+	},
+	Button: {
+		marginTop: 10,
+		orderRadius: 10,
+		alignItems: 'center',
+		justifyContent: 'center',
+		elevation: 10,
+		shadowOpacity: 20,
+		shadowColor: '#ccc',
+		titleStyle: {
+			fontWeight: 'bold',
+			color: '#fff',
+		},
+	},
 };

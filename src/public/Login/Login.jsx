@@ -1,6 +1,12 @@
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, ScrollView } from 'react-native';
-import { Image, useTheme, Input } from 'react-native-elements';
+import {
+	Image,
+	useTheme,
+	Input,
+	CheckBox,
+	Button,
+} from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -17,8 +23,13 @@ const styles = StyleSheet.create({
 function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
+	const [rememberMe, setRememberMe] = useState(false);
 
 	const { theme } = useTheme();
+
+	function onSignInPress(_event) {
+		console.log(email, password, rememberMe);
+	}
 
 	return (
 		<ScrollView style={{ backgroundColor: theme.backgroundColor }}>
@@ -43,6 +54,12 @@ function Login() {
 						onChangeText={(text) => setPassword(text)}
 						leftIcon={<Icon size={24} color="black" name="key" />}
 					/>
+					<CheckBox
+						title="Remember Me"
+						checked={rememberMe}
+						onPress={() => setRememberMe(!rememberMe)}
+					/>
+					<Button title="Sign In" onPress={(event) => onSignInPress(event)} />
 				</View>
 			</View>
 		</ScrollView>
