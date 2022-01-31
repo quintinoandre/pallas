@@ -19,6 +19,8 @@
 	"plugins": ["react", "eslint-plugin-import-helpers", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
+		"consistent-return": "warn",
+		"import/no-unresolved": "warn",
 		"no-unused-vars": [
 			"warn",
 			{

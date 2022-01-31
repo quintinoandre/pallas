@@ -11,6 +11,7 @@ import {
 import { Feather as Icon } from '@expo/vector-icons';
 
 import logo from '../../../assets/logo.png';
+import { doLogin } from '../../services/AuthService';
 
 const styles = StyleSheet.create({
 	logo: {
@@ -28,7 +29,13 @@ function Login() {
 	const { theme } = useTheme();
 
 	function onSignInPress(_event) {
-		console.log(email, password, rememberMe);
+		doLogin(email, password)
+			.then((result) => {
+				console.log(email, password, rememberMe);
+			})
+			.catch((err) => {
+				console.error(err);
+			});
 	}
 
 	return (
