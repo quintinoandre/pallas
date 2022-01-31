@@ -19,7 +19,6 @@
 	"plugins": ["react", "eslint-plugin-import-helpers", "prettier"],
 	"rules": {
 		"prettier/prettier": "error",
-    "react/style-prop-object": "off",
 		"import-helpers/order-imports": [
 			"warn",
 			{
