@@ -16,9 +16,9 @@ axios.interceptors.response.use(
 
 	(error) => {
 		if (error.response && error.response.status === 401)
-			console.error('Redirected to login by 401 response!');
+			return Promise.reject(new Error('Provide a valid email and password!'));
 		//! Unauthorized
-		else return Promise.reject(error);
+		return Promise.reject(error);
 	}
 );
 

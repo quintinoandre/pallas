@@ -39,16 +39,21 @@ function Login() {
 
 	function clearScreen() {
 		setEmail('');
+
 		setPassword('');
+
 		setRememberMe(false);
+
 		setIsLoading(false);
 	}
 
 	useEffect(() => {
 		clearScreen();
+
 		AsyncStorage.getItem('email').then((result) => {
 			if (result) {
 				setEmail(result);
+
 				setRememberMe(true);
 			}
 		});
@@ -62,12 +67,17 @@ function Login() {
 
 		doLogin(email, password)
 			.then((result) => {
-				console.log(email, password, rememberMe);
+				console.log(result);
+
+				// TODO: redirect
 
 				clearScreen();
 			})
 			.catch((err) => {
-				clearScreen();
+				setPassword('');
+
+				setIsLoading(false);
+
 				setError(err.response ? err.response.data : err.message);
 			});
 	}
@@ -102,6 +112,7 @@ function Login() {
 					/>
 					<Button
 						title={isLoading ? <ActivityIndicator /> : 'Sign In'}
+						style={{ padding: 10 }}
 						onPress={(event) => onSignInPress(event)}
 					/>
 					{error ? <Text style={theme.alert}>{error}</Text> : <></>}
