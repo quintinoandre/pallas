@@ -77,7 +77,7 @@ function Login({ ...props }) {
 				if (result) {
 					clearScreen();
 
-					props.navigation.navigate('Dashboard');
+					props.navigation.navigate('DrawerNavigator');
 				}
 			})
 			.catch((err) => {
