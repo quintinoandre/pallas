@@ -28,7 +28,7 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Login() {
+function Login({ ...props }) {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
@@ -67,9 +67,7 @@ function Login() {
 
 		doLogin(email, password)
 			.then((result) => {
-				console.log(result);
-
-				// TODO: redirect
+				props.navigation.navigate('Dashboard');
 
 				clearScreen();
 			})
