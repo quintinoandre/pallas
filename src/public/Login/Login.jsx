@@ -19,6 +19,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import logo from '../../../assets/logo.png';
 import { doLogin } from '../../services/AuthService';
+import { configBaseService } from '../../services/BaseService';
 
 const styles = StyleSheet.create({
 	logo: {
@@ -29,6 +30,8 @@ const styles = StyleSheet.create({
 });
 
 function Login({ ...props }) {
+	configBaseService(props.navigation);
+
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
@@ -38,17 +41,21 @@ function Login({ ...props }) {
 	const { theme } = useTheme();
 
 	function clearScreen() {
-		setEmail('');
+		if (!rememberMe) setEmail('');
 
 		setPassword('');
 
-		setRememberMe(false);
+		setError('');
 
 		setIsLoading(false);
 	}
 
 	useEffect(() => {
-		clearScreen();
+		if (props.route.params) {
+			clearScreen();
+
+			setError(props.route.params.text);
+		}
 
 		AsyncStorage.getItem('email').then((result) => {
 			if (result) {
@@ -57,7 +64,7 @@ function Login({ ...props }) {
 				setRememberMe(true);
 			}
 		});
-	}, []);
+	}, [props.route.params]);
 
 	function onSignInPress(_event) {
 		setIsLoading(true);
@@ -67,14 +74,14 @@ function Login({ ...props }) {
 
 		doLogin(email, password)
 			.then((result) => {
-				props.navigation.navigate('Dashboard');
+				if (result) {
+					clearScreen();
 
-				clearScreen();
+					props.navigation.navigate('Dashboard');
+				}
 			})
 			.catch((err) => {
-				setPassword('');
-
-				setIsLoading(false);
+				clearScreen();
 
 				setError(err.response ? err.response.data : err.message);
 			});

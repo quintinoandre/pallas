@@ -1,25 +1,37 @@
 import axios from 'axios';
 
 import { ORIGIN } from '@env';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
-axios.interceptors.request.use(
-	(config) => {
-		config.headers.Origin = ORIGIN;
+export function configBaseService(navigator) {
+	axios.interceptors.request.use(
+		async (config) => {
+			config.headers.Authorization = await AsyncStorage.getItem('token');
 
-		return config;
-	},
-	(error) => {}
-);
+			config.headers.Origin = ORIGIN;
 
-axios.interceptors.response.use(
-	(response) => response,
+			return config;
+		},
+		(error) => {
+			return Promise.reject(error);
+		}
+	);
 
-	(error) => {
-		if (error.response && error.response.status === 401)
-			return Promise.reject(new Error('Provide a valid email and password!'));
-		//! Unauthorized
-		return Promise.reject(error);
-	}
-);
+	axios.interceptors.response.use(
+		(response) => response,
+
+		(error) => {
+			if (error.response && [401, 403].includes(error.response.status)) {
+				//! Unauthorized
+				return navigator.navigate('Login', {
+					status: error.response.status,
+					text: 'Provide a valid email and password!',
+				});
+			}
+
+			return Promise.reject(error);
+		}
+	);
+}
 
 export default axios;
