@@ -53,6 +53,7 @@ function Login() {
 		doLogin(email, password)
 			.then((result) => {
 				console.log(email, password, rememberMe);
+
 				clearScreen();
 			})
 			.catch((err) => {
