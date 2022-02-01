@@ -15,6 +15,7 @@ import {
 } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import logo from '../../../assets/logo.png';
 import { doLogin } from '../../services/AuthService';
@@ -45,10 +46,19 @@ function Login() {
 
 	useEffect(() => {
 		clearScreen();
+		AsyncStorage.getItem('email').then((result) => {
+			if (result) {
+				setEmail(result);
+				setRememberMe(true);
+			}
+		});
 	}, []);
 
 	function onSignInPress(_event) {
 		setIsLoading(true);
+
+		if (rememberMe) AsyncStorage.setItem('email', email);
+		else AsyncStorage.removeItem('email');
 
 		doLogin(email, password)
 			.then((result) => {
