@@ -54,4 +54,19 @@ export default {
 			color: '#fff',
 		},
 	},
+	alert: {
+		backgroundColor: '#F9D2DA',
+		borderColor: '#F6BBC8',
+		color: '#87112B',
+		padding: 10,
+		borderRadius: 10,
+		margin: 10,
+	},
+	info: {
+		backgroundColor: '#10B981',
+		borderColor: '#10B981',
+		padding: 10,
+		borderRadius: 10,
+		margin: 10,
+	},
 };

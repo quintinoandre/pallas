@@ -1,5 +1,11 @@
-import React, { useState } from 'react';
-import { StyleSheet, Text, View, ScrollView } from 'react-native';
+import React, { useState, useEffect } from 'react';
+import {
+	StyleSheet,
+	Text,
+	View,
+	ScrollView,
+	ActivityIndicator,
+} from 'react-native';
 import {
 	Image,
 	useTheme,
@@ -25,16 +31,33 @@ function Login() {
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
+	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
 
 	const { theme } = useTheme();
 
+	function clearScreen() {
+		setEmail('');
+		setPassword('');
+		setRememberMe(false);
+		setIsLoading(false);
+	}
+
+	useEffect(() => {
+		clearScreen();
+	}, []);
+
 	function onSignInPress(_event) {
+		setIsLoading(true);
+
 		doLogin(email, password)
 			.then((result) => {
 				console.log(email, password, rememberMe);
+				clearScreen();
 			})
 			.catch((err) => {
-				console.error(err);
+				clearScreen();
+				setError(err.response ? err.response.data : err.message);
 			});
 	}
 
@@ -66,7 +89,11 @@ function Login() {
 						checked={rememberMe}
 						onPress={() => setRememberMe(!rememberMe)}
 					/>
-					<Button title="Sign In" onPress={(event) => onSignInPress(event)} />
+					<Button
+						title={isLoading ? <ActivityIndicator /> : 'Sign In'}
+						onPress={(event) => onSignInPress(event)}
+					/>
+					{error ? <Text style={theme.alert}>{error}</Text> : <></>}
 				</View>
 			</View>
 		</ScrollView>

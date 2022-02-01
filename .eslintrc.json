@@ -21,6 +21,8 @@
 		"prettier/prettier": "error",
 		"consistent-return": "warn",
 		"import/no-unresolved": "warn",
+    "react/jsx-no-useless-fragment": "warn",
+    "no-param-reassign":"warn",
 		"no-unused-vars": [
 			"warn",
 			{

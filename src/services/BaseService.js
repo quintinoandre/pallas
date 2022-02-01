@@ -1,5 +1,15 @@
 import axios from 'axios';
 
+import { ORIGIN } from '@env';
+
+axios.interceptors.request.use(
+	(config) => {
+		config.headers.Origin = ORIGIN;
+		return config;
+	},
+	(error) => {}
+);
+
 axios.interceptors.response.use(
 	(response) => response,
 
