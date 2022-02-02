@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { useTheme, Input, Button } from 'react-native-elements';
 
+import Toast from '../../components/Toast/Toast';
 import { getSettings, updateSettings } from '../../services/SettingsService';
 
 function Settings({ ...props }) {
@@ -53,7 +54,7 @@ function Settings({ ...props }) {
 			});
 	}, []);
 
-	function onSavePress(event) {
+	function onSavePress(_event) {
 		setIsLoading(true);
 
 		setTimeout(() => {
@@ -139,6 +140,7 @@ function Settings({ ...props }) {
 					/>
 				</View>
 			</View>
+			<Toast type="error" text="Test of error" visible />
 		</ScrollView>
 	);
 }
