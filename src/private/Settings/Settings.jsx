@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Text, ScrollView, View } from 'react-native';
+import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { useTheme, Input, Button } from 'react-native-elements';
+
+import { getSettings, updateSettings } from '../../services/SettingsService';
 
 function Settings({ ...props }) {
 	const { theme } = useTheme();
@@ -16,6 +18,48 @@ function Settings({ ...props }) {
 	const [accessKey, setAccessKey] = useState('');
 	const [secretKey, setSecretKey] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+
+	function clearScreen() {
+		setSecretKey('');
+
+		setPassword('');
+
+		setConfirmPassword('');
+
+		setIsLoading(false);
+	}
+
+	useEffect(() => {
+		getSettings()
+			.then((settings) => {
+				setName(settings.name);
+
+				setEmail(settings.email);
+
+				setPhone(settings.phone);
+
+				setTelegramChat(settings.telegramChat);
+
+				setAccessKey(settings.accessKey);
+
+				setLimit(settings.limit.name || 'none');
+
+				clearScreen();
+			})
+			.catch((err) => {
+				clearScreen();
+
+				console.log(err);
+			});
+	}, []);
+
+	function onSavePress(event) {
+		setIsLoading(true);
+
+		setTimeout(() => {
+			setIsLoading(false);
+		}, 2000);
+	}
 
 	return (
 		<ScrollView>
@@ -87,6 +131,11 @@ function Settings({ ...props }) {
 						onChangeText={(event) => setSecretKey(event)}
 						value={secretKey}
 						secureTextEntry
+					/>
+					<Button
+						title={isLoading ? <ActivityIndicator /> : 'Save Settings'}
+						style={{ padding: 10 }}
+						onPress={(event) => onSavePress(event)}
 					/>
 				</View>
 			</View>
