@@ -1,8 +1,10 @@
 import React from 'react';
 import { Text } from 'react-native';
 
+import SelectSymbol from '../../components/SelectSymbol/SelectSymbol';
+
 function Dashboard() {
-	return <Text>Dashboard</Text>;
+	return <SelectSymbol />;
 }
 
 export default Dashboard;
