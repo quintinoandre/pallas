@@ -19,8 +19,9 @@ function Settings({ ...props }) {
 	const [accessKey, setAccessKey] = useState('');
 	const [secretKey, setSecretKey] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
+	const [notification, setNotification] = useState(null);
 
-	function clearScreen() {
+	function clearScreen(_event) {
 		setSecretKey('');
 
 		setPassword('');
@@ -28,6 +29,8 @@ function Settings({ ...props }) {
 		setConfirmPassword('');
 
 		setIsLoading(false);
+
+		setNotification(null);
 	}
 
 	useEffect(() => {
@@ -50,16 +53,46 @@ function Settings({ ...props }) {
 			.catch((err) => {
 				clearScreen();
 
-				console.log(err);
+				setNotification({
+					type: 'error',
+					text: err.response ? err.response.data : err.message,
+				});
 			});
 	}, []);
 
 	function onSavePress(_event) {
 		setIsLoading(true);
 
-		setTimeout(() => {
-			setIsLoading(false);
-		}, 2000);
+		if (password && password !== confirmPassword)
+			return setNotification({
+				type: 'error',
+				text: 'Password and Confirm Password must be equals!',
+			});
+
+		updateSettings({
+			name,
+			email,
+			password,
+			telegramChat,
+			phone,
+			accessKey,
+			secretKey,
+		})
+			.then((_result) => {
+				clearScreen();
+				setNotification({
+					type: 'success',
+					text: 'Settings saved successfully!',
+				});
+			})
+			.catch((err) => {
+				clearScreen();
+
+				setNotification({
+					type: 'error',
+					text: err.response ? err.response.data : err.message,
+				});
+			});
 	}
 
 	return (
@@ -140,7 +173,16 @@ function Settings({ ...props }) {
 					/>
 				</View>
 			</View>
-			<Toast type="error" text="Test of error" visible />
+			{notification ? (
+				<Toast
+					type={notification.type}
+					text={notification.text}
+					visible={!!notification.type}
+					onDismiss={(event) => clearScreen(event)}
+				/>
+			) : (
+				<></>
+			)}
 		</ScrollView>
 	);
 }
