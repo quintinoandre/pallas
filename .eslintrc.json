@@ -24,6 +24,7 @@
 		"react/jsx-no-useless-fragment": "warn",
 		"no-param-reassign": "warn",
 		"react/prop-types": "off",
+		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
 		"no-unused-vars": [
 			"warn",
 			{
