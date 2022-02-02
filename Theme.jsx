@@ -43,7 +43,7 @@ export default {
 	},
 	Button: {
 		marginTop: 10,
-		orderRadius: 10,
+		borderRadius: 10,
 		alignItems: 'center',
 		justifyContent: 'center',
 		elevation: 10,

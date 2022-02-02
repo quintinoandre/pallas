@@ -37,6 +37,7 @@ function Login({ ...props }) {
 	const [rememberMe, setRememberMe] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
+	const [info, setInfo] = useState('');
 
 	const { theme } = useTheme();
 
@@ -54,7 +55,8 @@ function Login({ ...props }) {
 		if (props.route.params) {
 			clearScreen();
 
-			setError(props.route.params.text);
+			if (props.route.params.type === 'info') setInfo(props.route.params.text);
+			else setError(props.route.params.text);
 		}
 
 		AsyncStorage.getItem('email').then((result) => {
@@ -121,6 +123,7 @@ function Login({ ...props }) {
 						onPress={(event) => onSignInPress(event)}
 					/>
 					{error ? <Text style={theme.alert}>{error}</Text> : <></>}
+					{info ? <Text style={theme.info}>{info}</Text> : <></>}
 				</View>
 			</View>
 		</ScrollView>

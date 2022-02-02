@@ -1,8 +1,19 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useEffect } from 'react';
+import { ActivityIndicator } from 'react-native';
 
-function Logout() {
-	return <Text>Logout</Text>;
+import { doLogout } from '../../services/AuthService';
+
+function Logout({ ...props }) {
+	useEffect(() => {
+		doLogout().then((_result) => {
+			props.navigation.navigate('Login', {
+				text: 'Logged out successfully!',
+				type: 'info',
+			});
+		});
+	}, []);
+
+	return <ActivityIndicator />;
 }
 
 export default Logout;

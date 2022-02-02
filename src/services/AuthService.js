@@ -15,12 +15,10 @@ async function doLogin(email, password) {
 	}
 }
 
-async function doLogout(token) {
+async function doLogout() {
 	const doLogoutUrl = `${API_URL}/logout`;
 
-	const headers = { authorization: token };
-
-	const response = await axios.post(doLogoutUrl, {}, { headers });
+	const response = await axios.post(doLogoutUrl, {});
 
 	await AsyncStorage.removeItem('token');
 

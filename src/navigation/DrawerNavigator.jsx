@@ -1,5 +1,6 @@
 import React from 'react';
 
+import { Feather as Icon } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Automations from '../private/Automations/Automations';
@@ -20,6 +21,14 @@ function DrawerNavigator() {
 			initialRouteName="Dashboard"
 			screenOptions={{
 				headerStyle: { backgroundColor: '#1F2937' },
+				headerRight: () => (
+					<Icon
+						size={20}
+						color="white"
+						name="bell"
+						style={{ marginRight: 10 }}
+					/>
+				),
 				headerTintColor: '#fff',
 				drawerStyle: { backgroundColor: '#1F2937' },
 				drawerLabelStyle: { color: '#fff' },
