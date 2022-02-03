@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
+import { getMemoryIndex } from '../../services/BeholderService';
+import { getSymbol } from '../../services/SymbolsService';
 import Block from '../Block/Block';
 
 const styles = StyleSheet.create({
@@ -18,12 +20,30 @@ const styles = StyleSheet.create({
 function WalletSummary({ ...props }) {
 	const { theme } = useTheme();
 
+	const [baseSate, setBaseState] = useState({});
+	const [quoteState, setQuoteState] = useState({});
+
+	async function loadWallet(symbol) {
+		const symbolObj = await getSymbol(symbol);
+
+		const base = await getMemoryIndex(symbolObj.base, 'WALLET');
+
+		setBaseState({ asset: symbolObj.base, qty: base });
+
+		const quote = await getMemoryIndex(symbolObj.quote, 'WALLET');
+
+		setQuoteState({ asset: symbolObj.quote, qty: quote });
+	}
+
 	useEffect(() => {
-		// TODO: carregar o symbol do backend
-		// TODO: carregar saldo do base
-		// TODO: carregar saldo do quote
-		// TODO: guardar nos states
+		loadWallet(props.symbol);
 	}, [props.symbol]);
+
+	function getAsset(coinObj) {
+		if (coinObj.qty) return `${coinObj.asset}: ${coinObj.qty}`.substring(0, 15);
+
+		return <ActivityIndicator />;
+	}
 
 	return (
 		<View style={{ alignItems: 'center' }}>
@@ -34,10 +54,10 @@ function WalletSummary({ ...props }) {
 			</Text>
 			<View style={styles.row}>
 				<Block color={theme.colors.info}>
-					<Text style={styles.asset}>BTC: 1</Text>
+					<Text style={styles.asset}>{getAsset(baseSate)}</Text>
 				</Block>
 				<Block color={theme.colors.info}>
-					<Text style={styles.asset}>USDT: 1000</Text>
+					<Text style={styles.asset}>{getAsset(quoteState)}</Text>
 				</Block>
 			</View>
 		</View>

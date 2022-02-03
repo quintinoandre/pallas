@@ -25,6 +25,7 @@
 		"no-param-reassign": "warn",
 		"react/prop-types": "off",
 		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
+		"import/prefer-default-export": "warn",
 		"no-unused-vars": [
 			"warn",
 			{

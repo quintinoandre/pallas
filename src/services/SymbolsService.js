@@ -11,9 +11,9 @@ async function searchSymbols(search) {
 }
 
 async function getSymbol(symbol) {
-	const getSymbolUrl = `${API_URL}/${symbol}`;
+	const getSymbolUrl = `${API_URL}/symbols/${symbol}`;
 
-	const response = await axios.patch(getSymbolUrl);
+	const response = await axios.get(getSymbolUrl);
 
 	return response.data;
 }
