@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { ScrollView } from 'react-native';
 
 import SelectSymbol from '../../components/SelectSymbol/SelectSymbol';
+import WalletSummary from '../../components/WalletSummary/WalletSummary';
 import SymbolChart from './SymbolChart';
 
 function Dashboard() {
@@ -18,6 +19,7 @@ function Dashboard() {
 				onSymbolChange={(event) => onSymbolChange(event)}
 			/>
 			<SymbolChart symbol={symbol} />
+			<WalletSummary symbol={symbol} />
 		</ScrollView>
 	);
 }

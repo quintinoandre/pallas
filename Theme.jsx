@@ -18,6 +18,12 @@ export default {
 		fontSize: 20,
 		color: '#1F2937',
 	},
+	h2: {
+		fontWeight: 'bold',
+		marginTop: 10,
+		fontSize: 16,
+		color: '#1F2937',
+	},
 	container: {
 		flex: 1,
 		alignItems: 'center',
