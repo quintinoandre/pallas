@@ -4,8 +4,10 @@ import useWebSocket from 'react-use-websocket';
 
 import { REACT_APP_BWS_URL } from '@env';
 
+import NewOrderButton from '../../components/NewOrderButton/NewOrderButton';
 import SelectSymbol from '../../components/SelectSymbol/SelectSymbol';
 import WalletSummary from '../../components/WalletSummary/WalletSummary';
+import Book from './Book';
 import SymbolChart from './SymbolChart';
 import Ticker from './Ticker';
 
@@ -19,9 +21,9 @@ const styles = StyleSheet.create({
 	},
 });
 
-function Dashboard() {
+function Dashboard({ ...props }) {
 	const [symbol, setSymbol] = useState('BTCUSDT');
-	const [data, setData] = useState({});
+	const [data, setData] = useState(null);
 
 	function onSymbolChange(event) {
 		setSymbol(event);
@@ -55,17 +57,21 @@ function Dashboard() {
 	);
 
 	return (
-		<ScrollView>
-			<SelectSymbol
-				symbol={symbol}
-				onSymbolChange={(event) => onSymbolChange(event)}
-			/>
-			<SymbolChart symbol={symbol} />
-			<WalletSummary symbol={symbol} />
-			<View style={styles.row}>
-				<Ticker data={data} />
-			</View>
-		</ScrollView>
+		<>
+			<ScrollView>
+				<SelectSymbol
+					symbol={symbol}
+					onSymbolChange={(event) => onSymbolChange(event)}
+				/>
+				<SymbolChart symbol={symbol} />
+				<WalletSummary symbol={symbol} />
+				<View style={styles.row}>
+					<Ticker data={data} />
+					<Book data={data} />
+				</View>
+			</ScrollView>
+			<NewOrderButton navigation={props.navigation} symbol={symbol} />
+		</>
 	);
 }
 
