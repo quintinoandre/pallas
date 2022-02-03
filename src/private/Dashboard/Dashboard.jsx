@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { ScrollView, Text } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import useWebSocket from 'react-use-websocket';
 
 import { REACT_APP_BWS_URL } from '@env';
@@ -7,6 +7,17 @@ import { REACT_APP_BWS_URL } from '@env';
 import SelectSymbol from '../../components/SelectSymbol/SelectSymbol';
 import WalletSummary from '../../components/WalletSummary/WalletSummary';
 import SymbolChart from './SymbolChart';
+import Ticker from './Ticker';
+
+const styles = StyleSheet.create({
+	row: {
+		flex: 1,
+		flexDirection: 'row',
+		paddingHorizontal: 3,
+		paddingBottom: 10,
+		marginTop: 10,
+	},
+});
 
 function Dashboard() {
 	const [symbol, setSymbol] = useState('BTCUSDT');
@@ -51,7 +62,9 @@ function Dashboard() {
 			/>
 			<SymbolChart symbol={symbol} />
 			<WalletSummary symbol={symbol} />
-			<Text>{JSON.stringify(data)}</Text>
+			<View style={styles.row}>
+				<Ticker data={data} />
+			</View>
 		</ScrollView>
 	);
 }
