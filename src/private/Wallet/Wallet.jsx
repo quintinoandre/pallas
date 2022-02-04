@@ -14,7 +14,7 @@ import WalletItem from './WalletItem';
 
 const styles = StyleSheet.create({
 	page: { flexDirection: 'column', flex: 1 },
-	header: { flexDirection: 'row', flex: 1, height: 150 },
+	header: { flexDirection: 'row', flex: 0, height: 40 },
 	estimate: { margin: 10, fontSize: 16, paddingLeft: 14 },
 	list: { marginTop: 10 },
 });
@@ -54,10 +54,16 @@ function Wallet({ ...props }) {
 			});
 	}, [fiat]);
 
+	function onFiatChange(event) {
+		setWallet({});
+
+		setFiat(event);
+	}
+
 	return (
 		<>
 			<View style={styles.page}>
-				<SelectFiat onChange={(event) => setFiat(event)} />
+				<SelectFiat onChange={(event) => onFiatChange(event)} />
 				<View style={styles.header}>
 					<Text style={{ ...theme.h2, ...styles.estimate }}>Wallet Total:</Text>
 					<Text style={styles.estimate}>
@@ -67,9 +73,15 @@ function Wallet({ ...props }) {
 				<View style={styles.list}>
 					<ScrollView>
 						{wallet.coins ? (
-							wallet.coins.map((coin) => (
-								<WalletItem coin={coin} fiat={fiat} key={coin.coin} />
-							))
+							wallet.coins
+								.filter(
+									(coin) =>
+										parseFloat(coin.available) > 0 ||
+										parseFloat(coin.onOrder) > 0
+								)
+								.map((coin) => (
+									<WalletItem coin={coin} fiat={fiat} key={coin.coin} />
+								))
 						) : (
 							<ActivityIndicator />
 						)}
