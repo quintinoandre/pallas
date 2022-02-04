@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-function Monitors() {
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
+function Monitors({ ...props }) {
 	return <Text>Monitors</Text>;
 }
 

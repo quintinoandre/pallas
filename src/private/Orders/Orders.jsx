@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-function Orders() {
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
+function Orders({ ...props }) {
 	return <Text>Orders</Text>;
 }
 

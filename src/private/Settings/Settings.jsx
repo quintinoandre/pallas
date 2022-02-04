@@ -2,9 +2,14 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { useTheme, Input, Button } from 'react-native-elements';
 
-import Toast from '../../components/Toast/Toast';
+import { Toast } from '../../components';
 import { getSettings, updateSettings } from '../../services/SettingsService';
 
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
 function Settings({ ...props }) {
 	const { theme } = useTheme();
 

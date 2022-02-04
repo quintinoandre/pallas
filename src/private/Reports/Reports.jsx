@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-function Reports() {
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
+function Reports({ ...props }) {
 	return <Text>Reports</Text>;
 }
 

@@ -3,6 +3,11 @@ import { ActivityIndicator } from 'react-native';
 
 import { doLogout } from '../../services/AuthService';
 
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
 function Logout({ ...props }) {
 	useEffect(() => {
 		doLogout().then((_result) => {

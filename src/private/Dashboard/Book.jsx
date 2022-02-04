@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import Block from '../../components/Block/Block';
+import { Block } from '../../components';
 
 const styles = StyleSheet.create({
 	column: {

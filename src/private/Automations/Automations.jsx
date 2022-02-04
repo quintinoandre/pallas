@@ -1,7 +1,12 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-function Automations() {
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
+function Automations({ ...props }) {
 	return <Text>Automations</Text>;
 }
 

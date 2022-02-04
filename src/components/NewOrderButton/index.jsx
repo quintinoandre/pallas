@@ -28,4 +28,4 @@ function NewOrderButton({ ...props }) {
 	);
 }
 
-export default NewOrderButton;
+export { NewOrderButton };

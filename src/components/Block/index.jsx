@@ -22,4 +22,4 @@ function Block({ ...props }) {
 	);
 }
 
-export default Block;
+export { Block };

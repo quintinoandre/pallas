@@ -63,4 +63,4 @@ function Toast({ ...props }) {
 	);
 }
 
-export default Toast;
+export { Toast };

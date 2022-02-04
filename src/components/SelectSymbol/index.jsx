@@ -139,4 +139,4 @@ function SelectSymbol({ ...props }) {
 	);
 }
 
-export default SelectSymbol;
+export { SelectSymbol };

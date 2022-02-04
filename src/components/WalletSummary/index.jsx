@@ -6,7 +6,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 
 import { getMemoryIndex } from '../../services/BeholderService';
 import { getSymbol } from '../../services/SymbolsService';
-import Block from '../Block/Block';
+import { Block } from '../Block';
 
 const styles = StyleSheet.create({
 	row: { flexDirection: 'row', marginTop: 10 },
@@ -64,4 +64,4 @@ function WalletSummary({ ...props }) {
 	);
 }
 
-export default WalletSummary;
+export { WalletSummary };

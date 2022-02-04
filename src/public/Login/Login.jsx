@@ -29,6 +29,11 @@ const styles = StyleSheet.create({
 	},
 });
 
+/**
+ * props:
+ * - navigation?
+ * - route?
+ */
 function Login({ ...props }) {
 	configBaseService(props.navigation);
 
