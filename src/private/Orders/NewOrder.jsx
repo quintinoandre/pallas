@@ -6,8 +6,8 @@ import { Text } from 'react-native';
  * - navigation?
  * - route?
  */
-function Orders({ ...props }) {
-	return <Text>Orders</Text>;
+function NewOrder({ ...props }) {
+	return <Text>New Order</Text>;
 }
 
-export default Orders;
+export default NewOrder;

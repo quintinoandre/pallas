@@ -46,11 +46,11 @@ function Book({ ...props }) {
 					</View>
 					<View style={styles.p}>
 						<Text style={styles.bold}>Best Bid: </Text>
-						<Text>{book.bestBid}</Text>
+						<Text style={{ color: theme.colors.success }}>{book.bestBid}</Text>
 					</View>
 					<View style={styles.p}>
 						<Text style={styles.bold}>Best Ask: </Text>
-						<Text>{book.bestAsk}</Text>
+						<Text style={{ color: theme.colors.danger }}>{book.bestAsk}</Text>
 					</View>
 					<View style={styles.p}>
 						<Text style={styles.bold}>Trades in 24h: </Text>
