@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, Platform } from 'react-native';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -7,7 +7,8 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const styles = StyleSheet.create({
 	inputAndroid: {
-		marginTop: 10,
+		marginHorizontal: 15,
+		marginVertical: 10,
 		height: 30,
 		paddingHorizontal: 24,
 		fontSize: 16,
@@ -50,7 +51,13 @@ function SelectFiat({ ...props }) {
 				if (props.onchange) props.onchange(event);
 			}}
 			style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
-			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
+			Icon={() =>
+				Platform.OS === 'ios' ? (
+					<Icon name="chevron-down" size={24} color="black" />
+				) : (
+					<></>
+				)
+			}
 			items={[
 				{ label: 'AUD', value: 'AUD' },
 				{ label: 'BRL', value: 'BRL' },

@@ -10,7 +10,7 @@ import { Block } from '../Block';
 
 const styles = StyleSheet.create({
 	row: { flexDirection: 'row', marginTop: 10 },
-	asset: { fontWeight: 'bold', color: '#fff', marginStart: 3 },
+	coin: { fontWeight: 'bold', color: '#fff', marginStart: 3 },
 });
 
 /**
@@ -28,19 +28,19 @@ function WalletSummary({ ...props }) {
 
 		const base = await getMemoryIndex(symbolObj.base, 'WALLET');
 
-		setBaseState({ asset: symbolObj.base, qty: base });
+		setBaseState({ coin: symbolObj.base, qty: base });
 
 		const quote = await getMemoryIndex(symbolObj.quote, 'WALLET');
 
-		setQuoteState({ asset: symbolObj.quote, qty: quote });
+		setQuoteState({ coin: symbolObj.quote, qty: quote });
 	}
 
 	useEffect(() => {
 		loadWallet(props.symbol);
 	}, [props.symbol]);
 
-	function getAsset(coinObj) {
-		if (coinObj.qty) return `${coinObj.asset}: ${coinObj.qty}`.substring(0, 15);
+	function getCoin(coinObj) {
+		if (coinObj.qty) return `${coinObj.coin}: ${coinObj.qty}`.substring(0, 15);
 
 		return <ActivityIndicator />;
 	}
@@ -54,10 +54,10 @@ function WalletSummary({ ...props }) {
 			</Text>
 			<View style={styles.row}>
 				<Block color={theme.colors.info}>
-					<Text style={styles.asset}>{getAsset(baseSate)}</Text>
+					<Text style={styles.coin}>{getCoin(baseSate)}</Text>
 				</Block>
 				<Block color={theme.colors.info}>
-					<Text style={styles.asset}>{getAsset(quoteState)}</Text>
+					<Text style={styles.coin}>{getCoin(quoteState)}</Text>
 				</Block>
 			</View>
 		</View>
