@@ -18,4 +18,12 @@ async function getOrders(symbol, page = 1) {
 	return response.data.rows;
 }
 
-export { getOrders, orderStatus };
+async function getOrder(orderId, clientOrderId) {
+	const getOrderUrl = `${API_URL}/orders/${orderId}/${clientOrderId}`;
+
+	const response = await axios.get(getOrderUrl);
+
+	return response.data;
+}
+
+export { orderStatus, getOrders, getOrder };
