@@ -7,7 +7,12 @@ import { Text } from 'react-native';
  * - route?
  */
 function OrderView({ ...props }) {
-	return <Text>Order View</Text>;
+	return (
+		<>
+			<Text>Order View</Text>
+			<Text>{props.route.params.order.id}</Text>
+		</>
+	);
 }
 
 export default OrderView;

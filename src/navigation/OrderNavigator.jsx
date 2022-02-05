@@ -15,7 +15,7 @@ function OrderNavigator() {
 			screenOptions={{ headerShown: false }}
 		>
 			<Stack.Screen name="OrdersList" component={OrdersList} />
-			<Stack.Screen name="OrdersView" component={OrdersView} />
+			<Stack.Screen name="OrderView" component={OrdersView} />
 			<Stack.Screen name="NewOrder" component={NewOrder} />
 		</Stack.Navigator>
 	);

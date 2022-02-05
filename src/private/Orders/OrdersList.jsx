@@ -21,13 +21,19 @@ function OrdersList({ ...props }) {
 	const [orders, setOrders] = useState([]);
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageState, setPageState] = useState(1);
+	const [canLoadMore, setCanLoadMore] = useState(false);
 
 	function loadOrders(symbol, page) {
 		getOrders(symbol, page)
 			.then((result) => {
 				setIsLoading(false);
 
-				setOrders(result || []);
+				if (page === 1) setOrders(result || []);
+				else {
+					orders.push(...result);
+
+					setOrders(orders);
+				}
 			})
 			.catch((err) => {
 				setIsLoading(false);
@@ -45,6 +51,12 @@ function OrdersList({ ...props }) {
 	}, [symbolState]);
 
 	useEffect(() => {
+		if (pageState <= 1) return;
+
+		loadOrders(symbolState, pageState);
+	}, [pageState]);
+
+	useEffect(() => {
 		setSymbolState(props.route.params ? props.route.params.symbol : 'BTCUSDT');
 	}, [props.route.params]);
 
@@ -53,6 +65,18 @@ function OrdersList({ ...props }) {
 			<Text>There are no orders for this symbol.</Text>
 		</View>
 	);
+
+	function onEndReached() {
+		if (!orders || orders.length % PAGE_SIZE !== 0) return;
+
+		setPageState(pageState + 1);
+
+		setCanLoadMore(false);
+	}
+
+	function viewDetails(order) {
+		props.navigation.navigate('OrderView', { order });
+	}
 
 	return (
 		<>
@@ -65,7 +89,16 @@ function OrdersList({ ...props }) {
 				initialNumToRender={PAGE_SIZE}
 				refreshing={isLoading}
 				ListEmptyComponent={emptyList}
-				renderItem={(obj) => <OrderItem order={obj.item} />}
+				onRefresh={(_event) => setPageState(1)}
+				onEndReached={(_event) => setCanLoadMore(true)}
+				onEndReachedThreshold={0.3}
+				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
+				renderItem={(obj) => (
+					<OrderItem
+						onPress={(_event) => viewDetails(obj.item)}
+						order={obj.item}
+					/>
+				)}
 				keyExtractor={(order) => order.id}
 			/>
 			<NewOrderButton navigation={props.navigation} symbol="" />
