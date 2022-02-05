@@ -5,6 +5,7 @@ import { View } from 'react-native';
  * props:
  * - color
  * - children
+ * - style?
  */
 function Block({ ...props }) {
 	return (
@@ -15,6 +16,7 @@ function Block({ ...props }) {
 				flex: 1,
 				borderRadius: 5,
 				backgroundColor: props.color,
+				...props.style,
 			}}
 		>
 			{props.children}

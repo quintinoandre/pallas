@@ -75,4 +75,5 @@ export default {
 		borderRadius: 10,
 		margin: 10,
 	},
+	page: { flex: 1, flexDirection: 'column' },
 };

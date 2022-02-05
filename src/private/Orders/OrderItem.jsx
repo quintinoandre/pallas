@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
-import { orderStatus } from '../../services/OrdersService';
+import { getColorByStatus } from '../../Utils';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
@@ -19,21 +19,6 @@ const styles = StyleSheet.create({
  */
 function OrderItem({ ...props }) {
 	const { theme } = useTheme();
-
-	function getStatus(status) {
-		switch (status) {
-			case orderStatus.REJECTED:
-			case orderStatus.CANCELED:
-			case orderStatus.EXPIRED:
-				return theme.colors.danger;
-			case orderStatus.FILLED:
-				return theme.colors.success;
-			case orderStatus.PARTIALLY_FILLED:
-				return theme.colors.info;
-			default:
-				return theme.colors.warning;
-		}
-	}
 
 	function getTitle(order) {
 		return `${order.symbol} ${order.quantity.substring(0, 10)}`;
@@ -74,7 +59,7 @@ function OrderItem({ ...props }) {
 				title={props.order.side}
 				titleStyle={{ fontSize: 12 }}
 				overlayContainerStyle={{
-					backgroundColor: getStatus(props.order.status),
+					backgroundColor: getColorByStatus(props.order.status, theme),
 				}}
 				rounded
 			/>
