@@ -34,6 +34,8 @@ function SelectFiat({ ...props }) {
 		AsyncStorage.getItem('fiat')
 			.then((result) => {
 				setFiat(result || 'USD');
+
+				if (props.onChange) props.onChange(result || 'USD');
 			})
 			.catch((err) => {
 				console.error(err);
@@ -48,7 +50,7 @@ function SelectFiat({ ...props }) {
 
 				setFiat(event);
 
-				if (props.onchange) props.onchange(event);
+				if (props.onChange) props.onChange(event);
 			}}
 			style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
 			Icon={() =>

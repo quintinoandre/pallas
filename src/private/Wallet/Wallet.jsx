@@ -31,6 +31,8 @@ function Wallet({ ...props }) {
 	const [wallet, setWallet] = useState({});
 
 	useEffect(() => {
+		if (!fiat) return;
+
 		getFullBalance(fiat)
 			.then((result) => {
 				wallet.fiatEstimate = result.fiatEstimate;
