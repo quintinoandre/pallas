@@ -16,7 +16,10 @@ function NewOrderButton({ ...props }) {
 	}, [props.symbol]);
 
 	function onPress(_event) {
-		props.navigation.navigate('Orders', { symbol });
+		props.navigation.navigate('Orders', {
+			screen: 'NewOrder',
+			params: { symbol },
+		});
 	}
 
 	return (
