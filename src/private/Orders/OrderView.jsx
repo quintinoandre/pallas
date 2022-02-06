@@ -1,11 +1,22 @@
 import React, { useEffect, useState } from 'react';
-import { Text, View, StyleSheet, ScrollView } from 'react-native';
+import {
+	Text,
+	View,
+	StyleSheet,
+	ScrollView,
+	ActivityIndicator,
+} from 'react-native';
 import { useTheme, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../../components';
-import { getOrder, orderStatus } from '../../services/OrdersService';
+import {
+	getOrder,
+	orderStatus,
+	syncOrder,
+	cancelOrder,
+} from '../../services/OrdersService';
 import { getColorByStatus, getColorBySide } from '../../Utils';
 
 import 'intl';
@@ -17,6 +28,7 @@ const styles = StyleSheet.create({
 		flex: 0,
 		height: 60,
 		backgroundColor: '#ccc',
+		alignItems: 'center',
 	},
 	p: {
 		marginTop: 10,
@@ -26,7 +38,7 @@ const styles = StyleSheet.create({
 		height: 30,
 	},
 	status: { color: 'white', marginLeft: 10, fontSize: 10 },
-	row: { flexDirection: 'row' },
+	row: { flexDirection: 'row', alignItems: 'center' },
 	bold: { fontWeight: 'bold', marginLeft: 10 },
 	button: { marginTop: 10 },
 });
@@ -69,15 +81,45 @@ function OrderView({ ...props }) {
 		return frm;
 	}
 
+	function doSyncPress(_event) {
+		setOrderState({ ...orderState, isSyncing: true });
+
+		syncOrder(orderState.id)
+			.then((result) => {
+				setOrderState({ ...result, isSyncing: false });
+			})
+			.catch((err) => {
+				setOrderState({ ...orderState, isSyncing: false });
+
+				console.error(err);
+			});
+	}
+
+	function doCancelPress(_event) {
+		setOrderState({ ...orderState, isCanceling: true });
+
+		cancelOrder(orderState.symbol, orderState.orderId)
+			.then((_result) => {
+				setOrderState({ ...orderState, isCanceling: false });
+
+				props.navigation.navigate('OrdersList', { symbol: orderState.symbol });
+			})
+			.catch((err) => {
+				setOrderState({ ...orderState, isCanceling: false });
+
+				console.error(err);
+			});
+	}
+
 	return (
 		<View style={theme.page}>
 			<View style={styles.header}>
 				<Icon.Button
 					name="chevron-left"
+					style={{ marginTop: 3 }}
 					size={24}
 					color="black"
 					backgroundColor="transparent"
-					style={{ marginTop: 10 }}
 					onPress={(_event) =>
 						props.navigation.navigate('OrdersList', {
 							symbol: orderState.symbol,
@@ -85,12 +127,12 @@ function OrderView({ ...props }) {
 					}
 				/>
 				<View style={styles.p}>
-					<Text style={{ ...theme.h2, marginRight: 20 }}>
+					<Text style={{ ...theme.h2, marginRight: 20, marginTop: 3 }}>
 						{orderState.symbol} #{orderState.id}
 					</Text>
 					<Block
 						color={getColorByStatus(orderState.status, theme)}
-						style={{ flex: 0 }}
+						style={{ flex: 0, marginTop: 0 }}
 					>
 						<View style={styles.row}>
 							{orderState.automationId ? (
@@ -182,17 +224,43 @@ function OrderView({ ...props }) {
 						)}
 						<View style={styles.button}>
 							<Button
-								title=" Sync Order"
-								icon={() => <Icon name="refresh-cw" size={20} color="white" />}
+								title={
+									orderState.isSyncing ? <ActivityIndicator /> : ' Sync Order'
+								}
+								icon={() =>
+									orderState.isSyncing ? null : (
+										<Icon name="refresh-cw" size={20} color="white" />
+									)
+								}
 								buttonStyle={{ backgroundColor: theme.colors.primary }}
-								disabled={orderState.avgPrice || orderState.isSyncing}
+								onPress={(event) => doSyncPress(event)}
+								disabled={
+									orderState.avgPrice ||
+									orderState.isSyncing ||
+									[
+										orderStatus.CANCELED,
+										orderStatus.REJECTED,
+										orderStatus.EXPIRED,
+									].includes(orderState.status)
+								}
 							/>
 						</View>
 						<View style={styles.button}>
 							<Button
-								title=" Cancel Order"
-								icon={() => <Icon name="trash-2" size={20} color="white" />}
+								title={
+									orderState.isCanceling ? (
+										<ActivityIndicator />
+									) : (
+										' Cancel Order'
+									)
+								}
+								icon={() =>
+									orderState.isCanceling ? null : (
+										<Icon name="trash-2" size={20} color="white" />
+									)
+								}
 								buttonStyle={{ backgroundColor: theme.colors.danger }}
+								onPress={(event) => doCancelPress(event)}
 								disabled={
 									orderState.status !== orderStatus.NEW ||
 									orderState.isCanceling

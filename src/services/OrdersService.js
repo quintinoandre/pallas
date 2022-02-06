@@ -32,4 +32,20 @@ async function getOrder(orderId, clientOrderId) {
 	return response.data;
 }
 
-export { orderStatus, orderSide, getOrders, getOrder };
+async function syncOrder(beholderOrderId) {
+	const syncOrderUrl = `${API_URL}/orders/${beholderOrderId}/sync`;
+
+	const response = await axios.post(syncOrderUrl, null);
+
+	return response.data;
+}
+
+async function cancelOrder(symbol, orderId) {
+	const syncOrderUrl = `${API_URL}/orders/${symbol}/${orderId}`;
+
+	const response = await axios.delete(syncOrderUrl);
+
+	return response.data;
+}
+
+export { orderStatus, orderSide, getOrders, getOrder, syncOrder, cancelOrder };

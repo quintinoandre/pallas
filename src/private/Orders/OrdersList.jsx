@@ -57,7 +57,14 @@ function OrdersList({ ...props }) {
 	}, [pageState]);
 
 	useEffect(() => {
-		setSymbolState(props.route.params ? props.route.params.symbol : 'BTCUSDT');
+		if (props.route.params && props.route.params.symbol === symbolState) {
+			setIsLoading(true);
+
+			loadOrders(symbolState, 1);
+		} else
+			setSymbolState(
+				props.route.params ? props.route.params.symbol : 'BTCUSDT'
+			);
 	}, [props.route.params]);
 
 	const emptyList = (
@@ -89,7 +96,7 @@ function OrdersList({ ...props }) {
 				initialNumToRender={PAGE_SIZE}
 				refreshing={isLoading}
 				ListEmptyComponent={emptyList}
-				onRefresh={(_event) => setPageState(1)}
+				onRefresh={(_event) => setPageState(0)}
 				onEndReached={(_event) => setCanLoadMore(true)}
 				onEndReachedThreshold={0.3}
 				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
