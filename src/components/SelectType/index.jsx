@@ -44,7 +44,7 @@ function SelectType({ ...props }) {
 			onValueChange={(event) => {
 				setType(event);
 
-				if (props.onchange) props.onchange(event);
+				if (props.onChange) props.onChange(event);
 			}}
 			style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
 			Icon={() =>
