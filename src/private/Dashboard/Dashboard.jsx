@@ -67,7 +67,7 @@ function Dashboard({ ...props }) {
 					onSymbolChange={(event) => onSymbolChange(event)}
 				/>
 				<SymbolChart symbol={symbol} />
-				<WalletSummary symbol={symbol} />
+				<WalletSummary symbol={symbol} header />
 				<View style={styles.row}>
 					<Ticker data={data} />
 					<Book data={data} />

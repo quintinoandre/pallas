@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { SelectSymbol } from '../../components';
+import { SelectSymbol, CurrentPrice, WalletSummary } from '../../components';
 import { orderSide, orderType } from '../../services/OrdersService';
 
 const styles = StyleSheet.create({
@@ -32,6 +32,7 @@ function NewOrder({ ...props }) {
 
 	const [order, setOrder] = useState(DEFAULT_ORDER);
 	const [error, setError] = useState('');
+	const [price, setPrice] = useState(0);
 
 	useEffect(() => {
 		setOrder({
@@ -40,6 +41,8 @@ function NewOrder({ ...props }) {
 		});
 
 		setError('');
+
+		setPrice(0);
 	}, [props.route.params]);
 
 	return (
@@ -57,13 +60,23 @@ function NewOrder({ ...props }) {
 							})
 						}
 					/>
-					<SelectSymbol
-						symbol={order.symbol}
-						onSymbolChange={(event) =>
-							setOrder({ ...DEFAULT_ORDER, symbol: event })
-						}
-					/>
+					<View style={{ flex: 1, alignItems: 'center' }}>
+						<SelectSymbol
+							symbol={order.symbol}
+							onSymbolChange={(event) =>
+								setOrder({ ...DEFAULT_ORDER, symbol: event })
+							}
+						/>
+					</View>
 				</View>
+				<CurrentPrice
+					symbol={order.symbol}
+					onChange={(event) => setPrice(event)}
+				/>
+				<WalletSummary
+					symbol={order.symbol}
+					style={{ paddingHorizontal: 20, marginBottom: 13 }}
+				/>
 			</View>
 		</View>
 	);

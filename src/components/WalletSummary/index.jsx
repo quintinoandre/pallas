@@ -16,6 +16,8 @@ const styles = StyleSheet.create({
 /**
  * props:
  * - symbol
+ * - header?
+ * - style?
  */
 function WalletSummary({ ...props }) {
 	const { theme } = useTheme();
@@ -46,12 +48,16 @@ function WalletSummary({ ...props }) {
 	}
 
 	return (
-		<View style={{ alignItems: 'center' }}>
-			<Text style={theme.h2}>
-				<Icon name="dollar-sign" size={20} color="black" />
-				You have
-				<Icon name="dollar-sign" size={20} color="black" />
-			</Text>
+		<View style={{ alignItems: 'center', ...props.style }}>
+			{props.header ? (
+				<Text style={theme.h2}>
+					<Icon name="dollar-sign" size={20} color="black" />
+					You have
+					<Icon name="dollar-sign" size={20} color="black" />
+				</Text>
+			) : (
+				<></>
+			)}
 			<View style={styles.row}>
 				<Block color={theme.colors.info}>
 					<Text style={styles.coin}>{getCoin(baseSate)}</Text>
