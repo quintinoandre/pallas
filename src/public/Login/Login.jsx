@@ -53,6 +53,8 @@ function Login({ ...props }) {
 
 		setError('');
 
+		setInfo('');
+
 		setIsLoading(false);
 	}
 

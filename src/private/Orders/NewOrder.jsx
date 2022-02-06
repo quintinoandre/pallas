@@ -1,10 +1,15 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, ScrollView } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { SelectSymbol, CurrentPrice, WalletSummary } from '../../components';
+import {
+	SelectSymbol,
+	CurrentPrice,
+	WalletSummary,
+	SelectSide,
+} from '../../components';
 import { orderSide, orderType } from '../../services/OrdersService';
 
 const styles = StyleSheet.create({
@@ -77,6 +82,22 @@ function NewOrder({ ...props }) {
 					symbol={order.symbol}
 					style={{ paddingHorizontal: 20, marginBottom: 13 }}
 				/>
+			</View>
+			<View style={theme.container}>
+				<View
+					style={{
+						...theme.inputContainer,
+						marginVertical: 10,
+						paddingVertical: 10,
+					}}
+				>
+					<ScrollView>
+						<SelectSide
+							side={order.side}
+							onChange={(event) => setOrder({ ...order, side: event })}
+						/>
+					</ScrollView>
+				</View>
 			</View>
 		</View>
 	);

@@ -13,6 +13,8 @@ async function doLogin(email, password) {
 
 		return response.data;
 	}
+
+	throw new Error('Provide a valid email and password!');
 }
 
 async function doLogout() {

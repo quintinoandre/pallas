@@ -52,24 +52,16 @@ function CurrentPrice({ ...props }) {
 	);
 
 	function getColorByPriceChange(priceChange) {
-		return priceChange > 0 ? theme.colors.success : theme.colors.danger;
+		if (priceChange > 0) return theme.colors.success;
+		if (priceChange < 0) return theme.colors.danger;
+		return theme.colors.warning;
 	}
 
 	function getArrow(priceChange) {
 		return priceChange > 0 ? (
-			<Icon
-				style={styles.icon}
-				name="arrow-up"
-				color={theme.colors.warning}
-				size={14}
-			/>
+			<Icon style={styles.icon} name="arrow-up" color="black" size={14} />
 		) : (
-			<Icon
-				style={styles.icon}
-				name="arrow-down"
-				color={theme.colors.warning}
-				size={14}
-			/>
+			<Icon style={styles.icon} name="arrow-down" color="black" size={14} />
 		);
 	}
 
