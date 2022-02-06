@@ -9,6 +9,7 @@ import {
 	CurrentPrice,
 	WalletSummary,
 	SelectSide,
+	SelectType,
 } from '../../components';
 import { orderSide, orderType } from '../../services/OrdersService';
 
@@ -95,6 +96,10 @@ function NewOrder({ ...props }) {
 						<SelectSide
 							side={order.side}
 							onChange={(event) => setOrder({ ...order, side: event })}
+						/>
+						<SelectType
+							type={order.type}
+							onChange={(event) => setOrder({ ...order, type: event })}
 						/>
 					</ScrollView>
 				</View>
