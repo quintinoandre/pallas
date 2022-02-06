@@ -16,6 +16,11 @@ const orderSide = {
 	SELL: 'SELL',
 };
 
+const orderType = {
+	LIMIT: 'LIMIT',
+	MARKET: 'MARKET',
+};
+
 async function getOrders(symbol, page = 1) {
 	const getOrdersUrl = `${API_URL}/orders/${symbol}?page=${page}`;
 
@@ -48,4 +53,12 @@ async function cancelOrder(symbol, orderId) {
 	return response.data;
 }
 
-export { orderStatus, orderSide, getOrders, getOrder, syncOrder, cancelOrder };
+export {
+	orderStatus,
+	orderSide,
+	orderType,
+	getOrders,
+	getOrder,
+	syncOrder,
+	cancelOrder,
+};

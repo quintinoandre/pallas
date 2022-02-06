@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function Dashboard({ ...props }) {
 	const [symbol, setSymbol] = useState('BTCUSDT');

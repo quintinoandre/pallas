@@ -3,8 +3,8 @@ import { Text } from 'react-native';
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function Automations({ ...props }) {
 	return <Text>Automations</Text>;

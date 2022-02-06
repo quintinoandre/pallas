@@ -21,8 +21,8 @@ const styles = StyleSheet.create({
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function Wallet({ ...props }) {
 	const { theme } = useTheme();

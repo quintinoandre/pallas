@@ -45,8 +45,8 @@ const styles = StyleSheet.create({
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function OrderView({ ...props }) {
 	const { theme } = useTheme();

@@ -5,8 +5,8 @@ import { doLogout } from '../../services/AuthService';
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function Logout({ ...props }) {
 	useEffect(() => {

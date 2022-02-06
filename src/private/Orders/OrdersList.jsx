@@ -13,8 +13,8 @@ const styles = StyleSheet.create({
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function OrdersList({ ...props }) {
 	const [symbolState, setSymbolState] = useState('BTCUSDT');

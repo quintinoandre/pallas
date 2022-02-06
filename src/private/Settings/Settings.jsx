@@ -7,8 +7,8 @@ import { getSettings, updateSettings } from '../../services/SettingsService';
 
 /**
  * props:
- * - navigation?
- * - route?
+ * - navigation
+ * - route
  */
 function Settings({ ...props }) {
 	const { theme } = useTheme();
