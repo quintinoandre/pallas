@@ -1,4 +1,4 @@
-import { orderStatus } from './services/OrdersService';
+import { orderStatus, orderSide } from './services/OrdersService';
 
 function getColorByStatus(status, theme) {
 	switch (status) {
@@ -15,4 +15,15 @@ function getColorByStatus(status, theme) {
 	}
 }
 
-export { getColorByStatus };
+function getColorBySide(side, theme) {
+	switch (side) {
+		case orderSide.SELL:
+			return theme.colors.danger;
+		case orderSide.BUY:
+			return theme.colors.success;
+		default:
+			return 'black';
+	}
+}
+
+export { getColorByStatus, getColorBySide };

@@ -6,8 +6,14 @@ const orderStatus = {
 	CANCELED: 'CANCELED',
 	EXPIRED: 'EXPIRED',
 	FILLED: 'FILLED',
+	NEW: 'NEW',
 	PARTIALLY_FILLED: 'PARTIALLY_FILLED',
 	REJECTED: 'REJECTED',
+};
+
+const orderSide = {
+	BUY: 'BUY',
+	SELL: 'SELL',
 };
 
 async function getOrders(symbol, page = 1) {
@@ -26,4 +32,4 @@ async function getOrder(orderId, clientOrderId) {
 	return response.data;
 }
 
-export { orderStatus, getOrders, getOrder };
+export { orderStatus, orderSide, getOrders, getOrder };

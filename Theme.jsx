@@ -32,7 +32,7 @@ export default {
 	},
 	inputContainer: {
 		flex: 1,
-		marginTop: 30,
+		marginVertical: 30,
 		width: '90%',
 		padding: 20,
 		borderRadius: 10,
