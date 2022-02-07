@@ -17,7 +17,7 @@ import {
 	syncOrder,
 	cancelOrder,
 } from '../../services/OrdersService';
-import { getColorByStatus, getColorBySide } from '../../Utils';
+import { getColorByOrderStatus, getColorByOrderSide } from '../../Utils';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
@@ -131,7 +131,7 @@ function OrderView({ ...props }) {
 						{orderState.symbol} #{orderState.id}
 					</Text>
 					<Block
-						color={getColorByStatus(orderState.status, theme)}
+						color={getColorByOrderStatus(orderState.status, theme)}
 						style={{ flex: 0, marginTop: 0 }}
 					>
 						<View style={styles.row}>
@@ -162,7 +162,9 @@ function OrderView({ ...props }) {
 						)}
 						<View style={styles.p}>
 							<Text style={styles.bold}>Side: </Text>
-							<Text style={{ color: getColorBySide(orderState.side, theme) }}>
+							<Text
+								style={{ color: getColorByOrderSide(orderState.side, theme) }}
+							>
 								{orderState.side}
 							</Text>
 							<Text style={styles.bold}>Type: </Text>

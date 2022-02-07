@@ -2,7 +2,7 @@ import React from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
-import { getColorByStatus } from '../../Utils';
+import { getColorByOrderStatus } from '../../Utils';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
@@ -59,7 +59,7 @@ function OrderItem({ ...props }) {
 				title={props.order.side}
 				titleStyle={{ fontSize: 12 }}
 				overlayContainerStyle={{
-					backgroundColor: getColorByStatus(props.order.status, theme),
+					backgroundColor: getColorByOrderStatus(props.order.status, theme),
 				}}
 				rounded
 			/>

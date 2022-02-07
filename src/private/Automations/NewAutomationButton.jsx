@@ -33,6 +33,7 @@ function NewAutomationButton({ ...props }) {
 				screen: 'NewGrid',
 				params: { type },
 			});
+
 		return props.navigation.navigate('Automations', {
 			screen: 'NewAutomation',
 			params: { type },
@@ -43,7 +44,9 @@ function NewAutomationButton({ ...props }) {
 		const icon = { color: 'white', type: 'feather' };
 
 		if (type === automationType.SCHEDULED) return { ...icon, name: 'calendar' };
+
 		if (type === automationType.GRID) return { ...icon, name: 'grid' };
+
 		return { ...icon, name: 'command' };
 	}
 

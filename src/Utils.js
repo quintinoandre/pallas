@@ -1,6 +1,6 @@
 import { orderStatus, orderSide } from './services/OrdersService';
 
-function getColorByStatus(status, theme) {
+function getColorByOrderStatus(status, theme) {
 	switch (status) {
 		case orderStatus.REJECTED:
 		case orderStatus.CANCELED:
@@ -15,7 +15,7 @@ function getColorByStatus(status, theme) {
 	}
 }
 
-function getColorBySide(side, theme) {
+function getColorByOrderSide(side, theme) {
 	switch (side) {
 		case orderSide.SELL:
 			return theme.colors.danger;
@@ -26,4 +26,16 @@ function getColorBySide(side, theme) {
 	}
 }
 
-export { getColorByStatus, getColorBySide };
+function getColorByAutomationStatus(automation, theme) {
+	if (automation.isActive) return theme.colors.danger;
+
+	if (automation.isActive && automation.schedule) return theme.colors.info;
+
+	return theme.colors.success;
+}
+
+export {
+	getColorByOrderStatus,
+	getColorByOrderSide,
+	getColorByAutomationStatus,
+};

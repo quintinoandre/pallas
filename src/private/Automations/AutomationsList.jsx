@@ -1,6 +1,7 @@
 import React from 'react';
 import { Text } from 'react-native';
 
+import AutomationItem from './AutomationItem';
 import NewAutomationButton from './NewAutomationButton';
 
 /**
