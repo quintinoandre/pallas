@@ -1,8 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, Text, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
-const styles = StyleSheet.create({});
+import { SwitchInput } from '../../../components/SwitchInput';
+
+const styles = StyleSheet.create({
+	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
+});
 
 /**
  * props:
@@ -39,6 +43,19 @@ function GeneralArea({ ...props }) {
 						value={automation.name}
 						onChangeText={(event) => onChange({ name: 'name', value: event })}
 					/>
+					<View style={styles.row}>
+						<SwitchInput
+							text="Is Active?"
+							onChange={(event) => onChange({ name: 'isActive', value: event })}
+							isChecked={automation.isActive}
+						/>
+						<SwitchInput
+							text="Enable logs?"
+							onChange={(event) => onChange({ name: 'logs', value: event })}
+							isChecked={automation.logs}
+						/>
+					</View>
+					<Text>{JSON.stringify(automation)}</Text>
 				</ScrollView>
 			</View>
 		</View>
