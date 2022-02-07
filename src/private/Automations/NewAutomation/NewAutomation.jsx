@@ -68,7 +68,17 @@ function NewAutomation({ ...props }) {
 					icon={<Icon name="play-circle" color="black" size={20} />}
 				/>
 			</Tab>
-			{tabIndex === 0 ? <GeneralArea /> : <></>}
+			{tabIndex === 0 ? (
+				<GeneralArea
+					automation={automation}
+					type={props.route.params.type}
+					onChange={(event) =>
+						setAutomation({ ...automation, [event.name]: event.value })
+					}
+				/>
+			) : (
+				<></>
+			)}
 			{tabIndex === 1 ? <ConditionsArea /> : <></>}
 			{tabIndex === 2 ? <ActionsArea /> : <></>}
 		</View>
