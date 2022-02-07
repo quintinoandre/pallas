@@ -3,8 +3,8 @@ import React from 'react';
 import { createStackNavigator } from '@react-navigation/stack';
 
 import AutomationsList from '../private/Automations/AutomationsList';
-import NewAutomation from '../private/Automations/NewAutomation';
-import NewGrid from '../private/Automations/NewGrid';
+import NewAutomation from '../private/Automations/NewAutomation/NewAutomation';
+import NewGrid from '../private/Automations/NewGrid/NewGrid';
 
 const Stack = createStackNavigator();
 
