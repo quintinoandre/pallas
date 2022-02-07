@@ -35,8 +35,11 @@ function SelectSymbol({ ...props }) {
 	const [error, setError] = useState('');
 
 	useEffect(() => {
-		if (props.symbol) setSelectedSymbol(props.symbol);
-		else {
+		if (props.symbol) {
+			setSelectedSymbol(props.symbol);
+
+			if (props.onSymbolChange) props.onSymbolChange(props.symbol);
+		} else {
 			AsyncStorage.getItem('symbol').then((symbol) => {
 				setSelectedSymbol(symbol || 'BTCUSDT');
 

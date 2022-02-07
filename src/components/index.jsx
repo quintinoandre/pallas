@@ -1,5 +1,6 @@
 export * from './Block';
 export * from './CurrentPrice';
+export * from './HeaderRow';
 export * from './NewOrderButton';
 export * from './SelectFiat';
 export * from './SelectSide';

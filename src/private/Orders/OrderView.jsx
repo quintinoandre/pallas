@@ -123,6 +123,7 @@ function OrderView({ ...props }) {
 					style={{ marginTop: 3 }}
 					size={24}
 					color="black"
+					underlayColor="#ccc"
 					backgroundColor="transparent"
 					onPress={(_event) =>
 						props.navigation.navigate('OrdersList', {
