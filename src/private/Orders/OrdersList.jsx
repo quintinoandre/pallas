@@ -22,6 +22,7 @@ function OrdersList({ ...props }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [pageState, setPageState] = useState(1);
 	const [canLoadMore, setCanLoadMore] = useState(false);
+	const [refresh, setRefresh] = useState(0);
 
 	function loadOrders(symbol, page) {
 		getOrders(symbol, page)
@@ -65,7 +66,7 @@ function OrdersList({ ...props }) {
 			setSymbolState(
 				props.route.params ? props.route.params.symbol : 'BTCUSDT'
 			);
-	}, [props.route.params]);
+	}, [props.route.params, refresh]);
 
 	const emptyList = (
 		<View style={styles.emptyList}>
@@ -96,14 +97,14 @@ function OrdersList({ ...props }) {
 				initialNumToRender={PAGE_SIZE}
 				refreshing={isLoading}
 				ListEmptyComponent={emptyList}
-				onRefresh={(_event) => setPageState(0)}
+				onRefresh={(_event) => setRefresh(Date.now())}
 				onEndReached={(_event) => setCanLoadMore(true)}
 				onEndReachedThreshold={0.3}
 				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
 				renderItem={(obj) => (
 					<OrderItem
-						onPress={(_event) => viewDetails(obj.item)}
 						order={obj.item}
+						onPress={(_event) => viewDetails(obj.item)}
 					/>
 				)}
 				keyExtractor={(order) => order.id}
