@@ -3,13 +3,13 @@ import React from 'react';
 import { Feather as Icon } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import Automations from '../private/Automations/Automations';
 import Dashboard from '../private/Dashboard/Dashboard';
 import Logout from '../private/Logout/Logout';
 import Monitors from '../private/Monitors/Monitors';
 import Reports from '../private/Reports/Reports';
 import Settings from '../private/Settings/Settings';
 import Wallet from '../private/Wallet/Wallet';
+import AutomationNavigator from './AutomationNavigator';
 import DrawerIcon from './DrawerIcon';
 import OrderNavigator from './OrderNavigator';
 
@@ -56,7 +56,7 @@ function DrawerNavigator() {
 			/>
 			<Drawer.Screen
 				name="Automations"
-				component={Automations}
+				component={AutomationNavigator}
 				options={{ drawerIcon: (_config) => <DrawerIcon name="command" /> }}
 			/>
 			<Drawer.Screen

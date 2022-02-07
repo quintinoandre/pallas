@@ -6,8 +6,8 @@ import { Text } from 'react-native';
  * - navigation
  * - route
  */
-function Automations({ ...props }) {
-	return <Text>Automations</Text>;
+function AutomationsList({ ...props }) {
+	return <Text>Automations List</Text>;
 }
 
-export default Automations;
+export default AutomationsList;

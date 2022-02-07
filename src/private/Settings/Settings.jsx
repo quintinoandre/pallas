@@ -171,11 +171,13 @@ function Settings({ ...props }) {
 						value={secretKey}
 						secureTextEntry
 					/>
-					<Button
-						title={isLoading ? <ActivityIndicator /> : 'Save Settings'}
-						style={{ padding: 10 }}
-						onPress={(event) => onSavePress(event)}
-					/>
+					<View>
+						<Button
+							title={isLoading ? <ActivityIndicator /> : 'Save Settings'}
+							style={{ padding: 10 }}
+							onPress={(event) => onSavePress(event)}
+						/>
+					</View>
 				</View>
 			</View>
 			{notification ? (
