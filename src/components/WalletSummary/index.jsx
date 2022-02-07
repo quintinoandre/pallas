@@ -18,6 +18,7 @@ const styles = StyleSheet.create({
  * - symbol
  * - header?
  * - style?
+ * - onLoad?
  */
 function WalletSummary({ ...props }) {
 	const { theme } = useTheme();
@@ -35,9 +36,14 @@ function WalletSummary({ ...props }) {
 		const quote = await getMemoryIndex(symbolObj.quote, 'WALLET');
 
 		setQuoteState({ coin: symbolObj.quote, qty: quote });
+
+		if (props.onLoad)
+			props.onLoad({ ...symbolObj, baseQty: base, quoteQty: quote });
 	}
 
 	useEffect(() => {
+		if (!props.symbol) return;
+
 		loadWallet(props.symbol);
 	}, [props.symbol]);
 

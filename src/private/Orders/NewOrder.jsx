@@ -1,6 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ScrollView, Text } from 'react-native';
-import { useTheme, Input } from 'react-native-elements';
+import {
+	View,
+	StyleSheet,
+	ScrollView,
+	Text,
+	ActivityIndicator,
+} from 'react-native';
+import { useTheme, Input, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -11,7 +17,7 @@ import {
 	SelectSide,
 	SelectType,
 } from '../../components';
-import { orderSide, orderType } from '../../services/OrdersService';
+import { orderSide, orderType, placeOrder } from '../../services/OrdersService';
 
 const styles = StyleSheet.create({
 	header: { flex: 0, height: 130, backgroundColor: '#ccc' },
@@ -19,6 +25,7 @@ const styles = StyleSheet.create({
 	totalView: { marginLeft: 12, paddingBottom: 10 },
 	totalTitle: { fontWeight: 'bold', fontSize: 16, color: 'grey' },
 	total: { marginTop: 10, fontSize: 18 },
+	button: { marginTop: 10, paddingHorizontal: 10 },
 });
 
 /**
@@ -42,6 +49,8 @@ function NewOrder({ ...props }) {
 	const [order, setOrder] = useState(DEFAULT_ORDER);
 	const [error, setError] = useState('');
 	const [price, setPrice] = useState(0);
+	const [symbol, setSymbol] = useState({});
+	const [isLoading, setIsLoading] = useState(false);
 
 	useEffect(() => {
 		setOrder({
@@ -86,6 +95,35 @@ function NewOrder({ ...props }) {
 		return '0';
 	}
 
+	function doPlaceOrder(_event) {
+		const total = parseFloat(getTotal());
+
+		if (total < symbol.minNotional)
+			return setError(`Min. Notional: ${symbol.minNotional}`);
+
+		const quantity = parseFloat(order.quantity);
+
+		if (order.side === orderSide.SELL && symbol.baseQty < quantity)
+			return setError(`You haven´t enough ${symbol.base} to sell!`);
+
+		if (order.side === orderSide.BUY && symbol.quoteQty < total)
+			return setError(`You haven´t enough ${symbol.quote} to buy!`);
+
+		setIsLoading(true);
+
+		placeOrder(order)
+			.then((_result) => {
+				setIsLoading(false);
+
+				props.navigation.navigate('OrdersList', { symbol: order.symbol });
+			})
+			.catch((err) => {
+				setIsLoading(false);
+
+				setError(err.response ? err.response.data : err.message);
+			});
+	}
+
 	return (
 		<View style={theme.page}>
 			<View style={styles.header}>
@@ -117,6 +155,7 @@ function NewOrder({ ...props }) {
 				<WalletSummary
 					symbol={order.symbol}
 					style={{ paddingHorizontal: 20, marginBottom: 13 }}
+					onLoad={(event) => setSymbol(event)}
 				/>
 			</View>
 			<View style={theme.container}>
@@ -175,6 +214,7 @@ function NewOrder({ ...props }) {
 								<Input
 									label="Callback Rate"
 									keyboardType="decimal-pad"
+									rightIcon={<Icon name="percent" size={16} color="grey" />}
 									onChangeText={(event) =>
 										setOrder({
 											...order,
@@ -198,6 +238,20 @@ function NewOrder({ ...props }) {
 						<View style={styles.totalView}>
 							<Text style={styles.totalTitle}>Total Price</Text>
 							<Text style={styles.total}>{getTotal()}</Text>
+						</View>
+						<View style={styles.button}>
+							<Button
+								title={isLoading ? <ActivityIndicator /> : ' Place Order'}
+								icon={() => <Icon name="dollar-sign" size={20} color="white" />}
+								onPress={(event) => doPlaceOrder(event)}
+							/>
+							{error ? (
+								<Text style={{ ...theme.alert, marginHorizontal: 0 }}>
+									{error}
+								</Text>
+							) : (
+								<></>
+							)}
 						</View>
 					</ScrollView>
 				</View>

@@ -56,6 +56,46 @@ async function cancelOrder(symbol, orderId) {
 	return response.data;
 }
 
+async function placeOrder(order) {
+	const placeOrderUrl = `${API_URL}/orders`;
+
+	const postOrder = {
+		symbol: order.symbol.toUpperCase(),
+		quantity: order.quantity,
+		side: order.side.toUpperCase(),
+		options: {
+			type: order.type.toUpperCase(),
+		},
+	};
+
+	if (
+		[
+			orderType.LIMIT,
+			orderType.STOP_LOSS_LIMIT,
+			orderType.TAKE_PROFIT_LIMIT,
+			orderType.TRAILING_STOP,
+		].includes(postOrder.options.type)
+	)
+		postOrder.limitPrice = order.limitPrice;
+
+	if (postOrder.options.type === orderType.ICEBERG)
+		postOrder.options.icebergQty = order.icebergQty;
+
+	if (
+		[orderType.STOP_LOSS_LIMIT, orderType.TAKE_PROFIT_LIMIT].includes(
+			postOrder.options.type
+		)
+	)
+		postOrder.options.stopPrice = order.stopPrice;
+
+	if (postOrder.options.type === orderType.TRAILING_STOP)
+		postOrder.options.stopPriceMultiplier = order.stopPriceMultiplier;
+
+	const response = await axios.post(placeOrderUrl, postOrder);
+
+	return response.data;
+}
+
 export {
 	orderStatus,
 	orderSide,
@@ -64,4 +104,5 @@ export {
 	getOrder,
 	syncOrder,
 	cancelOrder,
+	placeOrder,
 };

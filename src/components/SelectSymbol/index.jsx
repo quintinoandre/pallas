@@ -37,9 +37,11 @@ function SelectSymbol({ ...props }) {
 	useEffect(() => {
 		if (props.symbol) setSelectedSymbol(props.symbol);
 		else {
-			AsyncStorage.getItem('symbol').then((symbol) =>
-				setSelectedSymbol(symbol || 'BTCUSDT')
-			);
+			AsyncStorage.getItem('symbol').then((symbol) => {
+				setSelectedSymbol(symbol || 'BTCUSDT');
+
+				if (props.onSymbolChange) props.onSymbolChange(symbol || 'BTCUSDT');
+			});
 		}
 	}, [props.symbol]);
 
