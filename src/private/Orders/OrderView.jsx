@@ -53,6 +53,10 @@ function OrderView({ ...props }) {
 
 	const [orderState, setOrderState] = useState({});
 
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
+
 	useEffect(() => {
 		setOrderState({ ...props.route.params.order, isSyncing: true });
 
@@ -64,7 +68,7 @@ function OrderView({ ...props }) {
 				setOrderState({ ...result, isSyncing: false });
 			})
 			.catch((err) => {
-				console.error(err);
+				errorHandling(err);
 			});
 	}, [props.route.params]);
 
@@ -91,7 +95,7 @@ function OrderView({ ...props }) {
 			.catch((err) => {
 				setOrderState({ ...orderState, isSyncing: false });
 
-				console.error(err);
+				errorHandling(err);
 			});
 	}
 
@@ -107,7 +111,7 @@ function OrderView({ ...props }) {
 			.catch((err) => {
 				setOrderState({ ...orderState, isCanceling: false });
 
-				console.error(err);
+				errorHandling(err);
 			});
 	}
 

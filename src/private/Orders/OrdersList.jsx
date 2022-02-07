@@ -24,6 +24,10 @@ function OrdersList({ ...props }) {
 	const [canLoadMore, setCanLoadMore] = useState(false);
 	const [refresh, setRefresh] = useState(0);
 
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
+
 	function loadOrders(symbol, page) {
 		getOrders(symbol, page)
 			.then((result) => {
@@ -39,7 +43,7 @@ function OrdersList({ ...props }) {
 			.catch((err) => {
 				setIsLoading(false);
 
-				console.error(err);
+				errorHandling(err);
 			});
 	}
 

@@ -30,6 +30,10 @@ function Wallet({ ...props }) {
 	const [fiat, setFiat] = useState('USD');
 	const [wallet, setWallet] = useState({});
 
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
+
 	useEffect(() => {
 		if (!fiat) return;
 
@@ -52,7 +56,7 @@ function Wallet({ ...props }) {
 				setWallet(wallet);
 			})
 			.catch((err) => {
-				console.error(err);
+				errorHandling(err);
 			});
 	}, [fiat]);
 

@@ -27,7 +27,7 @@ function getColorByOrderSide(side, theme) {
 }
 
 function getColorByAutomationStatus(automation, theme) {
-	if (automation.isActive) return theme.colors.danger;
+	if (!automation.isActive) return theme.colors.danger;
 
 	if (automation.isActive && automation.schedule) return theme.colors.info;
 

@@ -23,6 +23,10 @@ function AutomationsList({ ...props }) {
 	const [canLoadMore, setCanLoadMore] = useState(false);
 	const [refresh, setRefresh] = useState(0);
 
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
+
 	function loadAutomations(page) {
 		getAutomations(page)
 			.then((result) => {
@@ -38,7 +42,7 @@ function AutomationsList({ ...props }) {
 			.catch((err) => {
 				setIsLoading(false);
 
-				console.error(err);
+				errorHandling(err);
 			});
 	}
 
@@ -101,7 +105,7 @@ function AutomationsList({ ...props }) {
 						onRefresh={(_event) => setRefresh(Date.now())}
 					/>
 				)}
-				keyExtractor={(order) => order.id}
+				keyExtractor={(automation) => automation.id}
 			/>
 			<NewAutomationButton navigation={props.navigation} />
 		</>

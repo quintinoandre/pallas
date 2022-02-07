@@ -2,12 +2,20 @@ import React, { useState } from 'react';
 import { View, StyleSheet, Text } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
+import { Feather as Icon } from '@expo/vector-icons';
+
+import {
+	startAutomation,
+	stopAutomation,
+	deleteAutomation,
+} from '../../services/AutomationsService';
 import { getColorByAutomationStatus } from '../../Utils';
 
 const styles = StyleSheet.create({
 	subtitleView: { marginTop: 5, flexDirection: 'row' },
 	subtitle: { color: 'gray', fontSize: 10 },
 	content: { marginLeft: 10 },
+	icon: { paddingLeft: 45 },
 });
 
 /**
@@ -20,6 +28,10 @@ function AutomationItem({ ...props }) {
 	const { theme } = useTheme();
 
 	const [expanded, setExpanded] = useState(false);
+
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
 
 	function getIcon(automation) {
 		const icon = { color: 'white', type: 'feather' };
@@ -45,6 +57,36 @@ function AutomationItem({ ...props }) {
 		);
 	}
 
+	function onStartPress(automation) {
+		startAutomation(automation.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
+	function onStopPress(automation) {
+		stopAutomation(automation.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
+	function onDeletePress(automation) {
+		deleteAutomation(automation.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
 	return (
 		<ListItem.Accordion
 			isExpanded={expanded}
@@ -61,7 +103,68 @@ function AutomationItem({ ...props }) {
 			}
 			onPress={(_event) => setExpanded(!expanded)}
 			bottomDivider
-		/>
+		>
+			<ListItem
+				onPress={(event) => {
+					props.onPress && props.onPress(event);
+				}}
+				bottomDivider
+			>
+				<Icon style={styles.icon} name="edit" size={20} color="black" />
+				<ListItem.Content>
+					<ListItem.Title>Edit</ListItem.Title>
+				</ListItem.Content>
+				<ListItem.Chevron />
+			</ListItem>
+			{props.automation.isActive ? (
+				<ListItem
+					onPress={(_event) => {
+						onStopPress(props.automation);
+					}}
+					bottomDivider
+				>
+					<Icon
+						style={styles.icon}
+						name="stop-circle"
+						size={20}
+						color="black"
+					/>
+					<ListItem.Content>
+						<ListItem.Title>Stop</ListItem.Title>
+					</ListItem.Content>
+				</ListItem>
+			) : (
+				<>
+					<ListItem
+						onPress={(_event) => {
+							onStartPress(props.automation);
+						}}
+						bottomDivider
+					>
+						<Icon
+							style={styles.icon}
+							name="play-circle"
+							size={20}
+							color="black"
+						/>
+						<ListItem.Content>
+							<ListItem.Title>Start</ListItem.Title>
+						</ListItem.Content>
+					</ListItem>
+					<ListItem
+						onPress={(_event) => {
+							onDeletePress(props.automation);
+						}}
+						bottomDivider
+					>
+						<Icon style={styles.icon} name="trash-2" size={20} color="black" />
+						<ListItem.Content>
+							<ListItem.Title>Delete</ListItem.Title>
+						</ListItem.Content>
+					</ListItem>
+				</>
+			)}
+		</ListItem.Accordion>
 	);
 }
 
