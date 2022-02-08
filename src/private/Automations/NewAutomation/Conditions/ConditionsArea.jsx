@@ -83,7 +83,16 @@ function ConditionsArea({ ...props }) {
 			});
 	}, [props.symbol]);
 
-	function onAddCondition(event) {}
+	function onAddCondition(event) {
+		if (conditions.includes(event)) return;
+
+		conditions.push(event);
+
+		setConditions(conditions);
+
+		if (props.onChange)
+			props.onChange(conditions.map((c) => c.trim()).join(' && '));
+	}
 
 	return (
 		<View style={theme.container}>

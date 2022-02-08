@@ -5,6 +5,7 @@ import { Button, useTheme } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import IndexSelect from './IndexSelect';
+import OperatorSelect from './OperatorSelect';
 
 const styles = StyleSheet.create({
 	build: { marginVertical: 15, height: 240, flex: 0 },
@@ -36,6 +37,9 @@ function ConditionBuilder({ ...props }) {
 	}
 
 	function onPress(_event) {
+		if (props.onAddCondition)
+			props.onAddCondition(`${index.eval}${operator}${value}`);
+
 		setShowBuilder(false);
 	}
 
@@ -48,6 +52,7 @@ function ConditionBuilder({ ...props }) {
 						indexes={indexes}
 						onChange={(event) => onIndexChange(event)}
 					/>
+					<OperatorSelect onChange={(event) => setOperator(event)} />
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{
