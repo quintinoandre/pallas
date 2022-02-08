@@ -3,7 +3,7 @@ import { REACT_APP_API_URL as API_URL } from '@env';
 import axios from './BaseService';
 
 const automationType = {
-	SCHEDULED: 'scheduled',
+	SCHEDULE: 'schedule',
 	GRID: 'grid',
 };
 

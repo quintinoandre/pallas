@@ -3,6 +3,8 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components/SwitchInput';
+import { automationType } from '../../../services/AutomationsService';
+import ScheduleInput from './ScheduleInput';
 
 const styles = StyleSheet.create({
 	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
@@ -43,6 +45,14 @@ function GeneralArea({ ...props }) {
 						value={automation.name}
 						onChangeText={(event) => onChange({ name: 'name', value: event })}
 					/>
+					{props.type === automationType.SCHEDULE ? (
+						<ScheduleInput
+							schedule={automation.schedule}
+							onChange={(event) => onChange({ name: 'schedule', value: event })}
+						/>
+					) : (
+						<></>
+					)}
 					<View style={styles.row}>
 						<SwitchInput
 							text="Is Active?"

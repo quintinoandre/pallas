@@ -39,7 +39,7 @@ function AutomationItem({ ...props }) {
 		if (automation.schedule) return { ...icon, name: 'calendar' };
 
 		if (automation.grids && automation.grids.length)
-			return { ...icon, name: 'grid' };
+			return { ...icon, name: 'align-justify' };
 
 		return { ...icon, name: 'command' };
 	}

@@ -43,9 +43,9 @@ function NewAutomationButton({ ...props }) {
 	function getIcon(type) {
 		const icon = { color: 'white', type: 'feather' };
 
-		if (type === automationType.SCHEDULED) return { ...icon, name: 'calendar' };
+		if (type === automationType.SCHEDULE) return { ...icon, name: 'calendar' };
 
-		if (type === automationType.GRID) return { ...icon, name: 'grid' };
+		if (type === automationType.GRID) return { ...icon, name: 'align-justify' };
 
 		return { ...icon, name: 'command' };
 	}
