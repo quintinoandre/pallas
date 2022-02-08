@@ -101,7 +101,7 @@ function Login({ ...props }) {
 			<View style={theme.container}>
 				<Image source={logo} style={styles.logo} />
 				<Text style={theme.h1}>Sign in to our platform</Text>
-				<View style={theme.inputContainer}>
+				<View style={{ ...theme.inputContainer, marginTop: 30 }}>
 					<Input
 						placeholder="Your email"
 						autoComplete="email"

@@ -25,7 +25,7 @@ const styles = StyleSheet.create({
 	totalView: { marginLeft: 12, paddingBottom: 10 },
 	totalTitle: { fontWeight: 'bold', fontSize: 16, color: 'grey' },
 	total: { marginTop: 10, fontSize: 18 },
-	button: { marginTop: 10, paddingHorizontal: 10 },
+	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
 });
 
 /**
@@ -132,6 +132,7 @@ function NewOrder({ ...props }) {
 						name="chevron-left"
 						size={24}
 						color="black"
+						underlayColor="#ccc"
 						backgroundColor="transparent"
 						onPress={(_event) =>
 							props.navigation.navigate('OrdersList', {
@@ -159,13 +160,7 @@ function NewOrder({ ...props }) {
 				/>
 			</View>
 			<View style={theme.container}>
-				<View
-					style={{
-						...theme.inputContainer,
-						marginVertical: 10,
-						paddingVertical: 10,
-					}}
-				>
+				<View style={theme.inputContainer}>
 					<ScrollView>
 						<SelectSide
 							side={order.side}
@@ -239,22 +234,20 @@ function NewOrder({ ...props }) {
 							<Text style={styles.totalTitle}>Total Price</Text>
 							<Text style={styles.total}>{getTotal()}</Text>
 						</View>
-						<View style={styles.button}>
-							<Button
-								title={isLoading ? <ActivityIndicator /> : ' Place Order'}
-								icon={() => <Icon name="dollar-sign" size={20} color="white" />}
-								onPress={(event) => doPlaceOrder(event)}
-							/>
-							{error ? (
-								<Text style={{ ...theme.alert, marginHorizontal: 0 }}>
-									{error}
-								</Text>
-							) : (
-								<></>
-							)}
-						</View>
 					</ScrollView>
 				</View>
+			</View>
+			<View style={styles.button}>
+				<Button
+					title={isLoading ? <ActivityIndicator /> : ' Place Order'}
+					icon={() => <Icon name="dollar-sign" size={20} color="white" />}
+					onPress={(event) => doPlaceOrder(event)}
+				/>
+				{error ? (
+					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				) : (
+					<></>
+				)}
 			</View>
 		</View>
 	);

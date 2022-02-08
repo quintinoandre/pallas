@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
-import { useTheme, Tab } from 'react-native-elements';
+import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { useTheme, Tab, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
 	header: { flex: 0, height: 40, backgroundColor: '#ccc' },
 	tabButton: { backgroundColor: '#ccc' },
 	tab: { backgroundColor: '#ccc', paddingBottom: 6 },
+	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
 });
 
 /**
@@ -35,6 +36,11 @@ function NewAutomation({ ...props }) {
 
 	const [automation, setAutomation] = useState(DEFAULT_AUTOMATION);
 	const [tabIndex, setTabIndex] = useState(0);
+	const [isLoading, setIsLoading] = useState(false);
+
+	function onPress(_event) {
+		setIsLoading(true);
+	}
 
 	return (
 		<View style={theme.page}>
@@ -81,6 +87,15 @@ function NewAutomation({ ...props }) {
 			)}
 			{tabIndex === 1 ? <ConditionsArea /> : <></>}
 			{tabIndex === 2 ? <ActionsArea /> : <></>}
+			<Text>{JSON.stringify(automation)}</Text>
+			<View style={styles.button}>
+				<Button
+					icon={() => <Icon name="save" size={20} color="white" />}
+					title={isLoading ? <ActivityIndicator /> : ' Save Automation'}
+					onPress={(event) => onPress(event)}
+					disabled={isLoading}
+				/>
+			</View>
 		</View>
 	);
 }

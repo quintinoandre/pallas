@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
 	status: { color: 'white', marginLeft: 10, fontSize: 10 },
 	row: { flexDirection: 'row', alignItems: 'center' },
 	bold: { fontWeight: 'bold', marginLeft: 10 },
-	button: { marginTop: 10 },
+	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
 });
 
 /**
@@ -150,9 +150,9 @@ function OrderView({ ...props }) {
 					</Block>
 				</View>
 			</View>
-			<ScrollView>
-				<View style={theme.container}>
-					<View style={theme.inputContainer}>
+			<View style={theme.container}>
+				<View style={theme.inputContainer}>
+					<ScrollView>
 						<View style={styles.p}>
 							<Text style={styles.bold}>Binance Order Id: </Text>
 							<Text>{orderState.orderId}</Text>
@@ -229,54 +229,47 @@ function OrderView({ ...props }) {
 						) : (
 							<></>
 						)}
-						<View style={styles.button}>
-							<Button
-								title={
-									orderState.isSyncing ? <ActivityIndicator /> : ' Sync Order'
-								}
-								icon={() =>
-									orderState.isSyncing ? null : (
-										<Icon name="refresh-cw" size={20} color="white" />
-									)
-								}
-								buttonStyle={{ backgroundColor: theme.colors.primary }}
-								onPress={(event) => doSyncPress(event)}
-								disabled={
-									orderState.avgPrice ||
-									orderState.isSyncing ||
-									[
-										orderStatus.CANCELED,
-										orderStatus.REJECTED,
-										orderStatus.EXPIRED,
-									].includes(orderState.status)
-								}
-							/>
-						</View>
-						<View style={styles.button}>
-							<Button
-								title={
-									orderState.isCanceling ? (
-										<ActivityIndicator />
-									) : (
-										' Cancel Order'
-									)
-								}
-								icon={() =>
-									orderState.isCanceling ? null : (
-										<Icon name="trash-2" size={20} color="white" />
-									)
-								}
-								buttonStyle={{ backgroundColor: theme.colors.danger }}
-								onPress={(event) => doCancelPress(event)}
-								disabled={
-									orderState.status !== orderStatus.NEW ||
-									orderState.isCanceling
-								}
-							/>
-						</View>
-					</View>
+					</ScrollView>
 				</View>
-			</ScrollView>
+			</View>
+			<View style={styles.button}>
+				<Button
+					title={orderState.isSyncing ? <ActivityIndicator /> : ' Sync Order'}
+					icon={() =>
+						orderState.isSyncing ? null : (
+							<Icon name="refresh-cw" size={20} color="white" />
+						)
+					}
+					buttonStyle={{ backgroundColor: theme.colors.primary }}
+					onPress={(event) => doSyncPress(event)}
+					disabled={
+						orderState.avgPrice ||
+						orderState.isSyncing ||
+						[
+							orderStatus.CANCELED,
+							orderStatus.REJECTED,
+							orderStatus.EXPIRED,
+						].includes(orderState.status)
+					}
+				/>
+			</View>
+			<View style={{ ...styles.button, marginTop: 0 }}>
+				<Button
+					title={
+						orderState.isCanceling ? <ActivityIndicator /> : ' Cancel Order'
+					}
+					icon={() =>
+						orderState.isCanceling ? null : (
+							<Icon name="trash-2" size={20} color="white" />
+						)
+					}
+					buttonStyle={{ backgroundColor: theme.colors.danger }}
+					onPress={(event) => doCancelPress(event)}
+					disabled={
+						orderState.status !== orderStatus.NEW || orderState.isCanceling
+					}
+				/>
+			</View>
 		</View>
 	);
 }

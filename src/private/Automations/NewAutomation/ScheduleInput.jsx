@@ -104,20 +104,15 @@ function ScheduleInput({ ...props }) {
 
 			if (event.length === 3 && !event.endsWith('/'))
 				event = `${event.substring(0, 2)}/${lastChar}`;
-
-			if (event.length === 6 && !event.endsWith('/'))
+			else if (event.length === 6 && !event.endsWith('/'))
 				event = `${event.substring(0, 5)}/${lastChar}`;
-
-			if (event.length === 11 && !event.endsWith(' '))
+			else if (event.length === 11 && !event.endsWith(' '))
 				event = `${event.substring(0, 10)} ${lastChar}`;
-
-			if (event.length === 14 && !event.endsWith(':'))
+			else if (event.length === 14 && !event.endsWith(':'))
 				event = `${event.substring(0, 13)}:${lastChar}`;
-
-			if (event.length === 17 && !event.endsWith(':'))
+			else if (event.length === 17 && !event.endsWith(':'))
 				event = `${event.substring(0, 16)}:${lastChar}`;
-
-			if (event.length > 19) event = event.substring(0, 19);
+			else if (event.length > 19) event = event.substring(0, 19);
 
 			const date = unformatDate(event);
 

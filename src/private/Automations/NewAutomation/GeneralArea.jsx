@@ -65,7 +65,6 @@ function GeneralArea({ ...props }) {
 							isChecked={automation.logs}
 						/>
 					</View>
-					<Text>{JSON.stringify(automation)}</Text>
 				</ScrollView>
 			</View>
 		</View>
