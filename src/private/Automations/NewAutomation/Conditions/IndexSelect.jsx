@@ -47,13 +47,22 @@ function IndexSelect({ ...props }) {
 			props.onChange(props.indexes.find((ix) => ix.eval === event));
 	}
 
+	function getOptionText(symbol, variable) {
+		return variable.startsWith('WALLET') ? `${symbol}:${variable}` : variable;
+	}
+
 	return (
 		<Picker
 			style={{ ...styles, iconContainer: { top: 0, right: 12 } }}
 			value={index}
 			onValueChange={(event) => onChange(event)}
 			useNativeAndroidPickerStyle={false}
-			items={[{ label: 'test', value: '1' }]}
+			items={indexes.map((item) => {
+				return {
+					label: getOptionText(item.symbol, item.variable),
+					value: item.eval,
+				};
+			})}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 		/>
 	);

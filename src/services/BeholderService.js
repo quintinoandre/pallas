@@ -10,4 +10,12 @@ async function getMemoryIndex(symbol, index, interval = '') {
 	return response.data;
 }
 
-export { getMemoryIndex };
+async function getIndexes() {
+	const getIndexesUrl = `${API_URL}/beholder/memory/indexes`;
+
+	const response = await axios.get(getIndexesUrl);
+
+	return response.data;
+}
+
+export { getMemoryIndex, getIndexes };

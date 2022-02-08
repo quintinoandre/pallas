@@ -85,7 +85,18 @@ function NewAutomation({ ...props }) {
 			) : (
 				<></>
 			)}
-			{tabIndex === 1 ? <ConditionsArea /> : <></>}
+			{tabIndex === 1 ? (
+				<ConditionsArea
+					type={props.route.params.type}
+					conditions={automation.conditions}
+					symbol={automation.symbol}
+					onChange={(event) =>
+						setAutomation({ ...automation, conditions: event })
+					}
+				/>
+			) : (
+				<></>
+			)}
 			{tabIndex === 2 ? <ActionsArea /> : <></>}
 			<Text>{JSON.stringify(automation)}</Text>
 			<View style={styles.button}>
