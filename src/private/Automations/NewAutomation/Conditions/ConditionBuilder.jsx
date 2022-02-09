@@ -6,6 +6,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 
 import IndexSelect from './IndexSelect';
 import OperatorSelect from './OperatorSelect';
+import VariableInput from './VariableInput';
 
 const styles = StyleSheet.create({
 	build: { marginVertical: 15, height: 240, flex: 0 },
@@ -53,6 +54,11 @@ function ConditionBuilder({ ...props }) {
 						onChange={(event) => onIndexChange(event)}
 					/>
 					<OperatorSelect onChange={(event) => setOperator(event)} />
+					<VariableInput
+						value={index.example}
+						indexes={indexes}
+						onChange={(event) => setValue(event)}
+					/>
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{
