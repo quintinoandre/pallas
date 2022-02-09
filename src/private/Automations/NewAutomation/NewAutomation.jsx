@@ -98,7 +98,6 @@ function NewAutomation({ ...props }) {
 				<></>
 			)}
 			{tabIndex === 2 ? <ActionsArea /> : <></>}
-			<Text>{JSON.stringify(automation)}</Text>
 			<View style={styles.button}>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}

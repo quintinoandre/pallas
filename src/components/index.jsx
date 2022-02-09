@@ -6,6 +6,7 @@ export * from './SelectFiat';
 export * from './SelectSide';
 export * from './SelectSymbol';
 export * from './SelectType';
+export * from './SmartItem';
 export * from './SwitchInput';
 export * from './Toast';
 export * from './WalletSummary';

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { Text, ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
+import { SmartItem } from '../../../../components';
 import { getIndexes } from '../../../../services/BeholderService';
 import ConditionBuilder from './ConditionBuilder';
 
@@ -94,6 +95,29 @@ function ConditionsArea({ ...props }) {
 			props.onChange(conditions.map((c) => c.trim()).join(' && '));
 	}
 
+	function getText(condition) {
+		return `${condition}`
+			.replace('>', ' >')
+			.replace('<', ' <')
+			.replace('!', ' !')
+			.replace('==', '=')
+			.replace(/MEMORY\['/g, '')
+			.replace(/'\]/g, '')
+			.replace(`${props.symbol}:`, '')
+			.replace(/\.current/g, '');
+	}
+
+	function onDeleteCondition(condition) {
+		const index = conditions.findIndex((c) => c === condition);
+
+		conditions.splice(index, 1);
+
+		setConditions(conditions);
+
+		if (props.onChange)
+			props.onChange(conditions.map((c) => c.trim()).join(' && '));
+	}
+
 	return (
 		<View style={theme.container}>
 			<ConditionBuilder
@@ -105,7 +129,19 @@ function ConditionsArea({ ...props }) {
 					contentContainerStyle={{ flexGrow: 1 }}
 					alwaysBounceVertical
 				>
-					<Text>Conditions List</Text>
+					{conditions && conditions.length > 0 ? (
+						conditions.map((condition) => (
+							<SmartItem
+								key={condition}
+								icon="help-circle"
+								style={{ fontSize: 12 }}
+								text={getText(condition)}
+								onDelete={(event) => onDeleteCondition(event)}
+							/>
+						))
+					) : (
+						<></>
+					)}
 				</ScrollView>
 			</View>
 		</View>
