@@ -7,6 +7,15 @@ const automationType = {
 	GRID: 'grid',
 };
 
+const actionType = {
+	ALERT_EMAIL: 'ALERT_EMAIL',
+	ALERT_SMS: 'ALERT_SMS',
+	ALERT_TELEGRAM: 'ALERT_TELEGRAM',
+	ORDER: 'ORDER',
+	TRAILING: 'TRAILING',
+	WITHDRAW: 'WITHDRAW',
+};
+
 async function getAutomations(page = 1) {
 	const getAutomationsUrl = `${API_URL}/automations/?page=${page}`;
 
@@ -41,6 +50,7 @@ async function deleteAutomation(id) {
 
 export {
 	automationType,
+	actionType,
 	getAutomations,
 	startAutomation,
 	stopAutomation,

@@ -4,6 +4,8 @@ import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
+import ActionSelect from './ActionSelect';
+
 const styles = StyleSheet.create({
 	build: { marginVertical: 15, height: 240, flex: 0 },
 	collapsed: { marginVertical: 15, height: 80, flex: 0 },
@@ -18,14 +20,18 @@ function ActionBuilder({ ...props }) {
 	const { theme } = useTheme();
 
 	const [showBuilder, setShowBuilder] = useState(false);
+	const [type, setType] = useState('');
 
-	function onPress(event) {}
+	function onPress(_event) {
+		setShowBuilder(false);
+	}
 
 	return (
 		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
 			{showBuilder ? (
 				<View style={{ ...theme.inputContainer, ...styles.build }}>
+					<ActionSelect onChange={(event) => setType(event)} />
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{

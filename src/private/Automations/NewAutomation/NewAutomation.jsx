@@ -87,9 +87,9 @@ function NewAutomation({ ...props }) {
 			)}
 			{tabIndex === 1 ? (
 				<ConditionsArea
-					type={props.route.params.type}
 					conditions={automation.conditions}
 					symbol={automation.symbol}
+					type={props.route.params.type}
 					onChange={(event) =>
 						setAutomation({ ...automation, conditions: event })
 					}
@@ -97,7 +97,16 @@ function NewAutomation({ ...props }) {
 			) : (
 				<></>
 			)}
-			{tabIndex === 2 ? <ActionsArea /> : <></>}
+			{tabIndex === 2 ? (
+				<ActionsArea
+					actions={automation.actions}
+					symbol={automation.symbol}
+					type={props.route.params.type}
+					onChange={(event) => setAutomation({ ...automation, actions: event })}
+				/>
+			) : (
+				<></>
+			)}
 			<View style={styles.button}>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
