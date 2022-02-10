@@ -6,7 +6,7 @@ import { SmartItem } from '../../../../components';
 import ActionBuilder from './ActionBuilder';
 
 const styles = StyleSheet.create({
-	list: { width: '100%', paddingHorizontal: 20, paddingBottom: 30 },
+	list: { flex: 1, width: '100%', paddingHorizontal: 20 },
 });
 
 /**
@@ -27,7 +27,9 @@ function ActionsArea({ ...props }) {
 	}, [props.actions]);
 
 	useEffect(() => {
-		setActions(props.symbol);
+		if (!props.symbol) return;
+
+		setSymbol(props.symbol);
 	}, [props.symbol]);
 
 	function onDeleteAction(event) {}
@@ -48,7 +50,7 @@ function ActionsArea({ ...props }) {
 			/>
 			<View style={styles.list}>
 				<ScrollView>
-					{actions && actions.length ? (
+					{actions && actions.length > 0 ? (
 						actions.map((action) => (
 							<SmartItem
 								key={action.id}
