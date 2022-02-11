@@ -38,6 +38,8 @@ function ConditionBuilder({ ...props }) {
 	}
 
 	function onPress(_event) {
+		if (!index.eval || !operator || value === undefined) return;
+
 		if (props.onAddCondition)
 			props.onAddCondition(`${index.eval}${operator}${value}`);
 

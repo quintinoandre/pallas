@@ -37,9 +37,28 @@ function NewAutomation({ ...props }) {
 	const [automation, setAutomation] = useState(DEFAULT_AUTOMATION);
 	const [tabIndex, setTabIndex] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
+	const [error, setError] = useState('');
 
 	function onPress(_event) {
-		setIsLoading(true);
+		setError('');
+
+		if (!automation.actions || automation.actions.length < 1)
+			return setError('You need to have at least one action!');
+
+		if (!automation.conditions && !automation.schedule)
+			return setError('You need to have at least one condition!');
+
+		const indexes = automation.conditions
+			.split(' && ')
+			.map((condition) => condition.split("'"))
+			.flat()
+			.filter((condition) => condition.indexOf(':') !== -1);
+
+		automation.indexes = [...new Set(indexes).join(',')];
+
+		alert(JSON.stringify(automation));
+
+		// setIsLoading(true);
 	}
 
 	return (
@@ -114,6 +133,11 @@ function NewAutomation({ ...props }) {
 					onPress={(event) => onPress(event)}
 					disabled={isLoading}
 				/>
+				{error ? (
+					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				) : (
+					<></>
+				)}
 			</View>
 		</View>
 	);

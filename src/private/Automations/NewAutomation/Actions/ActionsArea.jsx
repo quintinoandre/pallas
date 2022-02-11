@@ -3,6 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
+import { actionType } from '../../../../services/AutomationsService';
 import ActionBuilder from './ActionBuilder';
 
 const styles = StyleSheet.create({
@@ -32,15 +33,63 @@ function ActionsArea({ ...props }) {
 		setSymbol(props.symbol);
 	}, [props.symbol]);
 
-	function onDeleteAction(event) {}
+	function onDeleteAction(id) {
+		const index = actions.findIndex((action) => action.id === id);
 
-	function getText(action) {
-		return action.type;
+		actions.splice(index, 1);
+
+		setActions(actions);
+
+		if (props.onChange) props.onChange(actions);
 	}
 
-	function getIcon(type) {}
+	function getText(action) {
+		switch (action.type) {
+			case actionType.ALERT_EMAIL:
+				return 'Send E-mail';
+			case actionType.ALERT_SMS:
+				return 'Send SMS';
+			case actionType.ALERT_TELEGRAM:
+				return 'Send Telegram';
+			case actionType.ORDER:
+				return action.orderTemplate.name;
+			case actionType.TRAILING:
+				return action.orderTemplate.name;
+			case actionType.WITHDRAW:
+				return action.withdrawTemplate.name;
+			default:
+				break;
+		}
+	}
 
-	function onAddAction(event) {}
+	function getIcon(type) {
+		switch (type) {
+			case actionType.ALERT_EMAIL:
+				return 'mail';
+			case actionType.ALERT_SMS:
+				return 'smartphone';
+			case actionType.ALERT_TELEGRAM:
+				return 'message-square';
+			case actionType.ORDER:
+				return 'shopping-cart';
+			case actionType.TRAILING:
+				return 'trending-up';
+			case actionType.WITHDRAW:
+				return 'dollar-sign';
+			default:
+				break;
+		}
+	}
+
+	function onAddAction(event) {
+		if (actions.some((action) => action.id === event.id)) return;
+
+		actions.push(event);
+
+		setActions(actions);
+
+		if (props.onChange) props.onChange(actions);
+	}
 
 	return (
 		<View style={theme.container}>
@@ -56,7 +105,7 @@ function ActionsArea({ ...props }) {
 								key={action.id}
 								icon={getIcon(action.type)}
 								text={getText(action)}
-								onDelete={(event) => onDeleteAction(event)}
+								onDelete={(_event) => onDeleteAction(action.id)}
 							/>
 						))
 					) : (

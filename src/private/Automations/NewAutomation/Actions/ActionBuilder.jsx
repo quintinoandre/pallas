@@ -63,6 +63,28 @@ function ActionBuilder({ ...props }) {
 	}, [props.symbol]);
 
 	function onPress(_event) {
+		const newAction = { type };
+
+		if ([actionType.ORDER, actionType.TRAILING].includes(newAction.type)) {
+			if (!template) return;
+
+			newAction.id = `ot${template.id}`;
+
+			newAction.orderTemplateId = template.id;
+
+			newAction.orderTemplate = template;
+		} else if (newAction.type === actionType.WITHDRAW) {
+			if (!template) return;
+
+			newAction.id = `wt${template.id}`;
+
+			newAction.orderTemplateId = template.id;
+
+			newAction.orderTemplate = template;
+		} else newAction.id = newAction.type;
+
+		if (props.onAddAction) props.onAddAction(newAction);
+
 		setShowBuilder(false);
 	}
 
