@@ -41,9 +41,21 @@ async function stopAutomation(id) {
 }
 
 async function deleteAutomation(id) {
-	const deleteAutomationUrl = `${API_URL}/automations/${id}/delete`;
+	const deleteAutomationUrl = `${API_URL}/automations/${id}`;
 
 	const response = await axios.delete(deleteAutomationUrl);
+
+	return response.data;
+}
+
+async function saveAutomation(id, newAutomation) {
+	const saveAutomationUrl = id
+		? `${API_URL}/automations/${id}`
+		: `${API_URL}/automations`;
+
+	const response = id
+		? await axios.patch(saveAutomationUrl, newAutomation)
+		: await axios.post(saveAutomationUrl, newAutomation);
 
 	return response.data;
 }
@@ -55,4 +67,5 @@ export {
 	startAutomation,
 	stopAutomation,
 	deleteAutomation,
+	saveAutomation,
 };

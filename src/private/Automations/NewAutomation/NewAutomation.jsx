@@ -1,10 +1,11 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
 import { useTheme, Tab, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
+import { saveAutomation } from '../../../services/AutomationsService';
 import ActionsArea from './Actions/ActionsArea';
 import ConditionsArea from './Conditions/ConditionsArea';
 import GeneralArea from './GeneralArea';
@@ -39,6 +40,18 @@ function NewAutomation({ ...props }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [error, setError] = useState('');
 
+	function errorHandling(err) {
+		setError(err.response ? err.response.data : err.message);
+	}
+
+	useEffect(() => {
+		if (props.route.params.automation)
+			setAutomation(props.route.params.automation);
+		else setAutomation({ ...DEFAULT_AUTOMATION });
+
+		setError('');
+	}, [props.route.params]);
+
 	function onPress(_event) {
 		setError('');
 
@@ -54,11 +67,24 @@ function NewAutomation({ ...props }) {
 			.flat()
 			.filter((condition) => condition.indexOf(':') !== -1);
 
-		automation.indexes = [...new Set(indexes).join(',')];
+		automation.indexes = [...new Set(indexes)].join(',');
 
-		alert(JSON.stringify(automation));
+		setIsLoading(true);
 
-		// setIsLoading(true);
+		saveAutomation(automation.id, automation)
+			.then((result) => {
+				setIsLoading(false);
+
+				props.navigation.navigate('Automations', {
+					screen: 'AutomationsList',
+					params: { result },
+				});
+			})
+			.catch((err) => {
+				setIsLoading(false);
+
+				errorHandling(err);
+			});
 	}
 
 	return (

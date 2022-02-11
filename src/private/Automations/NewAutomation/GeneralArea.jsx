@@ -45,7 +45,7 @@ function GeneralArea({ ...props }) {
 						value={automation.name}
 						onChangeText={(event) => onChange({ name: 'name', value: event })}
 					/>
-					{props.type === automationType.SCHEDULE ? (
+					{props.type === automationType.SCHEDULE || automation.schedule ? (
 						<ScheduleInput
 							schedule={automation.schedule}
 							onChange={(event) => onChange({ name: 'schedule', value: event })}
