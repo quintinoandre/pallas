@@ -17,7 +17,7 @@ const styles = StyleSheet.create({
 /**
  * props:
  * - symbol
- * - onChange
+ * - onChange?
  */
 function CurrentPrice({ ...props }) {
 	const { theme } = useTheme();
