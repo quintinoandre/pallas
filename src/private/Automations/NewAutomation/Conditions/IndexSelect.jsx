@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-const styles = StyleSheet.create({
+const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		height: 30,
 		marginBottom: 15,
@@ -53,7 +53,7 @@ function IndexSelect({ ...props }) {
 
 	return (
 		<Picker
-			style={{ ...styles, iconContainer: { top: 0, right: 12 } }}
+			style={{ ...pickerSelectStyles, iconContainer: { top: 0, right: 12 } }}
 			value={index}
 			onValueChange={(event) => onChange(event)}
 			useNativeAndroidPickerStyle={false}

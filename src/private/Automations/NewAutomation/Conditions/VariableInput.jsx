@@ -42,14 +42,21 @@ function VariableInput({ ...props }) {
 		if (props.onChange) props.onChange(event);
 	}
 
+	function onRefresh(_event) {
+		setValue('');
+
+		setShowInput(!showInput);
+	}
+
 	const icon = (
 		<Icon.Button
 			style={{ paddingTop: showInput ? 10 : 20 }}
 			name="repeat"
 			size={20}
 			color="black"
+			underlayColor="white"
 			backgroundColor="transparent"
-			onPress={(_event) => setShowInput(!showInput)}
+			onPress={(event) => onRefresh(event)}
 		/>
 	);
 

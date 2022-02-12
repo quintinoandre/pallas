@@ -5,7 +5,7 @@ import Picker from 'react-native-picker-select';
 import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const styles = StyleSheet.create({
+const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
 		marginTop: 10,
 		height: 30,
@@ -51,7 +51,7 @@ function SelectFiat({ ...props }) {
 
 				if (props.onChange) props.onChange(event);
 			}}
-			style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
+			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
 			useNativeAndroidPickerStyle={false}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			items={[

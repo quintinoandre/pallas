@@ -16,6 +16,11 @@ const actionType = {
 	WITHDRAW: 'WITHDRAW',
 };
 
+const quantityType = {
+	MAX_WALLET: 'MAX_WALLET',
+	MIN_NOTIONAL: 'MIN_NOTIONAL',
+};
+
 async function getAutomations(page = 1) {
 	const getAutomationsUrl = `${API_URL}/automations/?page=${page}`;
 
@@ -63,6 +68,7 @@ async function saveAutomation(id, newAutomation) {
 export {
 	automationType,
 	actionType,
+	quantityType,
 	getAutomations,
 	startAutomation,
 	stopAutomation,

@@ -6,7 +6,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 
 import { actionType } from '../../../../services/AutomationsService';
 
-const styles = StyleSheet.create({
+const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {
 		marginVertical: 15,
 		height: 30,
@@ -43,7 +43,7 @@ function ActionSelect({ ...props }) {
 	return (
 		<Picker
 			icon={() => <Icon name="chevron-down" size={24} color="black" />}
-			style={{ ...styles, iconContainer: { top: 10, right: 12 } }}
+			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
 			value={type}
 			useNativeAndroidPickerStyle={false}
 			items={[

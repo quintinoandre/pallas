@@ -3,6 +3,7 @@ import { View, ScrollView, StyleSheet } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components';
+import QuantityInput from './QuantityInput';
 
 const styles = StyleSheet.create({
 	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
@@ -92,6 +93,12 @@ function GeneralArea({ ...props }) {
 						value={`${grid.levels}`}
 						onChangeText={(event) =>
 							onGridChange({ name: 'levels', value: event })
+						}
+					/>
+					<QuantityInput
+						value={grid.quantity}
+						onChange={(event) =>
+							onGridChange({ name: 'quantity', value: event })
 						}
 					/>
 					<View style={styles.row}>

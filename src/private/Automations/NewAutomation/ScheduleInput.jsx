@@ -88,7 +88,7 @@ function ScheduleInput({ ...props }) {
 		return isCron ? 'default' : 'numeric';
 	}
 
-	function onScheduleByClick() {
+	function onScheduleByClick(_event) {
 		setScheduleState('');
 
 		setIsCron(!isCron);
@@ -133,8 +133,9 @@ function ScheduleInput({ ...props }) {
 					name="repeat"
 					size={24}
 					color="black"
+					underlayColor="white"
 					backgroundColor="transparent"
-					onPress={(_event) => onScheduleByClick()}
+					onPress={(event) => onScheduleByClick(event)}
 				/>
 			}
 			value={scheduleState}
