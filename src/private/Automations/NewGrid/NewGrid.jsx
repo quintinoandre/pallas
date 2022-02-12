@@ -99,8 +99,24 @@ function NewGrid({ ...props }) {
 					style={styles.tab}
 				/>
 			</Tab>
-			{tabIndex === 0 ? <GeneralArea /> : <></>}
+			{tabIndex === 0 ? (
+				<GeneralArea
+					automation={automation}
+					grid={grid}
+					onAutomationChange={(event) =>
+						setAutomation({ ...automation, [event.name]: event.value })
+					}
+					onGridChange={(event) =>
+						setGrid({ ...grid, [event.name]: event.value })
+					}
+				/>
+			) : (
+				<></>
+			)}
 			{tabIndex === 1 ? <GridArea /> : <></>}
+
+			<Text>{JSON.stringify(grid)}</Text>
+
 			<View style={styles.button}>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
