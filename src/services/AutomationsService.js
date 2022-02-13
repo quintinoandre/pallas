@@ -21,6 +21,10 @@ const quantityType = {
 	MIN_NOTIONAL: 'MIN_NOTIONAL',
 };
 
+const indexType = {
+	BOOK: 'BOOK',
+};
+
 async function getAutomations(page = 1) {
 	const getAutomationsUrl = `${API_URL}/automations/?page=${page}`;
 
@@ -65,13 +69,27 @@ async function saveAutomation(id, newAutomation) {
 	return response.data;
 }
 
+async function saveGrid(id, newAutomation, levels, quantity) {
+	const saveAutomationUrl = id
+		? `${API_URL}/automations/${id}?levels=${levels}&quantity=${quantity}`
+		: `${API_URL}/automations/?levels=${levels}&quantity=${quantity}`;
+
+	const response = id
+		? await axios.patch(saveAutomationUrl, newAutomation)
+		: await axios.post(saveAutomationUrl, newAutomation);
+
+	return response.data;
+}
+
 export {
 	automationType,
 	actionType,
 	quantityType,
+	indexType,
 	getAutomations,
 	startAutomation,
 	stopAutomation,
 	deleteAutomation,
 	saveAutomation,
+	saveGrid,
 };

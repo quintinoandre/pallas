@@ -5,6 +5,11 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow, CurrentPrice, WalletSummary } from '../../../components';
+import {
+	automationType,
+	indexType,
+	saveGrid,
+} from '../../../services/AutomationsService';
 import GeneralArea from './GeneralArea';
 import GridArea from './GridArea';
 
@@ -41,10 +46,14 @@ function NewGrid({ ...props }) {
 	};
 
 	const [automation, setAutomation] = useState(DEFAULT_AUTOMATION);
-	const [grid, setGrid] = useState(DEFAULT_GRID);
+	const [gridState, setGridState] = useState(DEFAULT_GRID);
 	const [error, setError] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [tabIndex, setTabIndex] = useState(0);
+
+	function errorHandling(err) {
+		setError(err.response ? err.response.data : err.message);
+	}
 
 	useEffect(() => {
 		setError('');
@@ -52,15 +61,58 @@ function NewGrid({ ...props }) {
 		if (props.route.params.automation) {
 			setAutomation(props.route.params.automation);
 
-			// TODO: montar a grid
+			const conditionSplit =
+				props.route.params.automation.conditions.split(' &&');
+
+			if (!conditionSplit || conditionSplit.length < 2) return;
+
+			const { quantity } = props.route.params.automation.grids[0].orderTemplate;
+
+			const grid = {
+				lowerLimit: conditionSplit[0].split('>')[1],
+				upperLimit: conditionSplit[1].split('<')[1],
+				quantity,
+				levels: props.route.params.automation.grids.length + 1,
+			};
+
+			setGridState(grid);
 		} else {
 			setAutomation({ ...DEFAULT_AUTOMATION });
 
-			setGrid({ ...DEFAULT_GRID });
+			setGridState({ ...DEFAULT_GRID });
 		}
 	}, [props.route.params]);
 
-	function onPress(event) {}
+	function onPress(_event) {
+		setError('');
+
+		automation.name = `${automationType.GRID.toUpperCase()} ${
+			automation.symbol
+		} #${gridState.levels}`;
+
+		automation.actions = [{ type: `${automationType.GRID.toUpperCase()}` }];
+
+		automation.indexes = `${automation.symbol}:${indexType.BOOK}`;
+
+		automation.conditions = `MEMORY['${automation.symbol}:${indexType.BOOK}'].current.bestAsk>${gridState.lowerLimit} && MEMORY['${automation.symbol}:${indexType.BOOK}'].current.bestBid<${gridState.upperLimit}`;
+
+		setIsLoading(true);
+
+		saveGrid(automation.id, automation, gridState.levels, gridState.quantity)
+			.then((result) => {
+				setIsLoading(false);
+
+				props.navigation.navigate('Automations', {
+					screen: 'AutomationsList',
+					params: { result },
+				});
+			})
+			.catch((err) => {
+				errorHandling(err);
+
+				setIsLoading(false);
+			});
+	}
 
 	return (
 		<View style={theme.page}>
@@ -102,21 +154,18 @@ function NewGrid({ ...props }) {
 			{tabIndex === 0 ? (
 				<GeneralArea
 					automation={automation}
-					grid={grid}
+					grid={gridState}
 					onAutomationChange={(event) =>
 						setAutomation({ ...automation, [event.name]: event.value })
 					}
 					onGridChange={(event) =>
-						setGrid({ ...grid, [event.name]: event.value })
+						setGridState({ ...gridState, [event.name]: event.value })
 					}
 				/>
 			) : (
 				<></>
 			)}
 			{tabIndex === 1 ? <GridArea /> : <></>}
-
-			<Text>{JSON.stringify(grid)}</Text>
-
 			<View style={styles.button}>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}

@@ -94,6 +94,7 @@ function GeneralArea({ ...props }) {
 						onChangeText={(event) =>
 							onGridChange({ name: 'levels', value: event })
 						}
+						disabled={automation.id > 0}
 					/>
 					<QuantityInput
 						value={grid.quantity}
