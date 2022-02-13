@@ -165,7 +165,7 @@ function NewGrid({ ...props }) {
 			) : (
 				<></>
 			)}
-			{tabIndex === 1 ? <GridArea /> : <></>}
+			{tabIndex === 1 ? <GridArea grids={automation.grids} /> : <></>}
 			<View style={styles.button}>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
