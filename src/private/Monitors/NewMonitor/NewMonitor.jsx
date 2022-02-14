@@ -79,8 +79,8 @@ function NewMonitor({ ...props }) {
 			const str = indexes
 				.map(
 					(index) =>
-						`${index.key} ${
-							index.params ? `_${index.params.replace(/,/i, '_')}` : ''
+						`${index.key}${
+							index.params ? `_${index.params.replace(/,/gi, '_')}` : ''
 						}`
 				)
 				.join(',');

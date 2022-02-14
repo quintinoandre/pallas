@@ -50,13 +50,23 @@ function IndexesArea({ ...props }) {
 
 	function getText(index) {
 		return `${index.key}${
-			index.params ? `_${index.params.replace(/,/i, '_')}` : ''
+			index.params ? `_${index.params.replace(/,/gi, '_')}` : ''
 		}`;
+	}
+
+	function onAddIndex(event) {
+		if (indexes.some((index) => index.key === event.key)) return;
+
+		indexes.push(event);
+
+		setIndexes(indexes);
+
+		if (props.onChange) props.onChange(indexes);
 	}
 
 	return (
 		<View style={theme.container}>
-			<IndexBuilder />
+			<IndexBuilder onAddIndex={(event) => onAddIndex(event)} />
 			<View style={styles.list}>
 				<ScrollView>
 					{indexes && indexes.length > 0 ? (

@@ -111,7 +111,7 @@ function MonitorItem({ ...props }) {
 							<View style={styles.subtitleView}>
 								<Text style={styles.subtitle}>
 									{props.monitor.indexes
-										? props.monitor.indexes.replace(',', ', ')
+										? props.monitor.indexes.replace(/,/gi, ', ')
 										: props.monitor.indexes}
 								</Text>
 							</View>
