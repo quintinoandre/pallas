@@ -2,6 +2,14 @@ import { REACT_APP_API_URL as API_URL } from '@env';
 
 import axios from './BaseService';
 
+const monitorType = {
+	BOOK: 'BOOK',
+	CANDLES: 'CANDLES',
+	MINI_TICKER: 'MINI_TICKER',
+	TICKER: 'TICKER',
+	USER_DATA: 'USER_DATA',
+};
+
 async function getMonitors(page = 1) {
 	const getMonitorsUrl = `${API_URL}/monitors/?page=${page}`;
 
@@ -46,4 +54,11 @@ async function saveMonitor(id, newMonitor) {
 	return response.data;
 }
 
-export { getMonitors, startMonitor, stopMonitor, deleteMonitor, saveMonitor };
+export {
+	monitorType,
+	getMonitors,
+	startMonitor,
+	stopMonitor,
+	deleteMonitor,
+	saveMonitor,
+};

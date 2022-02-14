@@ -23,7 +23,7 @@ function MonitorsList({ ...props }) {
 	const [canLoadMore, setCanLoadMore] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [refresh, setRefresh] = useState(0);
-	const [page, setPage] = useState(1);
+	const [pageState, setPageState] = useState(1);
 
 	function errorHandling(err) {
 		console.error(err.response ? err.response.data : err.message);
@@ -51,21 +51,21 @@ function MonitorsList({ ...props }) {
 	useEffect(() => {
 		setIsLoading(true);
 
-		setPage(1);
+		setPageState(1);
 
 		LoadMonitors(1);
 	}, [props.route.params, refresh]);
 
 	useEffect(() => {
-		if (page <= 1) return;
+		if (pageState <= 1) return;
 
-		LoadMonitors(page || 1);
-	}, [page]);
+		LoadMonitors(pageState || 1);
+	}, [pageState]);
 
 	function onEndReached() {
 		if (!monitors || monitors.length % PAGE_SIZE !== 0) return;
 
-		setPage(page + 1);
+		setPageState(pageState + 1);
 
 		setCanLoadMore(false);
 	}
