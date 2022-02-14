@@ -2,22 +2,36 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
-import { monitorType } from '../../services/MonitorsService';
+import { Feather as Icon } from '@expo/vector-icons';
+
+import {
+	monitorType,
+	startMonitor,
+	stopMonitor,
+	deleteMonitor,
+} from '../../services/MonitorsService';
 
 const styles = StyleSheet.create({
 	content: { marginLeft: 10 },
 	subtitleView: { marginTop: 10, flexDirection: 'row' },
 	subtitle: { color: 'gray', fontSize: 10 },
+	icon: { paddingLeft: 45 },
 });
 
 /**
  * props:
  * - monitor
+ * - onPress
+ * - onRefresh
  */
 function MonitorItem({ ...props }) {
 	const { theme } = useTheme();
 
 	const [expanded, setExpanded] = useState(false);
+
+	function errorHandling(err) {
+		console.error(err.response ? err.response.data : err.message);
+	}
 
 	function getIcon(type) {
 		const icon = { type: 'feather', color: 'white' };
@@ -54,6 +68,36 @@ function MonitorItem({ ...props }) {
 		);
 	}
 
+	function onStartPress(monitor) {
+		startMonitor(monitor.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
+	function onStopPress(monitor) {
+		stopMonitor(monitor.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
+	function onDeletePress(monitor) {
+		deleteMonitor(monitor.id)
+			.then((_result) => {
+				if (props.onRefresh) props.onRefresh();
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
+	}
+
 	return (
 		<ListItem.Accordion
 			content={
@@ -75,7 +119,60 @@ function MonitorItem({ ...props }) {
 			onPress={(_event) => setExpanded(!expanded)}
 			bottomDivider
 		>
-			<Text>internal content</Text>
+			<ListItem
+				onPress={(event) => {
+					if (props.onPress) props.onPress(event);
+				}}
+				bottomDivider
+			>
+				<Icon style={styles.icon} name="edit" size={20} color="black" />
+				<ListItem.Content>
+					<ListItem.Title>Edit</ListItem.Title>
+				</ListItem.Content>
+				<ListItem.Chevron />
+			</ListItem>
+			{props.monitor.isActive ? (
+				<ListItem
+					onPress={(_event) => onStopPress(props.monitor)}
+					bottomDivider
+				>
+					<Icon
+						style={styles.icon}
+						name="stop-circle"
+						size={20}
+						color="black"
+					/>
+					<ListItem.Content>
+						<ListItem.Title>Stop</ListItem.Title>
+					</ListItem.Content>
+				</ListItem>
+			) : (
+				<>
+					<ListItem
+						onPress={(_event) => onStartPress(props.monitor)}
+						bottomDivider
+					>
+						<Icon
+							style={styles.icon}
+							name="play-circle"
+							size={20}
+							color="black"
+						/>
+						<ListItem.Content>
+							<ListItem.Title>Start</ListItem.Title>
+						</ListItem.Content>
+					</ListItem>
+					<ListItem
+						onPress={(_event) => onDeletePress(props.monitor)}
+						bottomDivider
+					>
+						<Icon style={styles.icon} name="trash-2" size={20} color="black" />
+						<ListItem.Content>
+							<ListItem.Title>Delete</ListItem.Title>
+						</ListItem.Content>
+					</ListItem>
+				</>
+			)}
 		</ListItem.Accordion>
 	);
 }

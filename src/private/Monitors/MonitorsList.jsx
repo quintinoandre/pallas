@@ -76,6 +76,13 @@ function MonitorsList({ ...props }) {
 		</View>
 	);
 
+	function viewForm(monitor) {
+		props.navigation.navigate('Monitors', {
+			screen: 'NewMonitor',
+			params: { monitor },
+		});
+	}
+
 	return (
 		<>
 			<FlatList
@@ -87,7 +94,13 @@ function MonitorsList({ ...props }) {
 				onRefresh={(_event) => setRefresh(Date.now())}
 				onMomentumScrollEnd={(_event) => canLoadMore && onEndReached()}
 				ListEmptyComponent={() => emptyList}
-				renderItem={(obj) => <MonitorItem monitor={obj.item} />}
+				renderItem={(obj) => (
+					<MonitorItem
+						monitor={obj.item}
+						onPress={(_event) => viewForm(obj.item)}
+						onRefresh={(_event) => setRefresh(Date.now())}
+					/>
+				)}
 				keyExtractor={(obj) => obj.id}
 			/>
 			<FAB

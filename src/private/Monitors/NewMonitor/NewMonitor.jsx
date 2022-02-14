@@ -7,7 +7,7 @@ import { Text } from 'react-native';
  * - route
  */
 function NewMonitor({ ...props }) {
-	return <Text>New Monitor</Text>;
+	return <Text>{props.route.params.monitor.id}</Text>;
 }
 
 export default NewMonitor;
