@@ -38,7 +38,11 @@ function GridArea({ ...props }) {
 		<View style={styles.row}>
 			<View style={styles.column}>
 				<Block style={styles.block} color={theme.colors.success}>
-					<Text style={styles.columnTitle}>BUY Levels</Text>
+					<Text style={styles.columnTitle}>{`BUY Levels (${
+						props.grids.filter(
+							(grid) => grid.orderTemplate.side === orderSide.BUY
+						).length
+					})`}</Text>
 				</Block>
 				<ScrollView>
 					{props.grids
@@ -56,7 +60,11 @@ function GridArea({ ...props }) {
 			</View>
 			<View style={styles.column}>
 				<Block style={styles.block} color={theme.colors.danger}>
-					<Text style={styles.columnTitle}>SELL Levels</Text>
+					<Text style={styles.columnTitle}>{`SELL Levels (${
+						props.grids.filter(
+							(grid) => grid.orderTemplate.side === orderSide.SELL
+						).length
+					})`}</Text>
 				</Block>
 				<ScrollView>
 					{props.grids

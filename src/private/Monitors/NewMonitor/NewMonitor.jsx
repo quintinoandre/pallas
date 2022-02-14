@@ -74,6 +74,21 @@ function NewMonitor({ ...props }) {
 			});
 	}
 
+	function onIndexChange(indexes) {
+		if (indexes && indexes.length > 0) {
+			const str = indexes
+				.map(
+					(index) =>
+						`${index.key} ${
+							index.params ? `_${index.params.replace(/,/i, '_')}` : ''
+						}`
+				)
+				.join(',');
+
+			if (monitor.indexes !== str) setMonitor({ ...monitor, indexes: str });
+		} else setMonitor({ ...monitor, indexes: '' });
+	}
+
 	return (
 		<View style={theme.page}>
 			<View style={styles.header}>
@@ -118,7 +133,10 @@ function NewMonitor({ ...props }) {
 					}
 				/>
 			) : (
-				<IndexesArea indexes={monitor.indexes} />
+				<IndexesArea
+					indexes={monitor.indexes}
+					onChange={(event) => onIndexChange(event)}
+				/>
 			)}
 
 			<View style={styles.button}>

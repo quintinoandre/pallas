@@ -107,13 +107,17 @@ function MonitorItem({ ...props }) {
 						<ListItem.Title>
 							{props.monitor.symbol} {props.monitor.interval}
 						</ListItem.Title>
-						<View style={styles.subtitleView}>
-							<Text style={styles.subtitle}>
-								{props.monitor.indexes
-									? props.monitor.indexes.replace(',', ', ')
-									: props.monitor.indexes}
-							</Text>
-						</View>
+						{props.monitor.indexes ? (
+							<View style={styles.subtitleView}>
+								<Text style={styles.subtitle}>
+									{props.monitor.indexes
+										? props.monitor.indexes.replace(',', ', ')
+										: props.monitor.indexes}
+								</Text>
+							</View>
+						) : (
+							<></>
+						)}
 					</ListItem.Content>
 				</>
 			}
