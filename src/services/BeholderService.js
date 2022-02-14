@@ -18,4 +18,12 @@ async function getIndexes() {
 	return response.data;
 }
 
-export { getMemoryIndex, getIndexes };
+async function getAnalysisIndexes() {
+	const getAnalysisIndexesUrl = `${API_URL}/beholder/analysis`;
+
+	const response = await axios.get(getAnalysisIndexesUrl);
+
+	return response.data;
+}
+
+export { getMemoryIndex, getIndexes, getAnalysisIndexes };
