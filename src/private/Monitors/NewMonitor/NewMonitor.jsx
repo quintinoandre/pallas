@@ -8,6 +8,7 @@ import { HeaderRow } from '../../../components';
 import {
 	monitorType,
 	monitorInterval,
+	saveMonitor,
 } from '../../../services/MonitorsService';
 import GeneralArea from './General/GeneralArea';
 import IndexesArea from './Indexes/IndexesArea';
@@ -40,6 +41,10 @@ function NewMonitor({ ...props }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [tabIndex, setTabIndex] = useState(0);
 
+	function errorHandling(err) {
+		setError(err.response ? err.response.data : err.message);
+	}
+
 	useEffect(() => {
 		setError('');
 
@@ -48,8 +53,25 @@ function NewMonitor({ ...props }) {
 		else setMonitor({ ...DEFAULT_MONITOR });
 	}, [props.route.params]);
 
-	function onPress(event) {
-		alert('save monitor');
+	function onPress(_event) {
+		setError('');
+
+		setIsLoading(true);
+
+		saveMonitor(monitor.id, monitor)
+			.then((result) => {
+				setIsLoading(false);
+
+				props.navigation.navigate('Monitors', {
+					screen: 'MonitorsList',
+					params: { monitor: result },
+				});
+			})
+			.catch((err) => {
+				setIsLoading(false);
+
+				errorHandling(err);
+			});
 	}
 
 	return (
@@ -74,9 +96,17 @@ function NewMonitor({ ...props }) {
 					buttonStyle={styles.tabButton}
 				/>
 				<Tab.Item
-					icon={<Icon name="bar-chart-2" size={20} color="black" />}
+					icon={
+						<Icon
+							name="bar-chart-2"
+							size={20}
+							color={monitor.type === monitorType.TICKER ? '#ccc' : 'black'}
+						/>
+					}
 					style={styles.tab}
 					buttonStyle={styles.tabButton}
+					disabled={monitor.type === monitorType.TICKER}
+					disabledStyle={styles.tabButton}
 				/>
 			</Tab>
 
@@ -88,7 +118,7 @@ function NewMonitor({ ...props }) {
 					}
 				/>
 			) : (
-				<IndexesArea monitor={monitor.indexes} />
+				<IndexesArea indexes={monitor.indexes} />
 			)}
 
 			<View style={styles.button}>

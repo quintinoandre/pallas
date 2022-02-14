@@ -146,9 +146,17 @@ function NewGrid({ ...props }) {
 					style={styles.tab}
 				/>
 				<Tab.Item
-					icon={<Icon name="align-justify" size={20} color="black" />}
-					buttonStyle={styles.tabButton}
+					icon={
+						<Icon
+							name="align-justify"
+							size={20}
+							color={!automation.id ? '#ccc' : 'black'}
+						/>
+					}
 					style={styles.tab}
+					buttonStyle={styles.tabButton}
+					disabled={!automation.id}
+					disabledStyle={styles.tabButton}
 				/>
 			</Tab>
 			{tabIndex === 0 ? (

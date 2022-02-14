@@ -36,7 +36,11 @@ function GeneralArea({ ...props }) {
 		setMonitor(props.monitor);
 	}, [props.monitor]);
 
-	function onChange(newProp) {}
+	function onChange(newProp) {
+		setMonitor((prevData) => ({ ...prevData, [newProp.name]: newProp.value }));
+
+		if (props.onChange) props.onChange(newProp);
+	}
 
 	return (
 		<View style={theme.container}>

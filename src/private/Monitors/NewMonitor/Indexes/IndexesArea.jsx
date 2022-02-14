@@ -1,8 +1,13 @@
 import React from 'react';
 import { Text } from 'react-native';
 
-function IndexesArea() {
-	return <Text>Indexes Area</Text>;
+/**
+ * props:
+ * - indexes
+ * - onChange
+ */
+function IndexesArea({ ...props }) {
+	return <Text>{props.indexes}</Text>;
 }
 
 export default IndexesArea;

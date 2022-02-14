@@ -51,7 +51,7 @@ function MonitorInterval({ ...props }) {
 
 	return (
 		<>
-			<Text style={styles.label}>Type</Text>
+			<Text style={styles.label}>Interval</Text>
 			<Picker
 				Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 				style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 5 } }}

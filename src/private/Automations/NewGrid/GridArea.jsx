@@ -6,7 +6,6 @@ import { Block } from '../../../components';
 import { orderSide } from '../../../services/OrdersService';
 
 const styles = StyleSheet.create({
-	empty: { marginVertical: 15, alignItems: 'center' },
 	row: { flexDirection: 'row', flex: 1 },
 	column: {
 		flexDirection: 'column',
@@ -31,17 +30,6 @@ const styles = StyleSheet.create({
 function GridArea({ ...props }) {
 	const { theme } = useTheme();
 
-	if (!props.grids || props.grids.length < 1) {
-		return (
-			<View style={theme.container}>
-				<View style={{ ...theme.inputContainer, ...styles.empty }}>
-					<Text>There are no grids to see.</Text>
-					<Text>Create one first.</Text>
-				</View>
-			</View>
-		);
-	}
-
 	function getItem(conditions) {
 		return conditions.split(' && ')[0].split(/[><]/)[1];
 	}
@@ -55,9 +43,8 @@ function GridArea({ ...props }) {
 				<ScrollView>
 					{props.grids
 						.filter((grid) => grid.orderTemplate.side === orderSide.BUY)
-						.map((grid, i) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<ListItem key={`buy${i}`} bottomDivider>
+						.map((grid) => (
+							<ListItem key={grid.id} bottomDivider>
 								<ListItem.Content>
 									<ListItem.Title style={{ color: theme.colors.success }}>
 										{getItem(grid.conditions)}
@@ -74,9 +61,8 @@ function GridArea({ ...props }) {
 				<ScrollView>
 					{props.grids
 						.filter((grid) => grid.orderTemplate.side === orderSide.SELL)
-						.map((grid, i) => (
-							// eslint-disable-next-line react/no-array-index-key
-							<ListItem key={`sell${i}`} bottomDivider>
+						.map((grid) => (
+							<ListItem key={grid.id} bottomDivider>
 								<ListItem.Content>
 									<ListItem.Title style={{ color: theme.colors.danger }}>
 										{getItem(grid.conditions)}
