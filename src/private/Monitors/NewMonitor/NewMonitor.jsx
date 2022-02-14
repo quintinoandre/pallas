@@ -6,8 +6,8 @@ import { Text } from 'react-native';
  * - navigation
  * - route
  */
-function Monitors({ ...props }) {
-	return <Text>Monitors</Text>;
+function NewMonitor({ ...props }) {
+	return <Text>New Monitor</Text>;
 }
 
-export default Monitors;
+export default NewMonitor;

@@ -5,12 +5,12 @@ import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import Dashboard from '../private/Dashboard/Dashboard';
 import Logout from '../private/Logout/Logout';
-import Monitors from '../private/Monitors/Monitors';
 import Reports from '../private/Reports/Reports';
 import Settings from '../private/Settings/Settings';
 import Wallet from '../private/Wallet/Wallet';
 import AutomationNavigator from './AutomationNavigator';
 import DrawerIcon from './DrawerIcon';
+import MonitorNavigator from './MonitorNavigator';
 import OrderNavigator from './OrderNavigator';
 
 const Drawer = createDrawerNavigator();
@@ -61,7 +61,7 @@ function DrawerNavigator() {
 			/>
 			<Drawer.Screen
 				name="Monitors"
-				component={Monitors}
+				component={MonitorNavigator}
 				options={{ drawerIcon: (_config) => <DrawerIcon name="monitor" /> }}
 			/>
 			<Drawer.Screen
