@@ -42,7 +42,7 @@ function ActionSelect({ ...props }) {
 
 	return (
 		<Picker
-			icon={() => <Icon name="chevron-down" size={24} color="black" />}
+			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
 			value={type}
 			useNativeAndroidPickerStyle={false}

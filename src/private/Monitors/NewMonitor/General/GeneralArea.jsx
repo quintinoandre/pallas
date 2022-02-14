@@ -1,8 +1,75 @@
-import React from 'react';
-import { Text } from 'react-native';
+import React, { useEffect, useState } from 'react';
+import { ScrollView, StyleSheet, View } from 'react-native';
+import { useTheme } from 'react-native-elements';
 
-function GeneralArea() {
-	return <Text>General Area</Text>;
+import { SwitchInput } from '../../../../components';
+import {
+	monitorType,
+	monitorInterval,
+} from '../../../../services/MonitorsService';
+import MonitorInterval from './MonitorInterval';
+import MonitorType from './MonitorType';
+
+const styles = StyleSheet.create({
+	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
+});
+
+/**
+ * props:
+ * - monitor
+ * - onChange
+ */
+function GeneralArea({ ...props }) {
+	const { theme } = useTheme();
+
+	const DEFAULT_MONITOR = {
+		type: monitorType.CANDLES,
+		symbol: 'BTCUSDT',
+		interval: monitorInterval.oneMinute,
+		isActive: false,
+		logs: false,
+	};
+
+	const [monitor, setMonitor] = useState(DEFAULT_MONITOR);
+
+	useEffect(() => {
+		setMonitor(props.monitor);
+	}, [props.monitor]);
+
+	function onChange(newProp) {}
+
+	return (
+		<View style={theme.container}>
+			<View style={theme.inputContainer}>
+				<ScrollView>
+					<MonitorType
+						type={monitor.type}
+						onChange={(event) => onChange({ name: 'type', value: event })}
+					/>
+					{monitor.type === monitorType.CANDLES ? (
+						<MonitorInterval
+							interval={monitor.interval}
+							onChange={(event) => onChange({ name: 'interval', value: event })}
+						/>
+					) : (
+						<></>
+					)}
+					<View style={styles.row}>
+						<SwitchInput
+							text="Is Active?"
+							isChecked={monitor.isActive}
+							onChange={(event) => onChange({ name: 'isActive', value: event })}
+						/>
+						<SwitchInput
+							text="Enable Logs?"
+							isChecked={monitor.logs}
+							onChange={(event) => onChange({ name: 'logs', value: event })}
+						/>
+					</View>
+				</ScrollView>
+			</View>
+		</View>
+	);
 }
 
 export default GeneralArea;

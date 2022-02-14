@@ -5,7 +5,10 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
-import { monitorType } from '../../../services/MonitorsService';
+import {
+	monitorType,
+	monitorInterval,
+} from '../../../services/MonitorsService';
 import GeneralArea from './General/GeneralArea';
 import IndexesArea from './Indexes/IndexesArea';
 
@@ -27,7 +30,7 @@ function NewMonitor({ ...props }) {
 	const DEFAULT_MONITOR = {
 		type: monitorType.CANDLES,
 		symbol: 'BTCUSDT',
-		interval: '1m',
+		interval: monitorInterval.oneMinute,
 		isActive: false,
 		logs: false,
 	};
@@ -77,7 +80,16 @@ function NewMonitor({ ...props }) {
 				/>
 			</Tab>
 
-			{tabIndex === 0 ? <GeneralArea /> : <IndexesArea />}
+			{tabIndex === 0 ? (
+				<GeneralArea
+					monitor={monitor}
+					onChange={(event) =>
+						setMonitor({ ...monitor, [event.name]: event.value })
+					}
+				/>
+			) : (
+				<IndexesArea monitor={monitor.indexes} />
+			)}
 
 			<View style={styles.button}>
 				<Button
