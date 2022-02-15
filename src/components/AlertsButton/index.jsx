@@ -4,6 +4,8 @@ import { useTheme, Badge } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
+import { hasAlerts } from '../../services/AlertsService';
+
 const styles = StyleSheet.create({
 	badge: { position: 'absolute', top: 8, right: 20 },
 });
@@ -17,8 +19,18 @@ function AlertButton({ ...props }) {
 
 	const [showBadge, setShowBadge] = useState(false);
 
+	function errorHandling(err) {
+		alert(err.message);
+	}
+
 	useEffect(() => {
-		setShowBadge(false);
+		hasAlerts()
+			.then((result) => {
+				setShowBadge(result);
+			})
+			.catch((err) => {
+				errorHandling(err);
+			});
 	}, []);
 
 	return (
