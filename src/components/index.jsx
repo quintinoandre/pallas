@@ -1,3 +1,4 @@
+export * from './AlertsButton';
 export * from './Block';
 export * from './CurrentPrice';
 export * from './HeaderRow';

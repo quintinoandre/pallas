@@ -1,8 +1,8 @@
 import React from 'react';
 
-import { Feather as Icon } from '@expo/vector-icons';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
+import { AlertButton } from '../components';
 import Dashboard from '../private/Dashboard/Dashboard';
 import Logout from '../private/Logout/Logout';
 import Reports from '../private/Reports/Reports';
@@ -15,20 +15,18 @@ import OrderNavigator from './OrderNavigator';
 
 const Drawer = createDrawerNavigator();
 
-function DrawerNavigator() {
+/**
+ * props:
+ * - navigation
+ * - route
+ */
+function DrawerNavigator({ ...props }) {
 	return (
 		<Drawer.Navigator
 			initialRouteName="Dashboard"
 			screenOptions={{
 				headerStyle: { backgroundColor: '#1F2937' },
-				headerRight: () => (
-					<Icon
-						size={20}
-						color="white"
-						name="bell"
-						style={{ marginRight: 10 }}
-					/>
-				),
+				headerRight: () => <AlertButton navigation={props.navigation} />,
 				headerTintColor: '#fff',
 				drawerStyle: { backgroundColor: '#1F2937' },
 				drawerLabelStyle: { color: '#fff' },
