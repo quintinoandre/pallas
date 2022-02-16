@@ -1,5 +1,11 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const alertType = {
+	error: 'error',
+	success: 'success',
+	info: 'info',
+};
+
 async function getAlerts() {
 	const response = await AsyncStorage.getItem('alerts');
 
@@ -26,4 +32,4 @@ async function deleteAllAlerts() {
 	return AsyncStorage.removeItem('alerts');
 }
 
-export { getAlerts, saveAlert, hasAlerts, deleteAllAlerts };
+export { alertType, getAlerts, saveAlert, hasAlerts, deleteAllAlerts };

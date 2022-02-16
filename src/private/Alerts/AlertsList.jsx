@@ -41,7 +41,24 @@ function AlertsList({ ...props }) {
 	}
 
 	function loadAlerts(page) {
-		setIsLoading(true);
+		setAlerts([
+			{
+				date: 1,
+				type: 'success',
+				text: 'sdfdsfdsfsdfsdfsf sdfsdfsdfsdfs sdfs',
+			},
+			{
+				date: 2,
+				type: 'error',
+				text: ' oj oij oij oj oj o j ojlçllmç  ',
+			},
+			{
+				date: 3,
+				type: 'info',
+				text: 'kopopkkppk pkookkop kppkookp koopk ',
+			},
+		]);
+		/* setIsLoading(true);
 
 		getAlerts()
 			.then((result) => {
@@ -60,7 +77,7 @@ function AlertsList({ ...props }) {
 				setIsLoading(false);
 
 				errorHandling(err);
-			});
+			}); */
 	}
 
 	useEffect(() => {
