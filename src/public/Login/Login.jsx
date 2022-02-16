@@ -1,3 +1,5 @@
+import * as Device from 'expo-device';
+import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect } from 'react';
 import {
 	StyleSheet,
@@ -5,6 +7,7 @@ import {
 	View,
 	ScrollView,
 	ActivityIndicator,
+	Platform,
 } from 'react-native';
 import {
 	Image,
@@ -20,6 +23,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 import logo from '../../../assets/logo.png';
 import { doLogin } from '../../services/AuthService';
 import { configBaseService } from '../../services/BaseService';
+import { updateSettings } from '../../services/SettingsService';
 
 const styles = StyleSheet.create({
 	logo: {
@@ -75,25 +79,73 @@ function Login({ ...props }) {
 		});
 	}, [props.route.params]);
 
-	function onSignInPress(_event) {
+	async function registerForPushNotificationsAsync() {
+		let token;
+
+		if (Device.isDevice) {
+			const { status: existingStatus } =
+				await Notifications.getPermissionsAsync();
+
+			let finalStatus = existingStatus;
+
+			if (existingStatus !== 'granted') {
+				const { status } = await Notifications.requestPermissionsAsync();
+
+				finalStatus = status;
+			}
+
+			if (finalStatus !== 'granted') {
+				alert('Failed to get push token for push notification!');
+
+				return;
+			}
+
+			token = (await Notifications.getExpoPushTokenAsync()).data;
+
+			AsyncStorage.setItem('push', token);
+		} else {
+			alert('Must use physical device for Push Notifications');
+		}
+
+		if (Platform.OS === 'android') {
+			Notifications.setNotificationChannelAsync('default', {
+				name: 'default',
+				importance: Notifications.AndroidImportance.MAX,
+				vibrationPattern: [0, 250, 250, 250],
+				lightColor: '#FF231F7C',
+			});
+		}
+
+		return token;
+	}
+
+	async function onSignInPress(_event) {
 		setIsLoading(true);
 
 		if (rememberMe) AsyncStorage.setItem('email', email);
 		else AsyncStorage.removeItem('email');
 
-		doLogin(email, password)
-			.then((result) => {
-				if (result) {
-					clearScreen();
+		try {
+			const result = await doLogin(email, password);
 
-					props.navigation.navigate('DrawerNavigator');
-				}
-			})
-			.catch((err) => {
+			if (result) {
+				/* let pushToken = await AsyncStorage.getItem('push');
+
+				if (!pushToken || result.pushToken !== pushToken) {
+					pushToken = await registerForPushNotificationsAsync();
+
+					updateSettings({ pushToken });
+				} */
+
 				clearScreen();
 
-				setError(err.response ? err.response.data : err.message);
-			});
+				props.navigation.navigate('DrawerNavigator');
+			}
+		} catch (err) {
+			clearScreen();
+
+			setError(err.response ? err.response.data : err.message);
+		}
 	}
 
 	return (
