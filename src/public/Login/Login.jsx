@@ -129,13 +129,13 @@ function Login({ ...props }) {
 			const result = await doLogin(email, password);
 
 			if (result) {
-				/* let pushToken = await AsyncStorage.getItem('push');
+				let pushToken = await AsyncStorage.getItem('push');
 
 				if (!pushToken || result.pushToken !== pushToken) {
 					pushToken = await registerForPushNotificationsAsync();
 
 					updateSettings({ pushToken });
-				} */
+				}
 
 				clearScreen();
 
