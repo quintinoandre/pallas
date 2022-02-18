@@ -96,6 +96,16 @@ async function placeOrder(order) {
 	return response.data;
 }
 
+function thirtyDaysAgo() {
+	const date = new Date();
+
+	date.setUTCDate(date.getUTCDate() - 30);
+
+	date.setUTCHours(0, 0, 0, 0);
+
+	return date.getTime();
+}
+
 export {
 	orderStatus,
 	orderSide,
@@ -105,4 +115,5 @@ export {
 	syncOrder,
 	cancelOrder,
 	placeOrder,
+	thirtyDaysAgo,
 };
