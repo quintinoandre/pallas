@@ -124,12 +124,12 @@ function ScheduleInput({ ...props }) {
 
 	return (
 		<Input
-			iconStyle={styles.button}
 			label={getLabel()}
 			placeholder={getPlaceholder()}
 			keyboardType={getKeyboard()}
 			leftIcon={
 				<Icon.Button
+					iconStyle={styles.button}
 					name="repeat"
 					size={24}
 					color="black"

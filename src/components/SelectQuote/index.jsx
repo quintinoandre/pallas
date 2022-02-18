@@ -7,16 +7,16 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
-		marginTop: 10,
+		marginVertical: 10,
 		height: 30,
-		paddingHorizontal: 24,
+		paddingHorizontal: 10,
 		fontSize: 16,
 		alignItems: 'stretch',
 	},
 	inputIOS: {
 		marginTop: 10,
 		height: 30,
-		paddingHorizontal: 24,
+		paddingHorizontal: 10,
 		fontSize: 16,
 		alignItems: 'stretch',
 	},
@@ -26,19 +26,19 @@ const pickerSelectStyles = StyleSheet.create({
  * props:
  * - onChange
  */
-function SelectFiat({ ...props }) {
-	const [fiat, setFiat] = useState('USD');
+function SelectQuote({ ...props }) {
+	const [quote, setQuote] = useState('USDT');
 
 	function errorHandling(err) {
 		console.error(err);
 	}
 
 	useEffect(() => {
-		AsyncStorage.getItem('fiat')
+		AsyncStorage.getItem('quote')
 			.then((result) => {
-				setFiat(result || 'USD');
+				setQuote(result || 'USDT');
 
-				if (props.onChange) props.onChange(result || 'USD');
+				if (props.onChange) props.onChange(result || 'USDT');
 			})
 			.catch((err) => {
 				errorHandling(err);
@@ -47,11 +47,11 @@ function SelectFiat({ ...props }) {
 
 	return (
 		<Picker
-			value={fiat}
-			onValueChange={(event) => {
-				AsyncStorage.setItem('fiat', event);
+			value={quote}
+			onValueChange={async (event) => {
+				await AsyncStorage.setItem('quote', event);
 
-				setFiat(event);
+				setQuote(event);
 
 				if (props.onChange) props.onChange(event);
 			}}
@@ -59,17 +59,16 @@ function SelectFiat({ ...props }) {
 			useNativeAndroidPickerStyle={false}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			items={[
-				{ label: 'AUD', value: 'AUD' },
 				{ label: 'BRL', value: 'BRL' },
+				{ label: 'BTC', value: 'BTC' },
+				{ label: 'ETH', value: 'ETH' },
 				{ label: 'EUR', value: 'EUR' },
 				{ label: 'GBP', value: 'GBP' },
-				{ label: 'NGN', value: 'NGN' },
-				{ label: 'TRY', value: 'TRY' },
-				{ label: 'UAH', value: 'UAH' },
 				{ label: 'USD', value: 'USD' },
+				{ label: 'USDT', value: 'USDT' },
 			]}
 		/>
 	);
 }
 
-export { SelectFiat };
+export { SelectQuote };

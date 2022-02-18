@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Text } from 'react-native';
 
-import FilterReports from './FilterReports';
+import FilterReport from './FilterReport';
 
 /**
  * props:
@@ -18,7 +18,7 @@ function Reports({ ...props }) {
 	return (
 		<>
 			<Text>Reports</Text>
-			<FilterReports onFilter={(event) => setFilter({ ...event })} />
+			<FilterReport onFilter={(event) => setFilter({ ...event })} />
 		</>
 	);
 }
