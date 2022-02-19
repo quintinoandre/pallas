@@ -106,6 +106,44 @@ function thirtyDaysAgo() {
 	return date.getTime();
 }
 
+function getEndToday() {
+	const date = new Date();
+
+	date.setUTCHours(23, 59, 59, 999);
+
+	return date.getTime();
+}
+
+function getStartToday() {
+	const date = new Date();
+
+	date.setUTCHours(0, 0, 0, 0);
+
+	return date.getTime();
+}
+
+async function getOrdersReport(quote, startDate, endDate) {
+	startDate = startDate || thirtyDaysAgo();
+
+	endDate = endDate || getEndToday();
+
+	const getOrdersReportUrl = `${API_URL}/orders/reports/${quote}?startDate=${startDate}&endDate=${endDate}`;
+
+	const response = await axios.get(getOrdersReportUrl);
+
+	return response.data;
+}
+
+async function getDayTradeReport(quote, date) {
+	date = date || getStartToday();
+
+	const getDayTradeReportUrl = `${API_URL}/orders/reports/${quote}?date=${date}`;
+
+	const response = await axios.get(getDayTradeReportUrl);
+
+	return response.data;
+}
+
 export {
 	orderStatus,
 	orderSide,
@@ -116,4 +154,6 @@ export {
 	cancelOrder,
 	placeOrder,
 	thirtyDaysAgo,
+	getOrdersReport,
+	getDayTradeReport,
 };
