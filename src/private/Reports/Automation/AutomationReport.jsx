@@ -28,7 +28,7 @@ function AutomationReport({ ...props }) {
 			<Text style={theme.h2}>Automations</Text>
 			<ScrollView>
 				{automationState.map((automation) => (
-					<AutomationItem key={automation.id} automation={automation} />
+					<AutomationItem key={automation.name} automation={automation} />
 				))}
 			</ScrollView>
 		</View>
