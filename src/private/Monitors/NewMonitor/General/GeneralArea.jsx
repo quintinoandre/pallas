@@ -3,10 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../../components';
-import {
-	monitorType,
-	monitorInterval,
-} from '../../../../services/MonitorsService';
+import { monitorType,	monitorInterval } from '../../../../services';
 import MonitorInterval from './MonitorInterval';
 import MonitorType from './MonitorType';
 

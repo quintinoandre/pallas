@@ -5,11 +5,7 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow, CurrentPrice, WalletSummary } from '../../../components';
-import {
-	automationType,
-	indexType,
-	saveGrid,
-} from '../../../services/AutomationsService';
+import { automationType, indexType, saveGrid } from '../../../services';
 import GeneralArea from './GeneralArea';
 import GridArea from './GridArea';
 

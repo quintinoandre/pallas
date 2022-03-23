@@ -1,4 +1,4 @@
-import { orderStatus, orderSide } from './services/OrdersService';
+import { orderStatus, orderSide } from './services';
 
 function getColorByOrderStatus(status, theme) {
 	switch (status) {

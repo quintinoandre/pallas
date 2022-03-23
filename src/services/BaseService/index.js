@@ -34,4 +34,4 @@ export function configBaseService(navigator) {
 	);
 }
 
-export default axios;
+export { axios };

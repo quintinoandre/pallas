@@ -4,7 +4,7 @@ import { FAB } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { getMonitors } from '../../services/MonitorsService';
+import { getMonitors } from '../../services';
 import MonitorItem from './MonitorItem';
 
 const styles = StyleSheet.create({

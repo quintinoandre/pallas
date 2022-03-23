@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { StyleSheet } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 
-import { orderSide } from '../../services/OrdersService';
+import { orderSide } from '../../services';
 
 const styles = StyleSheet.create({ group: { height: 30 } });
 

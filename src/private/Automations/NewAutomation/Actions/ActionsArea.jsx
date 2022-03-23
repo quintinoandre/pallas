@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
-import { actionType } from '../../../../services/AutomationsService';
+import { actionType } from '../../../../services';
 import ActionBuilder from './ActionBuilder';
 
 const styles = StyleSheet.create({

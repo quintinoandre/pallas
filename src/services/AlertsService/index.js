@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { getUserAlerts } from './SettingsService';
+import { getUserAlerts } from '../SettingsService';
 
 const alertType = {
 	error: 'error',

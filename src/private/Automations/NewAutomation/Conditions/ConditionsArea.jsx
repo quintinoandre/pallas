@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
-import { getIndexes } from '../../../../services/BeholderService';
+import { getIndexes } from '../../../../services';
 import ConditionBuilder from './ConditionBuilder';
 
 const styles = StyleSheet.create({

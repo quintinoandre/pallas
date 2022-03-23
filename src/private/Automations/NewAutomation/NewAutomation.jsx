@@ -5,7 +5,7 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
-import { saveAutomation } from '../../../services/AutomationsService';
+import { saveAutomation } from '../../../services';
 import ActionsArea from './Actions/ActionsArea';
 import ConditionsArea from './Conditions/ConditionsArea';
 import GeneralArea from './GeneralArea';

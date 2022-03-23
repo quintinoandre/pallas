@@ -4,7 +4,7 @@ import { useTheme, FAB } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { deleteAllAlerts, getAlerts } from '../../services/AlertsService';
+import { deleteAllAlerts, getAlerts } from '../../services';
 import AlertItem from './AlertItem';
 
 const styles = StyleSheet.create({

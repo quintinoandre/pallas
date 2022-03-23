@@ -4,7 +4,7 @@ import { useTheme, Badge } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { hasAlerts } from '../../services/AlertsService';
+import { hasAlerts } from '../../services';
 
 const styles = StyleSheet.create({
 	badge: { position: 'absolute', top: 8, right: 20 },

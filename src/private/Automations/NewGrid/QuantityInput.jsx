@@ -5,7 +5,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { quantityType } from '../../../services/AutomationsService';
+import { quantityType } from '../../../services';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputIOS: {

@@ -11,7 +11,7 @@ import {
 import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { searchSymbols } from '../../services/SymbolsService';
+import { searchSymbols } from '../../services';
 
 const styles = StyleSheet.create({
 	button: { color: 'black' },

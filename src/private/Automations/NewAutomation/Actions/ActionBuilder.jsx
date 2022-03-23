@@ -4,10 +4,12 @@ import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { actionType } from '../../../../services/AutomationsService';
-import { getAllOrderTemplates } from '../../../../services/OrderTemplatesService';
-import { getSymbol } from '../../../../services/SymbolsService';
-import { getWithdrawTemplates } from '../../../../services/WithdrawTemplatesService';
+import {
+	actionType,
+	getAllOrderTemplates,
+	getSymbol,
+	getWithdrawTemplates,
+} from '../../../../services';
 import ActionSelect from './ActionSelect';
 import TemplateSelect from './TemplateSelect';
 

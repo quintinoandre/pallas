@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { ActivityIndicator } from 'react-native';
 
-import { doLogout } from '../../services/AuthService';
+import { doLogout } from '../../services';
 
 /**
  * props:

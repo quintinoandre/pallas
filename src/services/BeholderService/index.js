@@ -1,6 +1,6 @@
 import { REACT_APP_API_URL as API_URL } from '@env';
 
-import axios from './BaseService';
+import { axios } from '../BaseService';
 
 async function getMemoryIndex(symbol, index, interval = '') {
 	const getMemoryIndexUrl = `${API_URL}/beholder/memory/${symbol}/${index}/${interval}`;

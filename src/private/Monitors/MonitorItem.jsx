@@ -9,7 +9,7 @@ import {
 	startMonitor,
 	stopMonitor,
 	deleteMonitor,
-} from '../../services/MonitorsService';
+} from '../../services';
 
 const styles = StyleSheet.create({
 	content: { marginLeft: 10 },

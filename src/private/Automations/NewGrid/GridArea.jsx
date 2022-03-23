@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { ListItem, useTheme } from 'react-native-elements';
 
 import { Block } from '../../../components';
-import { orderSide } from '../../../services/OrdersService';
+import { orderSide } from '../../../services';
 
 const styles = StyleSheet.create({
 	row: { flexDirection: 'row', flex: 1 },

@@ -3,7 +3,7 @@ import { ScrollView, StyleSheet, Text, View } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components/SwitchInput';
-import { automationType } from '../../../services/AutomationsService';
+import { automationType } from '../../../services';
 import ScheduleInput from './ScheduleInput';
 
 const styles = StyleSheet.create({

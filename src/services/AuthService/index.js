@@ -1,7 +1,7 @@
 import { REACT_APP_API_URL as API_URL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import axios from './BaseService';
+import { axios } from '../BaseService';
 
 async function doLogin(email, password) {
 	const doLoginUrl = `${API_URL}/login`;

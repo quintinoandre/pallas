@@ -16,7 +16,7 @@ import {
 	orderStatus,
 	syncOrder,
 	cancelOrder,
-} from '../../services/OrdersService';
+} from '../../services';
 import { getColorByOrderStatus, getColorByOrderSide } from '../../Utils';
 
 import 'intl';

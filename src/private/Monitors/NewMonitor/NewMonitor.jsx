@@ -5,11 +5,7 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
-import {
-	monitorType,
-	monitorInterval,
-	saveMonitor,
-} from '../../../services/MonitorsService';
+import { monitorType, monitorInterval, saveMonitor } from '../../../services';
 import GeneralArea from './General/GeneralArea';
 import IndexesArea from './Indexes/IndexesArea';
 

@@ -4,8 +4,7 @@ import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { getMemoryIndex } from '../../services/BeholderService';
-import { getSymbol } from '../../services/SymbolsService';
+import { getMemoryIndex, getSymbol } from '../../services';
 import { Block } from '../Block';
 
 const styles = StyleSheet.create({

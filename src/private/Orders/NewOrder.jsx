@@ -17,7 +17,7 @@ import {
 	SelectSide,
 	SelectType,
 } from '../../components';
-import { orderSide, orderType, placeOrder } from '../../services/OrdersService';
+import { orderSide, orderType, placeOrder } from '../../services';
 
 const styles = StyleSheet.create({
 	header: { flex: 0, height: 130, backgroundColor: '#ccc' },

@@ -9,7 +9,7 @@ import {
 import { useTheme } from 'react-native-elements';
 
 import { SelectFiat, NewOrderButton } from '../../components';
-import { getFullBalance } from '../../services/ExchangeService';
+import { getFullBalance } from '../../services';
 import WalletItem from './WalletItem';
 
 const styles = StyleSheet.create({

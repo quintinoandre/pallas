@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { FlatList, Text, View, StyleSheet } from 'react-native';
 
 import { NewOrderButton, SelectSymbol } from '../../components';
-import { getOrders } from '../../services/OrdersService';
+import { getOrders } from '../../services';
 import OrderItem from './OrderItem';
 
 const PAGE_SIZE = 10;

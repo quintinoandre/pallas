@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { getAnalysisIndexes } from '../../../../services/BeholderService';
+import { getAnalysisIndexes } from '../../../../services';
 
 const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {

@@ -10,7 +10,7 @@ import {
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { automationType } from '../../services/AutomationsService';
+import { automationType } from '../../services';
 
 const styles = StyleSheet.create({
 	overlay: { flex: 0, width: '90%' },

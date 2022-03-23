@@ -8,7 +8,7 @@ import {
 	startAutomation,
 	stopAutomation,
 	deleteAutomation,
-} from '../../services/AutomationsService';
+} from '../../services';
 import { getColorByAutomationStatus } from '../../Utils';
 
 const styles = StyleSheet.create({

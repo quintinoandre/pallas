@@ -5,7 +5,7 @@ import { useTheme, Input, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Toast } from '../../components';
-import { getSettings, updateSettings } from '../../services/SettingsService';
+import { getSettings, updateSettings } from '../../services';
 
 const styles = StyleSheet.create({
 	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },

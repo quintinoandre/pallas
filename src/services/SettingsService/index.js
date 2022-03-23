@@ -1,6 +1,6 @@
 import { REACT_APP_API_URL as API_URL } from '@env';
 
-import axios from './BaseService';
+import { axios } from '../BaseService';
 
 const settingsUrl = `${API_URL}/settings`;
 

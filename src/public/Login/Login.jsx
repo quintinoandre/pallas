@@ -21,9 +21,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import logo from '../../../assets/logo.png';
-import { doLogin } from '../../services/AuthService';
-import { configBaseService } from '../../services/BaseService';
-import { updateSettings } from '../../services/SettingsService';
+import { doLogin, updateSettings, configBaseService } from '../../services';
 
 const styles = StyleSheet.create({
 	logo: {

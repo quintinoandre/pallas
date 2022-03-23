@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, StyleSheet, Text, View } from 'react-native';
 
-import { getAutomations } from '../../services/AutomationsService';
+import { getAutomations } from '../../services';
 import AutomationItem from './AutomationItem';
 import NewAutomationButton from './NewAutomationButton';
 

@@ -1,6 +1,6 @@
 import { REACT_APP_API_URL as API_URL } from '@env';
 
-import axios from './BaseService';
+import { axios } from '../BaseService';
 
 async function searchSymbols(search) {
 	const searchSymbolsUrl = `${API_URL}/symbols/?search=${search}&page=1&pageSize=10&onlyFavorites=false`;

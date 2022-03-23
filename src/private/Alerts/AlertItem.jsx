@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 import { ListItem, Avatar, useTheme } from 'react-native-elements';
 
-import { alertType } from '../../services/AlertsService';
+import { alertType } from '../../services';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
