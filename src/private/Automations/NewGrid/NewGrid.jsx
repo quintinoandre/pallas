@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, StyleSheet, ActivityIndicator, Text } from 'react-native';
+import { View, ActivityIndicator, Text } from 'react-native';
 import { useTheme, Tab, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -8,13 +8,7 @@ import { HeaderRow, CurrentPrice, WalletSummary } from '../../../components';
 import { automationType, indexType, saveGrid } from '../../../services';
 import GeneralArea from './GeneralArea';
 import GridArea from './GridArea';
-
-const styles = StyleSheet.create({
-	header: { flex: 0, height: 120, backgroundColor: '#ccc' },
-	tabButton: { backgroundColor: '#ccc' },
-	tab: { backgroundColor: '#ccc', paddingBottom: 6 },
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { NewGridStyles as styles } from './styles';
 
 /**
  * props:

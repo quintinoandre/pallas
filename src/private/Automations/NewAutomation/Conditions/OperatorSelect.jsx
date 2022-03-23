@@ -1,10 +1,7 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { ButtonGroup } from 'react-native-elements';
 
-const styles = StyleSheet.create({
-	group: { height: 30 },
-});
+import { OperatorSelectStyles as styles } from './styles';
 
 /**
  * props:

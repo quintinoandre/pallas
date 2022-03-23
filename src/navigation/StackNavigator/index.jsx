@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import AlertsList from '../private/Alerts/AlertsList';
-import Login from '../public/Login/Login';
-import DrawerNavigator from './DrawerNavigator';
+import AlertsList from '../../private/Alerts/AlertsList';
+import Login from '../../public/Login/Login';
+import { DrawerNavigator } from '../DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -18,4 +18,4 @@ function StackNavigator() {
 	);
 }
 
-export default StackNavigator;
+export { StackNavigator };

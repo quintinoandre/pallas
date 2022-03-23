@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { View, ScrollView, StyleSheet } from 'react-native';
+import { View, ScrollView } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components';
 import QuantityInput from './QuantityInput';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
-});
+import { GeneralAreaStyles as styles } from './styles';
 
 /**
  * props:

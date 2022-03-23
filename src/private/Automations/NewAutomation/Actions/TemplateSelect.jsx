@@ -1,29 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-const pickerSelectStyles = StyleSheet.create({
-	inputIOS: {
-		marginVertical: 15,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-	inputAndroid: {
-		marginVertical: 15,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-});
+import { TemplateSelectStyles as pickerSelectStyles } from './styles';
 
 /**
  * props:

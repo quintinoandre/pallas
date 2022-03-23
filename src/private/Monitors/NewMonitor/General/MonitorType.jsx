@@ -1,35 +1,14 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { monitorType } from '../../../../services';
-
-const pickerSelectStyles = StyleSheet.create({
-	inputIOS: {
-		marginVertical: 15,
-		height: 30,
-		paddingRight: 5,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-	inputAndroid: {
-		marginVertical: 15,
-		height: 30,
-		paddingRight: 5,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-});
-
-const styles = StyleSheet.create({
-	label: { color: 'grey', fontWeight: 'bold', fontSize: 16 },
-});
+import {
+	MonitorTypePickerSelectStyles as pickerSelectStyles,
+	MonitorTypeStyles as styles,
+} from './styles';
 
 /**
  * props:

@@ -1,27 +1,10 @@
 import React from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { ListItem, useTheme } from 'react-native-elements';
 
 import { Block } from '../../../components';
 import { orderSide } from '../../../services';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', flex: 1 },
-	column: {
-		flexDirection: 'column',
-		flex: 1,
-		marginTop: 10,
-		paddingHorizontal: 5,
-	},
-	block: {
-		height: 30,
-		flex: 0,
-		alignItems: 'center',
-		paddingHorizontal: 5,
-		marginHorizontal: 0,
-	},
-	columnTitle: { fontWeight: 'bold' },
-});
+import { GridAreaStyles as styles } from './styles';
 
 /**
  * props:

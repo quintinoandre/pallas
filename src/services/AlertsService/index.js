@@ -47,11 +47,4 @@ async function deleteAllAlerts() {
 	return AsyncStorage.removeItem('alerts');
 }
 
-export {
-	alertType,
-	saveAlert,
-	loadAlerts,
-	getAlerts,
-	hasAlerts,
-	deleteAllAlerts,
-};
+export { alertType, saveAlert, getAlerts, hasAlerts, deleteAllAlerts };

@@ -1,21 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Input } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import IndexSelect from './IndexSelect';
-
-const styles = StyleSheet.create({
-	row: {
-		flexDirection: 'row',
-		width: '100%',
-		flex: 0,
-		height: 60,
-		marginBottom: 10,
-	},
-	flex: { flex: 1, paddingTop: 15 },
-});
+import { VariableInputStyles as styles } from './styles';
 
 /**
  * props:

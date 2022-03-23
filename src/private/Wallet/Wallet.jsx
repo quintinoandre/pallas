@@ -1,23 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import {
-	View,
-	StyleSheet,
-	Text,
-	ActivityIndicator,
-	ScrollView,
-} from 'react-native';
+import { View, Text, ActivityIndicator, ScrollView } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SelectFiat, NewOrderButton } from '../../components';
 import { getFullBalance } from '../../services';
+import { WalletStyles as styles } from './styles';
 import WalletItem from './WalletItem';
-
-const styles = StyleSheet.create({
-	page: { flexDirection: 'column', flex: 1 },
-	header: { flexDirection: 'row', flex: 0, height: 40 },
-	estimate: { margin: 10, fontSize: 16, paddingLeft: 14 },
-	list: { marginTop: 10 },
-});
 
 /**
  * props:

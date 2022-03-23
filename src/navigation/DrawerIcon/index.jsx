@@ -10,4 +10,4 @@ function DrawerIcon({ ...props }) {
 	return <Icon name={props.name} size={23} color="#9CA3AF" />;
 }
 
-export default DrawerIcon;
+export { DrawerIcon };

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -10,13 +10,7 @@ import {
 	stopMonitor,
 	deleteMonitor,
 } from '../../services';
-
-const styles = StyleSheet.create({
-	content: { marginLeft: 10 },
-	subtitleView: { marginTop: 10, flexDirection: 'row' },
-	subtitle: { color: 'gray', fontSize: 10 },
-	icon: { paddingLeft: 45 },
-});
+import { MonitorItemStyles as styles } from './styles';
 
 /**
  * props:

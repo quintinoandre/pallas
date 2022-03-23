@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -10,13 +10,7 @@ import {
 	deleteAutomation,
 } from '../../services';
 import { getColorByAutomationStatus } from '../../Utils';
-
-const styles = StyleSheet.create({
-	subtitleView: { marginTop: 5, flexDirection: 'row' },
-	subtitle: { color: 'gray', fontSize: 10 },
-	content: { marginLeft: 10 },
-	icon: { paddingLeft: 45 },
-});
+import { AutomationItemStyles as styles } from './styles';
 
 /**
  * props:

@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components/SwitchInput';
 import { automationType } from '../../../services';
 import ScheduleInput from './ScheduleInput';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
-});
+import { GeneralAreaStyles as styles } from './styles';
 
 /**
  * props:

@@ -1,47 +1,17 @@
 import React, { useEffect, useState } from 'react';
-import {
-	Text,
-	View,
-	StyleSheet,
-	ScrollView,
-	ActivityIndicator,
-} from 'react-native';
+import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 import { useTheme, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../../components';
-import {
-	getOrder,
-	orderStatus,
-	syncOrder,
-	cancelOrder,
-} from '../../services';
+import { getOrder, orderStatus, syncOrder, cancelOrder } from '../../services';
 import { getColorByOrderStatus, getColorByOrderSide } from '../../Utils';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
 
-const styles = StyleSheet.create({
-	header: {
-		flexDirection: 'row',
-		flex: 0,
-		height: 60,
-		backgroundColor: '#ccc',
-		alignItems: 'center',
-	},
-	p: {
-		marginTop: 10,
-		paddingRight: 10,
-		flexDirection: 'row',
-		flex: 0,
-		height: 30,
-	},
-	status: { color: 'white', marginLeft: 10, fontSize: 10 },
-	row: { flexDirection: 'row', alignItems: 'center' },
-	bold: { fontWeight: 'bold', marginLeft: 10 },
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { OrderViewStyles as styles } from './styles';
 
 /**
  * props:

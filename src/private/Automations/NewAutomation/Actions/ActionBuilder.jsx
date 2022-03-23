@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, StyleSheet, View } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -11,6 +11,7 @@ import {
 	getWithdrawTemplates,
 } from '../../../../services';
 import ActionSelect from './ActionSelect';
+import { ActionBuilderStyles } from './styles';
 import TemplateSelect from './TemplateSelect';
 
 /**
@@ -90,14 +91,7 @@ function ActionBuilder({ ...props }) {
 		setShowBuilder(false);
 	}
 
-	const styles = StyleSheet.create({
-		build: {
-			marginVertical: 15,
-			height: type && type.indexOf('ALERT') === -1 ? 220 : 150,
-			flex: 0,
-		},
-		collapsed: { marginVertical: 15, height: 80, flex: 0 },
-	});
+	const styles = ActionBuilderStyles(type);
 
 	function renderSelect() {
 		if (!type || type.indexOf('ALERT') !== -1) return <></>;

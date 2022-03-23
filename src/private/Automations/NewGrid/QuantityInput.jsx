@@ -1,37 +1,15 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Input } from 'react-native-elements';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { quantityType } from '../../../services';
-
-const pickerSelectStyles = StyleSheet.create({
-	inputIOS: {
-		marginVertical: 15,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		fontWeight: 'bold',
-		color: 'black',
-		alignItems: 'stretch',
-	},
-	inputAndroid: {
-		marginVertical: 15,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		fontWeight: 'bold',
-		color: 'black',
-		alignItems: 'stretch',
-	},
-});
-
-const styles = StyleSheet.create({
-	row: { width: '100%', flexDirection: 'row' },
-	label: { fontWeight: 'bold', color: 'grey', paddingLeft: 10, fontSize: 16 },
-});
+import {
+	QuantityInputPickerSelectStyles as pickerSelectStyles,
+	QuantityInputStyles as styles,
+} from './styles';
 
 /**
  * props:

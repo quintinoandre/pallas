@@ -1,13 +1,9 @@
 import React from 'react';
-import { StyleSheet, Text } from 'react-native';
+import { Text } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { Block } from '../Block';
-
-const styles = StyleSheet.create({
-	block: { alignItems: 'center' },
-	bold: { fontWeight: 'bold', color: 'white' },
-});
+import { styles } from './styles';
 
 /**
  * props:

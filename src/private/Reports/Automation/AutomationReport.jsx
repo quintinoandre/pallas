@@ -1,12 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, StyleSheet, Text, View } from 'react-native';
+import { ScrollView, Text, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import AutomationItem from './AutomationItem';
-
-const styles = StyleSheet.create({
-	automations: { width: '95%' },
-});
+import { AutomationReportStyles as styles } from './styles';
 
 /**
  * props:

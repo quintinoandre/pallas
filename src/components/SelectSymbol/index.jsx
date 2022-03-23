@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, View, ActivityIndicator } from 'react-native';
+import { Text, View, ActivityIndicator } from 'react-native';
 import {
 	useTheme,
 	Input,
@@ -12,13 +12,7 @@ import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import { searchSymbols } from '../../services';
-
-const styles = StyleSheet.create({
-	button: { color: 'black' },
-	overlay: { flex: 0, width: '90%', height: '75%' },
-	closeButton: { paddingRight: 0, marginRight: 0 },
-	list: { flex: 1, width: '100%' },
-});
+import { styles } from './styles';
 
 /**
  * props:

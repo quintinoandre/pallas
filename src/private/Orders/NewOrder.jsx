@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import {
-	View,
-	StyleSheet,
-	ScrollView,
-	Text,
-	ActivityIndicator,
-} from 'react-native';
+import { View, ScrollView, Text, ActivityIndicator } from 'react-native';
 import { useTheme, Input, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -18,15 +12,7 @@ import {
 	SelectType,
 } from '../../components';
 import { orderSide, orderType, placeOrder } from '../../services';
-
-const styles = StyleSheet.create({
-	header: { flex: 0, height: 130, backgroundColor: '#ccc' },
-	row: { flex: 1, flexDirection: 'row', alignItems: 'center' },
-	totalView: { marginLeft: 12, paddingBottom: 10 },
-	totalTitle: { fontWeight: 'bold', fontSize: 16, color: 'grey' },
-	total: { marginTop: 10, fontSize: 18 },
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { NewOrderStyles as styles } from './styles';
 
 /**
  * props:

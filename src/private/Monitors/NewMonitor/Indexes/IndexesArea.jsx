@@ -1,13 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
 import IndexBuilder from './IndexBuilder';
-
-const styles = StyleSheet.create({
-	list: { width: '100%', flex: 1, paddingHorizontal: 20 },
-});
+import { IndexesAreaStyles as styles } from './styles';
 
 /**
  * props:

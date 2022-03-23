@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { InfoBlock } from '../../components';
@@ -7,10 +7,7 @@ import { getDayTradeReport, getOrdersReport } from '../../services';
 import AutomationReport from './Automation/AutomationReport';
 import ChartReport from './ChartReport';
 import FilterReport from './FilterReport';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', marginHorizontal: 6 },
-});
+import { ReportsStyles as styles } from './styles';
 
 function Reports() {
 	const { theme } = useTheme();

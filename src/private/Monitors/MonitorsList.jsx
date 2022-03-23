@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { FAB } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { getMonitors } from '../../services';
 import MonitorItem from './MonitorItem';
-
-const styles = StyleSheet.create({
-	emptyList: { flex: 1, alignItems: 'center', marginTop: 10 },
-});
+import { MonitorsListStyles as styles } from './styles';
 
 /**
  * props:

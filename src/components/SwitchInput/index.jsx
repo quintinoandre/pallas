@@ -1,11 +1,8 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { Switch, useTheme } from 'react-native-elements';
 
-const styles = StyleSheet.create({
-	view: { width: '50%', flexDirection: 'column', alignItems: 'flex-start' },
-	label: { marginBottom: 10 },
-});
+import { styles } from './styles';
 
 /**
  * props:

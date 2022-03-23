@@ -1,16 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { Overlay, Button, FAB } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { SelectQuote, DateInput } from '../../components';
 import { thirtyDaysAgo } from '../../services';
-
-const styles = StyleSheet.create({
-	overlay: { flex: 0, width: '90%', height: 310 },
-	button: { paddingHorizontal: 10, paddingTop: 10 },
-});
+import { FilterReportStyles as styles } from './styles';
 
 /**
  * props:

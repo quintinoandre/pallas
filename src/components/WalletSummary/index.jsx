@@ -1,16 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { getMemoryIndex, getSymbol } from '../../services';
 import { Block } from '../Block';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', marginTop: 10 },
-	coin: { fontWeight: 'bold', color: '#fff', marginStart: 3 },
-});
+import { styles } from './styles';
 
 /**
  * props:

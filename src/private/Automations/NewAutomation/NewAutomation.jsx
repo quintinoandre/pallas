@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, Text, View } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { useTheme, Tab, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -9,13 +9,7 @@ import { saveAutomation } from '../../../services';
 import ActionsArea from './Actions/ActionsArea';
 import ConditionsArea from './Conditions/ConditionsArea';
 import GeneralArea from './GeneralArea';
-
-const styles = StyleSheet.create({
-	header: { flex: 0, height: 40, backgroundColor: '#ccc' },
-	tabButton: { backgroundColor: '#ccc' },
-	tab: { backgroundColor: '#ccc', paddingBottom: 6 },
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { NewAutomationStyles as styles } from './styles';
 
 /**
  * props:

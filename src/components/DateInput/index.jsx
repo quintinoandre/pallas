@@ -1,12 +1,9 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet } from 'react-native';
 import { Input } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-const styles = StyleSheet.create({
-	button: { paddingRight: 0, marginRight: 0 },
-});
+import { styles } from './styles';
 
 /**
  * props:

@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, ActivityIndicator, StyleSheet } from 'react-native';
+import { ScrollView, View, ActivityIndicator } from 'react-native';
 import { useTheme, Input, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Toast } from '../../components';
 import { getSettings, updateSettings } from '../../services';
-
-const styles = StyleSheet.create({
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { styles } from './styles';
 
 /**
  * props:

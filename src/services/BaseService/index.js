@@ -3,7 +3,7 @@ import axios from 'axios';
 import { ORIGIN } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-export function configBaseService(navigator) {
+function configBaseService(navigator) {
 	axios.interceptors.request.use(
 		async (config) => {
 			config.headers.Authorization = await AsyncStorage.getItem('token');
@@ -34,4 +34,4 @@ export function configBaseService(navigator) {
 	);
 }
 
-export { axios };
+export { axios, configBaseService };

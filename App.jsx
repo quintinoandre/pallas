@@ -5,8 +5,8 @@ import { SafeAreaProvider } from 'react-native-safe-area-context';
 
 import { NavigationContainer } from '@react-navigation/native';
 
-import StackNavigator from './src/navigation/StackNavigator';
-import { saveAlert } from './src/services/AlertsService';
+import { StackNavigator } from './src/navigation';
+import { saveAlert } from './src/services';
 import theme from './Theme';
 
 Notifications.setNotificationHandler({

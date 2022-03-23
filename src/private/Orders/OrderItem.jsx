@@ -1,16 +1,12 @@
 import React from 'react';
-import { View, StyleSheet, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { useTheme, ListItem, Avatar } from 'react-native-elements';
-
-import { getColorByOrderStatus } from '../../Utils';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
 
-const styles = StyleSheet.create({
-	subtitleView: { marginTop: 5, flexDirection: 'row' },
-	subtitle: { color: 'gray', fontSize: 10 },
-});
+import { getColorByOrderStatus } from '../../Utils';
+import { OrderItemStyles as styles } from './styles';
 
 /**
  * props:

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, Text, ActivityIndicator } from 'react-native';
+import { Text, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-elements';
 import useWebSocket from 'react-use-websocket';
 
@@ -7,12 +7,7 @@ import { REACT_APP_BWS_URL } from '@env';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../Block';
-
-const styles = StyleSheet.create({
-	block: { marginHorizontal: 24, alignItems: 'center', flex: 0 },
-	text: { fontWeight: 'bold', color: 'white' },
-	icon: { marginLeft: 10 },
-});
+import { styles } from './styles';
 
 /**
  * props:

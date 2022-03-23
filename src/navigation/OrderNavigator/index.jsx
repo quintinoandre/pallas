@@ -2,9 +2,9 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import NewOrder from '../private/Orders/NewOrder';
-import OrdersList from '../private/Orders/OrdersList';
-import OrdersView from '../private/Orders/OrderView';
+import NewOrder from '../../private/Orders/NewOrder';
+import OrdersList from '../../private/Orders/OrdersList';
+import OrdersView from '../../private/Orders/OrderView';
 
 const Stack = createStackNavigator();
 
@@ -21,4 +21,4 @@ function OrderNavigator() {
 	);
 }
 
-export default OrderNavigator;
+export { OrderNavigator };

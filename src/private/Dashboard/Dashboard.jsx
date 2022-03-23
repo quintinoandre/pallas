@@ -1,5 +1,5 @@
 import React, { useState, useMemo } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import useWebSocket from 'react-use-websocket';
 
 import { REACT_APP_BWS_URL } from '@env';
@@ -7,18 +7,9 @@ import { useIsFocused } from '@react-navigation/native';
 
 import { NewOrderButton, SelectSymbol, WalletSummary } from '../../components';
 import Book from './Book';
+import { DashboardStyles as styles } from './styles';
 import SymbolChart from './SymbolChart';
 import Ticker from './Ticker';
-
-const styles = StyleSheet.create({
-	row: {
-		flex: 1,
-		flexDirection: 'row',
-		paddingHorizontal: 3,
-		paddingBottom: 10,
-		marginTop: 10,
-	},
-});
 
 /**
  * props:

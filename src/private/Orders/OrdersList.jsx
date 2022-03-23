@@ -1,15 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { FlatList, Text, View, StyleSheet } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 import { NewOrderButton, SelectSymbol } from '../../components';
 import { getOrders } from '../../services';
 import OrderItem from './OrderItem';
+import { OrdersListStyles as styles } from './styles';
 
 const PAGE_SIZE = 10;
-
-const styles = StyleSheet.create({
-	emptyList: { flex: 1, alignItems: 'center', marginTop: 10 },
-});
 
 /**
  * props:

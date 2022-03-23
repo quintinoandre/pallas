@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { useTheme, Button, Input } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import MonitorIndex from './MonitorIndex';
+import { IndexBuilderStyles } from './styles';
 
 /**
  * props:
@@ -23,11 +24,7 @@ function IndexBuilder({ ...props }) {
 		setIndex({ ...index, key: event.key });
 	}
 
-	const styles = StyleSheet.create({
-		collapsed: { marginVertical: 15, height: 80, flex: 0 },
-		build: { marginVertical: 15, height: analysis.params ? 220 : 125, flex: 0 },
-		button: { backgroundColor: theme.colors.secondary, marginHorizontal: 10 },
-	});
+	const styles = IndexBuilderStyles(analysis);
 
 	function onPress(_event) {
 		setShowBuilder(false);

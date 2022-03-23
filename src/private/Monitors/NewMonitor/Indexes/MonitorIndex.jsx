@@ -1,31 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, StyleSheet } from 'react-native';
+import { ActivityIndicator } from 'react-native';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { getAnalysisIndexes } from '../../../../services';
-
-const pickerSelectStyles = StyleSheet.create({
-	inputAndroid: {
-		marginBottom: 10,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-	inputIOS: {
-		marginBottom: 10,
-		height: 30,
-		paddingHorizontal: 10,
-		fontSize: 16,
-		alignItems: 'stretch',
-		fontWeight: 'bold',
-		color: 'black',
-	},
-});
+import { MonitorIndexStyles as pickerSelectStyles } from './styles';
 
 /**
  * props:

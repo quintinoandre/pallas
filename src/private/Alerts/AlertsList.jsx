@@ -1,24 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 import { useTheme, FAB } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { deleteAllAlerts, getAlerts } from '../../services';
 import AlertItem from './AlertItem';
-
-const styles = StyleSheet.create({
-	header: {
-		flexDirection: 'row',
-		alignItems: 'center',
-		flex: 0,
-		height: 90,
-		paddingTop: 40,
-		backgroundColor: '#ccc',
-	},
-	headerTitle: { fontWeight: 'bold', fontSize: 16 },
-	emptyList: { flex: 1, alignItems: 'center', marginTop: 10 },
-});
+import { AlertsListStyles as styles } from './styles';
 
 /**
  * props:

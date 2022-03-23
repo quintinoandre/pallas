@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../../components';
-import { monitorType,	monitorInterval } from '../../../../services';
+import { monitorType, monitorInterval } from '../../../../services';
 import MonitorInterval from './MonitorInterval';
 import MonitorType from './MonitorType';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', alignItems: 'center', paddingLeft: 5 },
-});
+import { GeneralAreaStyles as styles } from './styles';
 
 /**
  * props:

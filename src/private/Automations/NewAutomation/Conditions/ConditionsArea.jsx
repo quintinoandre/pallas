@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
 import { getIndexes } from '../../../../services';
 import ConditionBuilder from './ConditionBuilder';
-
-const styles = StyleSheet.create({
-	list: { flex: 1, width: '100%', paddingHorizontal: 20 },
-});
+import { ConditionsAreaStyles as styles } from './styles';
 
 /**
  * props:

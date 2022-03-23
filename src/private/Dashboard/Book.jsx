@@ -1,21 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { ActivityIndicator, Text, View, StyleSheet } from 'react-native';
+import { ActivityIndicator, Text, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../../components';
-
-const styles = StyleSheet.create({
-	column: {
-		flex: 1,
-		flexDirection: 'column',
-		paddingLeft: 10,
-		paddingBottom: 10,
-	},
-	p: { paddingTop: 10 },
-	bold: { fontWeight: 'bold' },
-});
+import { BookStyles as styles } from './styles';
 
 /**
  * props:

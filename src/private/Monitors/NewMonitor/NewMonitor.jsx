@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { ActivityIndicator, StyleSheet, View, Text } from 'react-native';
+import { ActivityIndicator, View, Text } from 'react-native';
 import { useTheme, Tab, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -8,13 +8,7 @@ import { HeaderRow } from '../../../components';
 import { monitorType, monitorInterval, saveMonitor } from '../../../services';
 import GeneralArea from './General/GeneralArea';
 import IndexesArea from './Indexes/IndexesArea';
-
-const styles = StyleSheet.create({
-	header: { flex: 0, height: 40, backgroundColor: '#ccc' },
-	tabButton: { backgroundColor: '#ccc' },
-	tab: { paddingBottom: 6, backgroundColor: '#ccc' },
-	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
-});
+import { styles } from './styles';
 
 /**
  * props:

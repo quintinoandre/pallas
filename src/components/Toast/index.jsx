@@ -1,15 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { Text, View, StyleSheet } from 'react-native';
+import { Text, View } from 'react-native';
 import { useTheme, Overlay, Button } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-const styles = StyleSheet.create({
-	logo: {
-		alignItems: 'center',
-		margin: 10,
-	},
-});
+import { styles } from './styles';
 
 /**
  * props:
@@ -31,7 +26,7 @@ function Toast({ ...props }) {
 		setVisible(props.visible);
 	}, [props.type, props.text, props.visible]);
 
-	function onDismiss(event) {
+	function onDismiss(_event) {
 		setVisible(false);
 
 		if (props.onDismiss) props.onDismiss();

@@ -1,15 +1,12 @@
 import React, { useEffect, useState } from 'react';
-import { FlatList, StyleSheet, Text, View } from 'react-native';
+import { FlatList, Text, View } from 'react-native';
 
 import { getAutomations } from '../../services';
 import AutomationItem from './AutomationItem';
 import NewAutomationButton from './NewAutomationButton';
+import { AutomationsListStyles as styles } from './styles';
 
 const PAGE_SIZE = 10;
-
-const styles = StyleSheet.create({
-	emptyList: { flex: 1, alignItems: 'center', marginTop: 10 },
-});
 
 /**
  * props:

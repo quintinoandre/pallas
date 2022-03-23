@@ -1,17 +1,13 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import IndexSelect from './IndexSelect';
 import OperatorSelect from './OperatorSelect';
+import { ConditionBuilderStyles as styles } from './styles';
 import VariableInput from './VariableInput';
-
-const styles = StyleSheet.create({
-	build: { marginVertical: 15, height: 240, flex: 0 },
-	collapsed: { marginVertical: 15, height: 80, flex: 0 },
-});
 
 /**
  * props:

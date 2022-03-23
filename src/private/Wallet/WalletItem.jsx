@@ -1,11 +1,8 @@
 import React from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ListItem } from 'react-native-elements';
 
-const styles = StyleSheet.create({
-	subtitleView: { marginTop: 5, flexDirection: 'row' },
-	subtitle: { color: 'grey', fontSize: 10 },
-});
+import { WalletItemStyles as styles } from './styles';
 
 /**
  * props:

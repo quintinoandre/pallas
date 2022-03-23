@@ -1,14 +1,11 @@
 import React, { useEffect, useState } from 'react';
-import { ScrollView, StyleSheet, View } from 'react-native';
+import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
 import { actionType } from '../../../../services';
 import ActionBuilder from './ActionBuilder';
-
-const styles = StyleSheet.create({
-	list: { flex: 1, width: '100%', paddingHorizontal: 20 },
-});
+import { ActionsAreaStyles as styles } from './styles';
 
 /**
  * props:

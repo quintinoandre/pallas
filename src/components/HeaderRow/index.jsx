@@ -1,14 +1,10 @@
 import React, { useEffect, useState } from 'react';
-import { StyleSheet, View } from 'react-native';
+import { View } from 'react-native';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { SelectSymbol } from '../SelectSymbol';
-
-const styles = StyleSheet.create({
-	row: { flexDirection: 'row', alignItems: 'center' },
-	view: { flex: 1, alignItems: 'center' },
-});
+import { styles } from './styles';
 
 /**
  * props:

@@ -1,26 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import { StyleSheet } from 'react-native';
 import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-const pickerSelectStyles = StyleSheet.create({
-	inputAndroid: {
-		marginTop: 10,
-		height: 30,
-		paddingHorizontal: 24,
-		fontSize: 16,
-		alignItems: 'stretch',
-	},
-	inputIOS: {
-		marginTop: 10,
-		height: 30,
-		paddingHorizontal: 24,
-		fontSize: 16,
-		alignItems: 'stretch',
-	},
-});
+import { pickerSelectStyles } from './styles';
 
 /**
  * props:

@@ -2,7 +2,6 @@ import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import React, { useState, useEffect } from 'react';
 import {
-	StyleSheet,
 	Text,
 	View,
 	ScrollView,
@@ -22,14 +21,7 @@ import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import logo from '../../../assets/logo.png';
 import { doLogin, updateSettings, configBaseService } from '../../services';
-
-const styles = StyleSheet.create({
-	logo: {
-		width: 100,
-		height: 100,
-		marginTop: 50,
-	},
-});
+import { styles } from './styles';
 
 /**
  * props:

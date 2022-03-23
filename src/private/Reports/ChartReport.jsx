@@ -1,14 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import {
-	Text,
-	StyleSheet,
-	View,
-	Dimensions,
-	ScrollView,
-	ActivityIndicator,
-} from 'react-native';
+import { Text, View, ScrollView, ActivityIndicator } from 'react-native';
 import { LineChart } from 'react-native-chart-kit';
 import { useTheme } from 'react-native-elements';
+
+import { ChartReportStyles as styles } from './styles';
 
 /**
  * props:
@@ -22,12 +17,6 @@ function CharReport({ ...props }) {
 	useEffect(() => {
 		setData(props.data);
 	}, [props.data]);
-
-	const styles = StyleSheet.create({
-		view: { flex: 0, height: 305, width: Dimensions.get('window').width - 20 },
-		chartStyle: { borderRadius: 16, padding: 5 },
-		containerStyle: { marginVertical: 8, borderRadius: 8 },
-	});
 
 	function getProfitColor(profit) {
 		if (profit > 0) return theme.colors.success;

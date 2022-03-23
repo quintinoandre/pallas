@@ -1,23 +1,12 @@
 import React, { useState } from 'react';
-import { StyleSheet, Text, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { ListItem, Avatar, useTheme } from 'react-native-elements';
-
-import { alertType } from '../../services';
 
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
 
-const styles = StyleSheet.create({
-	content: { marginLeft: 10 },
-	subtitleView: { marginTop: 5, flexDirection: 'row' },
-	subtitle: { color: 'grey', fontSize: 10 },
-	fullView: {
-		paddingTop: 10,
-		paddingBottom: 20,
-		paddingHorizontal: 60,
-		backgroundColor: '#fff',
-	},
-});
+import { alertType } from '../../services';
+import { AlertItemStyles as styles } from './styles';
 
 /**
  * props:
