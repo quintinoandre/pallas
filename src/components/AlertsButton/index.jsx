@@ -14,7 +14,7 @@ const styles = StyleSheet.create({
  * props:
  * - navigation
  */
-function AlertButton({ ...props }) {
+function AlertsButton({ ...props }) {
 	const { theme } = useTheme();
 
 	const [showBadge, setShowBadge] = useState(false);
@@ -51,4 +51,4 @@ function AlertButton({ ...props }) {
 	);
 }
 
-export { AlertButton };
+export { AlertsButton };

@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
-import { AlertButton } from '../components';
+import { AlertsButton } from '../components';
 import Dashboard from '../private/Dashboard/Dashboard';
 import Logout from '../private/Logout/Logout';
 import Reports from '../private/Reports/Reports';
@@ -21,12 +21,16 @@ const Drawer = createDrawerNavigator();
  * - route
  */
 function DrawerNavigator({ ...props }) {
+	const alertsButton = useMemo(() => {
+		return <AlertsButton navigation={props.navigation} />;
+	}, [props.navigation]);
+
 	return (
 		<Drawer.Navigator
 			initialRouteName="Dashboard"
 			screenOptions={{
 				headerStyle: { backgroundColor: '#1F2937' },
-				headerRight: () => <AlertButton navigation={props.navigation} />,
+				headerRight: () => alertsButton,
 				headerTintColor: '#fff',
 				drawerStyle: { backgroundColor: '#1F2937' },
 				drawerLabelStyle: { color: '#fff' },

@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useMemo } from 'react';
 import { ScrollView, StyleSheet, View } from 'react-native';
 import useWebSocket from 'react-use-websocket';
 
 import { REACT_APP_BWS_URL } from '@env';
+import { useIsFocused } from '@react-navigation/native';
 
 import { NewOrderButton, SelectSymbol, WalletSummary } from '../../components';
 import Book from './Book';
@@ -25,6 +26,8 @@ const styles = StyleSheet.create({
  * - route
  */
 function Dashboard({ ...props }) {
+	const isFocused = useIsFocused();
+
 	const [symbol, setSymbol] = useState('BTCUSDT');
 	const [data, setData] = useState(null);
 
@@ -32,12 +35,25 @@ function Dashboard({ ...props }) {
 		setSymbol(event);
 	}
 
+	const cachedComponents = useMemo(() => {
+		return (
+			<>
+				<SelectSymbol
+					symbol={symbol}
+					onSymbolChange={(event) => onSymbolChange(event)}
+				/>
+				<SymbolChart symbol={symbol} />
+				<WalletSummary symbol={symbol} header />
+			</>
+		);
+	}, [symbol]);
+
 	const { lastJsonMessage } = useWebSocket(
 		`${REACT_APP_BWS_URL}/${symbol.toLowerCase()}@ticker`,
 		{
 			onOpen: () => {},
 			onMessage: () => {
-				if (lastJsonMessage) {
+				if (lastJsonMessage && isFocused) {
 					setData({
 						priceChange: lastJsonMessage.p,
 						priceChangePercent: lastJsonMessage.P,
@@ -62,12 +78,7 @@ function Dashboard({ ...props }) {
 	return (
 		<>
 			<ScrollView>
-				<SelectSymbol
-					symbol={symbol}
-					onSymbolChange={(event) => onSymbolChange(event)}
-				/>
-				<SymbolChart symbol={symbol} />
-				<WalletSummary symbol={symbol} header />
+				{cachedComponents}
 				<View style={styles.row}>
 					<Ticker data={data} />
 					<Book data={data} />

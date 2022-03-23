@@ -4,6 +4,12 @@ import axios from './BaseService';
 
 const settingsUrl = `${API_URL}/settings`;
 
+async function getUserAlerts() {
+	const response = await axios.get(`${settingsUrl}/alerts`);
+
+	return response.data;
+}
+
 async function getSettings() {
 	const response = await axios.get(settingsUrl);
 
@@ -16,4 +22,4 @@ async function updateSettings(settings) {
 	return response.data;
 }
 
-export { getSettings, updateSettings };
+export { getUserAlerts, getSettings, updateSettings };
