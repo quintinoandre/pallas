@@ -23,6 +23,7 @@
 				"foregroundImage": "./assets/adaptive-icon.png",
 				"backgroundColor": "#FFFFFF"
 			},
+			"googleServicesFile": "./google-services.json",
 			"permissions": [],
 			"package": "pt.beholder.beholder"
 		},
