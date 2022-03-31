@@ -2,6 +2,7 @@
 	"expo": {
 		"name": "beholder",
 		"slug": "beholder",
+		"owner": "quintinoandre",
 		"version": "1.0.0",
 		"orientation": "portrait",
 		"icon": "./assets/icon.png",
