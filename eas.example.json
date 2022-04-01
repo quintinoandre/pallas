@@ -1,0 +1,14 @@
+{
+	"cli": {
+		"version": ">= 0.34.0"
+	},
+	"submit": {
+		"production": {
+			"ios": {
+				"appleId": "<APPLE EMAIL>",
+				"ascAppId": "<APPLE APP ID>",
+				"appleTeamId": "<APPLE TEAM ID>"
+			}
+		}
+	}
+}
