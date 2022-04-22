@@ -90,7 +90,9 @@ function Login({ ...props }) {
 				return;
 			}
 
-			token = (await Notifications.getExpoPushTokenAsync()).data;
+			const response = await Notifications.getExpoPushTokenAsync();
+
+			token = response.data;
 
 			AsyncStorage.setItem('push', token);
 		} else {
@@ -124,7 +126,7 @@ function Login({ ...props }) {
 				if (!pushToken || result.pushToken !== pushToken) {
 					pushToken = await registerForPushNotificationsAsync();
 
-					updateSettings({ pushToken });
+					await updateSettings({ pushToken });
 				}
 
 				clearScreen();

@@ -10,12 +10,19 @@ import { doLogout } from '../../services';
  */
 function Logout({ ...props }) {
 	useEffect(() => {
-		doLogout().then((_result) => {
-			props.navigation.navigate('Login', {
-				text: 'Logged out successfully!',
-				type: 'info',
-			});
-		});
+		doLogout()
+			.then((_result) =>
+				props.navigation.navigate('Login', {
+					text: 'Logged out successfully!',
+					type: 'info',
+				})
+			)
+			.catch((_error) =>
+				props.navigation.navigate('Login', {
+					text: 'Logged out successfully!',
+					type: 'info',
+				})
+			);
 	}, []);
 
 	return <ActivityIndicator />;

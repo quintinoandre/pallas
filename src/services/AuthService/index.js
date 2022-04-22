@@ -24,7 +24,7 @@ async function doLogout() {
 
 	await AsyncStorage.removeItem('token');
 
-	return response.data;
+	return response ? response.data : true;
 }
 
 export { doLogin, doLogout };
