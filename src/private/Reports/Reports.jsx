@@ -4,9 +4,9 @@ import { useTheme } from 'react-native-elements';
 
 import { InfoBlock } from '../../components';
 import { getDayTradeReport, getOrdersReport } from '../../services';
-import AutomationReport from './Automation/AutomationReport';
-import ChartReport from './ChartReport';
-import FilterReport from './FilterReport';
+import { AutomationReport } from './Automation/AutomationReport';
+import { ChartReport } from './ChartReport';
+import { FilterReport } from './FilterReport';
 import { ReportsStyles as styles } from './styles';
 
 function Reports() {
@@ -16,8 +16,8 @@ function Reports() {
 	const [filter, setFilter] = useState({ quote: 'USDT' });
 	const [isLoading, setIsLoading] = useState(false);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -38,8 +38,8 @@ function Reports() {
 
 				setIsLoading(false);
 			})
-			.catch((err) => {
-				errorHandling(err);
+			.catch((error) => {
+				errorHandling(error);
 
 				setIsLoading(false);
 			});
@@ -73,4 +73,4 @@ function Reports() {
 	);
 }
 
-export default Reports;
+export { Reports };

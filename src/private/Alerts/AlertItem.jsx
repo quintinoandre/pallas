@@ -5,7 +5,7 @@ import { ListItem, Avatar, useTheme } from 'react-native-elements';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
 
-import { alertType } from '../../services';
+import { ALERT_TYPE } from '../../enums';
 import { AlertItemStyles as styles } from './styles';
 
 /**
@@ -21,13 +21,13 @@ function AlertItem({ ...props }) {
 		let color = '';
 
 		switch (type) {
-			case alertType.error:
+			case ALERT_TYPE.error:
 				color = theme.colors.danger;
 				break;
-			case alertType.success:
+			case ALERT_TYPE.success:
 				color = theme.colors.success;
 				break;
-			case alertType.info:
+			case ALERT_TYPE.info:
 				color = theme.colors.info;
 				break;
 			default:
@@ -74,7 +74,7 @@ function AlertItem({ ...props }) {
 				</>
 			}
 			isExpanded={expanded}
-			onPress={(_event) => setExpanded(!expanded)}
+			onPress={() => setExpanded(!expanded)}
 			topDivider
 		>
 			<View style={styles.fullView}>

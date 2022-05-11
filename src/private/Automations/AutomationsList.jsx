@@ -2,8 +2,8 @@ import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
 
 import { getAutomations } from '../../services';
-import AutomationItem from './AutomationItem';
-import NewAutomationButton from './NewAutomationButton';
+import { AutomationItem } from './AutomationItem';
+import { NewAutomationButton } from './NewAutomationButton';
 import { AutomationsListStyles as styles } from './styles';
 
 const PAGE_SIZE = 10;
@@ -20,8 +20,8 @@ function AutomationsList({ ...props }) {
 	const [canLoadMore, setCanLoadMore] = useState(false);
 	const [refresh, setRefresh] = useState(0);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	function loadAutomations(page) {
@@ -36,10 +36,10 @@ function AutomationsList({ ...props }) {
 					setAutomations(automations);
 				}
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -91,15 +91,15 @@ function AutomationsList({ ...props }) {
 				initialNumToRender={PAGE_SIZE}
 				refreshing={isLoading}
 				ListEmptyComponent={emptyList}
-				onRefresh={(_event) => setRefresh(Date.now())}
-				onEndReached={(_event) => setCanLoadMore(true)}
+				onRefresh={() => setRefresh(Date.now())}
+				onEndReached={() => setCanLoadMore(true)}
 				onEndReachedThreshold={0.3}
-				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
+				onMomentumScrollEnd={canLoadMore && onEndReached}
 				renderItem={(obj) => (
 					<AutomationItem
 						automation={obj.item}
-						onPress={(_event) => viewDetails(obj.item)}
-						onRefresh={(_event) => setRefresh(Date.now())}
+						onPress={() => viewDetails(obj.item)}
+						onRefresh={() => setRefresh(Date.now())}
 					/>
 				)}
 				keyExtractor={(automation) => automation.id}
@@ -109,4 +109,4 @@ function AutomationsList({ ...props }) {
 	);
 }
 
-export default AutomationsList;
+export { AutomationsList };

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { useTheme, Badge } from 'react-native-elements';
+import { Badge, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -15,18 +15,14 @@ function AlertsButton({ ...props }) {
 
 	const [showBadge, setShowBadge] = useState(false);
 
-	function errorHandling(err) {
-		alert(err.message);
+	function errorHandling(error) {
+		alert(error.message);
 	}
 
 	useEffect(() => {
 		hasAlerts()
-			.then((result) => {
-				setShowBadge(result);
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then((result) => setShowBadge(result))
+			.catch((error) => errorHandling(error));
 	}, []);
 
 	return (
@@ -36,7 +32,7 @@ function AlertsButton({ ...props }) {
 				size={20}
 				color="white"
 				backgroundColor={theme.colors.primary}
-				onPress={(_event) => props.navigation.navigate('AlertsList')}
+				onPress={() => props.navigation.navigate('AlertsList')}
 			/>
 			{showBadge ? (
 				<Badge status="success" containerStyle={styles.badge} />

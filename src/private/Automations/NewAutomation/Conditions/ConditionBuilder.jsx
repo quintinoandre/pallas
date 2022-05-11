@@ -4,10 +4,10 @@ import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import IndexSelect from './IndexSelect';
-import OperatorSelect from './OperatorSelect';
+import { IndexSelect } from './IndexSelect';
+import { OperatorSelect } from './OperatorSelect';
 import { ConditionBuilderStyles as styles } from './styles';
-import VariableInput from './VariableInput';
+import { VariableInput } from './VariableInput';
 
 /**
  * props:
@@ -19,7 +19,7 @@ function ConditionBuilder({ ...props }) {
 
 	const [showBuilder, setShowBuilder] = useState(false);
 	const [indexes, setIndexes] = useState([]);
-	const [index, setIndex] = useState({ example: '', eval: '' });
+	const [indexState, setIndexState] = useState({ example: '', eval: '' });
 	const [operator, setOperator] = useState('==');
 	const [value, setValue] = useState('');
 
@@ -27,56 +27,51 @@ function ConditionBuilder({ ...props }) {
 		setIndexes(props.indexes || []);
 	}, [props.indexes]);
 
-	function onIndexChange(event) {
-		setIndex(event);
+	function onIndexChange(index) {
+		setIndexState(index);
 
-		setValue(event.example);
+		setValue(index.example);
 	}
 
-	function onPress(_event) {
-		if (!index.eval || !operator || value === undefined) return;
+	function onPress() {
+		if (!indexState.eval || !operator || value === undefined) return;
 
-		if (props.onAddCondition)
-			props.onAddCondition(`${index.eval}${operator}${value}`);
+		props.onAddCondition(`${indexState.eval}${operator}${value}`);
 
 		setShowBuilder(false);
 	}
 
 	return (
-		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
 			{showBuilder ? (
-				<View style={{ ...theme.inputContainer, ...styles.build }}>
+				<View style={{ ...styles.build, ...theme.inputContainer }}>
 					<IndexSelect
 						indexes={indexes}
 						onChange={(event) => onIndexChange(event)}
 					/>
 					<OperatorSelect onChange={(event) => setOperator(event)} />
 					<VariableInput
-						value={index.example}
+						value={indexState.example}
 						indexes={indexes}
 						onChange={(event) => setValue(event)}
 					/>
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{
+							...styles.button,
 							backgroundColor: theme.colors.secondary,
-							marginHorizontal: 10,
 						}}
 						title=" Add Condition"
-						onPress={(event) => onPress(event)}
+						onPress={onPress}
 					/>
 				</View>
 			) : (
-				<View style={{ ...theme.inputContainer, ...styles.collapsed }}>
+				<View style={{ ...styles.collapsed, ...theme.inputContainer }}>
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
-						buttonStyle={{
-							backgroundColor: theme.colors.secondary,
-							marginHorizontal: 10,
-						}}
+						buttonStyle={styles.button}
 						title=" Add Condition"
-						onPress={(_event) => setShowBuilder(true)}
+						onPress={() => setShowBuilder(true)}
 					/>
 				</View>
 			)}
@@ -84,4 +79,4 @@ function ConditionBuilder({ ...props }) {
 	);
 }
 
-export default ConditionBuilder;
+export { ConditionBuilder };

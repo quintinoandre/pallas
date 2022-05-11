@@ -46,4 +46,4 @@ function AutomationItem({ ...props }) {
 	);
 }
 
-export default AutomationItem;
+export { AutomationItem };

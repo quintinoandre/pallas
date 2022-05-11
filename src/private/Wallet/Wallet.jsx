@@ -5,7 +5,7 @@ import { useTheme } from 'react-native-elements';
 import { SelectFiat, NewOrderButton } from '../../components';
 import { getFullBalance } from '../../services';
 import { WalletStyles as styles } from './styles';
-import WalletItem from './WalletItem';
+import { WalletItem } from './WalletItem';
 
 /**
  * props:
@@ -18,8 +18,8 @@ function Wallet({ ...props }) {
 	const [fiat, setFiat] = useState('USD');
 	const [wallet, setWallet] = useState({});
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -43,9 +43,7 @@ function Wallet({ ...props }) {
 
 				setWallet(wallet);
 			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.catch((error) => errorHandling(error));
 	}, [fiat]);
 
 	function onFiatChange(event) {
@@ -59,7 +57,7 @@ function Wallet({ ...props }) {
 			<View style={styles.page}>
 				<SelectFiat onChange={(event) => onFiatChange(event)} />
 				<View style={styles.header}>
-					<Text style={{ ...theme.h2, ...styles.estimate }}>Wallet Total:</Text>
+					<Text style={{ ...styles.estimate, ...theme.h2 }}>Wallet Total:</Text>
 					<Text style={styles.estimate}>
 						{wallet.fiatEstimate || <ActivityIndicator />}
 					</Text>
@@ -87,4 +85,4 @@ function Wallet({ ...props }) {
 	);
 }
 
-export default Wallet;
+export { Wallet };

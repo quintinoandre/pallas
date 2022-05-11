@@ -27,6 +27,7 @@ const NewGridStyles = StyleSheet.create({
 	tabButton: { backgroundColor: '#ccc' },
 	tab: { backgroundColor: '#ccc', paddingBottom: 6 },
 	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
+	walletSummary: { paddingHorizontal: 20 },
 });
 
 const QuantityInputPickerSelectStyles = StyleSheet.create({
@@ -48,10 +49,12 @@ const QuantityInputPickerSelectStyles = StyleSheet.create({
 		color: 'black',
 		alignItems: 'stretch',
 	},
+	iconContainer: { top: 20, right: 12 },
 });
 
 const QuantityInputStyles = StyleSheet.create({
 	row: { width: '100%', flexDirection: 'row' },
+	pickerContainer: { flex: 1 },
 	label: { fontWeight: 'bold', color: 'grey', paddingLeft: 10, fontSize: 16 },
 });
 

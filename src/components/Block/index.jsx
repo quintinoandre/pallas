@@ -1,6 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
 
+import { styles } from './styles';
+
 /**
  * props:
  * - color
@@ -11,10 +13,7 @@ function Block({ ...props }) {
 	return (
 		<View
 			style={{
-				padding: 5,
-				margin: 3,
-				flex: 1,
-				borderRadius: 5,
+				...styles.container,
 				backgroundColor: props.color,
 				...props.style,
 			}}

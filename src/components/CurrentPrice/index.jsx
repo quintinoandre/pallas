@@ -3,7 +3,7 @@ import { Text, ActivityIndicator } from 'react-native';
 import { useTheme } from 'react-native-elements';
 import useWebSocket from 'react-use-websocket';
 
-import { REACT_APP_BWS_URL } from '@env';
+import { REACT_APP_BWS_URL as APP_BWS_URL } from '@env';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../Block';
@@ -26,29 +26,28 @@ function CurrentPrice({ ...props }) {
 		setSymbol(props.symbol.toLowerCase());
 	}, [props.symbol]);
 
-	const { lastJsonMessage } = useWebSocket(
-		`${REACT_APP_BWS_URL}/${symbol}@ticker`,
-		{
-			onOpen: () => {},
-			onError: (err) => console.error(err),
-			shouldReconnect: () => true,
-			reconnectInterval: 3000,
-			onMessage: () => {
-				if (lastJsonMessage) {
-					setData({
-						price: lastJsonMessage.c,
-						priceChangePercent: parseFloat(lastJsonMessage.P),
-					});
+	const { lastJsonMessage } = useWebSocket(`${APP_BWS_URL}/${symbol}@ticker`, {
+		onOpen: () => {},
+		onError: (error) => console.error(error),
+		shouldReconnect: () => true,
+		reconnectInterval: 3000,
+		onMessage: () => {
+			if (lastJsonMessage) {
+				setData({
+					price: lastJsonMessage.c,
+					priceChangePercent: Number(lastJsonMessage.P),
+				});
 
-					if (props.onChange) props.onChange(parseFloat(lastJsonMessage.c));
-				}
-			},
-		}
-	);
+				if (props.onChange) props.onChange(Number(lastJsonMessage.c));
+			}
+		},
+	});
 
 	function getColorByPriceChange(priceChange) {
 		if (priceChange > 0) return theme.colors.success;
+
 		if (priceChange < 0) return theme.colors.danger;
+
 		return theme.colors.warning;
 	}
 

@@ -15,7 +15,7 @@ import { AutomationItemStyles as styles } from './styles';
 /**
  * props:
  * - automation
- * - onPress
+ * - onPress?
  * - onRefresh
  */
 function AutomationItem({ ...props }) {
@@ -23,8 +23,8 @@ function AutomationItem({ ...props }) {
 
 	const [expanded, setExpanded] = useState(false);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	function getIcon(automation) {
@@ -53,32 +53,20 @@ function AutomationItem({ ...props }) {
 
 	function onStartPress(automation) {
 		startAutomation(automation.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	function onStopPress(automation) {
 		stopAutomation(automation.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	function onDeletePress(automation) {
 		deleteAutomation(automation.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	return (
@@ -95,12 +83,12 @@ function AutomationItem({ ...props }) {
 					</ListItem.Content>
 				</>
 			}
-			onPress={(_event) => setExpanded(!expanded)}
+			onPress={() => setExpanded(!expanded)}
 			bottomDivider
 		>
 			<ListItem
-				onPress={(event) => {
-					props.onPress && props.onPress(event);
+				onPress={() => {
+					if (props.onPress) props.onPress();
 				}}
 				bottomDivider
 			>
@@ -111,12 +99,7 @@ function AutomationItem({ ...props }) {
 				<ListItem.Chevron />
 			</ListItem>
 			{props.automation.isActive ? (
-				<ListItem
-					onPress={(_event) => {
-						onStopPress(props.automation);
-					}}
-					bottomDivider
-				>
+				<ListItem onPress={() => onStopPress(props.automation)} bottomDivider>
 					<Icon
 						style={styles.icon}
 						name="stop-circle"
@@ -130,9 +113,7 @@ function AutomationItem({ ...props }) {
 			) : (
 				<>
 					<ListItem
-						onPress={(_event) => {
-							onStartPress(props.automation);
-						}}
+						onPress={() => onStartPress(props.automation)}
 						bottomDivider
 					>
 						<Icon
@@ -146,9 +127,7 @@ function AutomationItem({ ...props }) {
 						</ListItem.Content>
 					</ListItem>
 					<ListItem
-						onPress={(_event) => {
-							onDeletePress(props.automation);
-						}}
+						onPress={() => onDeletePress(props.automation)}
 						bottomDivider
 					>
 						<Icon style={styles.icon} name="trash-2" size={20} color="black" />
@@ -162,4 +141,4 @@ function AutomationItem({ ...props }) {
 	);
 }
 
-export default AutomationItem;
+export { AutomationItem };

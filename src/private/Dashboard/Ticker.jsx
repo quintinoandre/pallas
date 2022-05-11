@@ -31,7 +31,7 @@ function Ticker({ ...props }) {
 	return (
 		<Block color="white">
 			<Text style={theme.h2}>
-				<View style={{ paddingRight: 5 }}>
+				<View style={styles.iconContainer}>
 					<Icon name="bar-chart-2" size={20} color="black" />
 				</View>
 				Market 24h
@@ -66,4 +66,4 @@ function Ticker({ ...props }) {
 	);
 }
 
-export default Ticker;
+export { Ticker };

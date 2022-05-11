@@ -5,7 +5,7 @@ import { FAB } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { getMonitors } from '../../services';
-import MonitorItem from './MonitorItem';
+import { MonitorItem } from './MonitorItem';
 import { MonitorsListStyles as styles } from './styles';
 
 /**
@@ -22,8 +22,8 @@ function MonitorsList({ ...props }) {
 	const [refresh, setRefresh] = useState(0);
 	const [pageState, setPageState] = useState(1);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	function LoadMonitors(page) {
@@ -38,10 +38,10 @@ function MonitorsList({ ...props }) {
 					setMonitors(monitors);
 				}
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -85,17 +85,17 @@ function MonitorsList({ ...props }) {
 			<FlatList
 				data={monitors}
 				initialNumToRender={PAGE_SIZE}
-				onEndReached={(_event) => setCanLoadMore(true)}
+				onEndReached={() => setCanLoadMore(true)}
 				onEndReachedThreshold={0.3}
 				refreshing={isLoading}
-				onRefresh={(_event) => setRefresh(Date.now())}
-				onMomentumScrollEnd={(_event) => canLoadMore && onEndReached()}
-				ListEmptyComponent={() => emptyList}
+				onRefresh={() => setRefresh(Date.now())}
+				onMomentumScrollEnd={canLoadMore && onEndReached}
+				ListEmptyComponent={emptyList}
 				renderItem={(obj) => (
 					<MonitorItem
 						monitor={obj.item}
-						onPress={(_event) => viewForm(obj.item)}
-						onRefresh={(_event) => setRefresh(Date.now())}
+						onPress={() => viewForm(obj.item)}
+						onRefresh={() => setRefresh(Date.now())}
 					/>
 				)}
 				keyExtractor={(obj) => obj.id}
@@ -103,7 +103,7 @@ function MonitorsList({ ...props }) {
 			<FAB
 				title={<Icon name="plus" size={20} color="white" />}
 				placement="right"
-				onPress={(_event) =>
+				onPress={() =>
 					props.navigation.navigate('Monitors', {
 						screen: 'NewMonitor',
 						params: {},
@@ -114,4 +114,4 @@ function MonitorsList({ ...props }) {
 	);
 }
 
-export default MonitorsList;
+export { MonitorsList };

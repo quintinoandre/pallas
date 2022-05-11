@@ -1,23 +1,19 @@
-import { REACT_APP_API_URL as API_URL } from '@env';
-
-import { axios } from '../BaseService';
-
-const settingsUrl = `${API_URL}/settings`;
+import { api } from '../BaseService';
 
 async function getUserAlerts() {
-	const response = await axios.get(`${settingsUrl}/alerts`);
+	const response = await api.get('/settings/alerts');
 
-	return response.data;
+	return response ? response.data : null;
 }
 
 async function getSettings() {
-	const response = await axios.get(settingsUrl);
+	const response = await api.get('/settings');
 
 	return response.data;
 }
 
 async function updateSettings(settings) {
-	const response = await axios.patch(settingsUrl, settings);
+	const response = await api.patch('/settings', settings);
 
 	return response.data;
 }

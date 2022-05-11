@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select';
 import { Feather as Icon } from '@expo/vector-icons';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
-import { pickerSelectStyles } from './styles';
+import { styles, pickerSelectStyles } from './styles';
 
 /**
  * props:
@@ -13,8 +13,8 @@ import { pickerSelectStyles } from './styles';
 function SelectQuote({ ...props }) {
 	const [quote, setQuote] = useState('USDT');
 
-	function errorHandling(err) {
-		console.error(err);
+	function errorHandling(error) {
+		console.error(error);
 	}
 
 	useEffect(() => {
@@ -22,11 +22,9 @@ function SelectQuote({ ...props }) {
 			.then((result) => {
 				setQuote(result || 'USDT');
 
-				if (props.onChange) props.onChange(result || 'USDT');
+				props.onChange(result || 'USDT');
 			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.catch((error) => errorHandling(error));
 	}, []);
 
 	return (
@@ -37,9 +35,9 @@ function SelectQuote({ ...props }) {
 
 				setQuote(event);
 
-				if (props.onChange) props.onChange(event);
+				props.onChange(event);
 			}}
-			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
+			style={{ ...styles.iconContainer, ...pickerSelectStyles }}
 			useNativeAndroidPickerStyle={false}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			items={[

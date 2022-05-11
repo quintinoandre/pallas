@@ -4,7 +4,7 @@ import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
 import { getIndexes } from '../../../../services';
-import ConditionBuilder from './ConditionBuilder';
+import { ConditionBuilder } from './ConditionBuilder';
 import { ConditionsAreaStyles as styles } from './styles';
 
 /**
@@ -24,8 +24,8 @@ function ConditionsArea({ ...props }) {
 		setConditions(props.conditions ? props.conditions.split(' && ') : []);
 	}, [props.conditions]);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -76,20 +76,17 @@ function ConditionsArea({ ...props }) {
 
 				setIndexes(filteredIndexes);
 			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.catch((error) => errorHandling(error));
 	}, [props.symbol]);
 
-	function onAddCondition(event) {
-		if (conditions.includes(event)) return;
+	function onAddCondition(condition) {
+		if (conditions.includes(condition)) return;
 
-		conditions.push(event);
+		conditions.push(condition);
 
 		setConditions(conditions);
 
-		if (props.onChange)
-			props.onChange(conditions.map((c) => c.trim()).join(' && '));
+		props.onChange(conditions.map((c) => c.trim()).join(' && '));
 	}
 
 	function getText(condition) {
@@ -105,14 +102,13 @@ function ConditionsArea({ ...props }) {
 	}
 
 	function onDeleteCondition(condition) {
-		const index = conditions.findIndex((c) => c === condition);
+		const index = conditions.findIndex((item) => item === condition);
 
 		conditions.splice(index, 1);
 
 		setConditions(conditions);
 
-		if (props.onChange)
-			props.onChange(conditions.map((c) => c.trim()).join(' && '));
+		props.onChange(conditions.map((item) => item.trim()).join(' && '));
 	}
 
 	return (
@@ -123,7 +119,7 @@ function ConditionsArea({ ...props }) {
 			/>
 			<View style={styles.list}>
 				<ScrollView
-					contentContainerStyle={{ flexGrow: 1 }}
+					contentContainerStyle={styles.scrollView}
 					alwaysBounceVertical
 				>
 					{conditions && conditions.length > 0 ? (
@@ -131,7 +127,7 @@ function ConditionsArea({ ...props }) {
 							<SmartItem
 								key={condition}
 								icon="help-circle"
-								style={{ fontSize: 12 }}
+								style={styles.smartItem}
 								text={getText(condition)}
 								onDelete={(event) => onDeleteCondition(event)}
 							/>
@@ -145,4 +141,4 @@ function ConditionsArea({ ...props }) {
 	);
 }
 
-export default ConditionsArea;
+export { ConditionsArea };

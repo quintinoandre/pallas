@@ -4,12 +4,8 @@ import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import {
-	monitorType,
-	startMonitor,
-	stopMonitor,
-	deleteMonitor,
-} from '../../services';
+import { MONITOR_TYPE } from '../../enums';
+import { startMonitor, stopMonitor, deleteMonitor } from '../../services';
 import { MonitorItemStyles as styles } from './styles';
 
 /**
@@ -23,23 +19,23 @@ function MonitorItem({ ...props }) {
 
 	const [expanded, setExpanded] = useState(false);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	function getIcon(type) {
 		const icon = { type: 'feather', color: 'white' };
 
 		switch (type) {
-			case monitorType.CANDLES:
+			case MONITOR_TYPE.CANDLES:
 				return { ...icon, name: 'bar-chart-2' };
-			case monitorType.TICKER:
+			case MONITOR_TYPE.TICKER:
 				return { ...icon, name: 'clock' };
-			case monitorType.MINI_TICKER:
+			case MONITOR_TYPE.MINI_TICKER:
 				return { ...icon, name: 'activity' };
-			case monitorType.BOOK:
+			case MONITOR_TYPE.BOOK:
 				return { ...icon, name: 'book-open' };
-			case monitorType.USER_DATA:
+			case MONITOR_TYPE.USER_DATA:
 				return { ...icon, name: 'user' };
 			default:
 				break;
@@ -64,32 +60,20 @@ function MonitorItem({ ...props }) {
 
 	function onStartPress(monitor) {
 		startMonitor(monitor.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	function onStopPress(monitor) {
 		stopMonitor(monitor.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	function onDeletePress(monitor) {
 		deleteMonitor(monitor.id)
-			.then((_result) => {
-				if (props.onRefresh) props.onRefresh();
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => props.onRefresh())
+			.catch((error) => errorHandling(error));
 	}
 
 	return (
@@ -116,15 +100,10 @@ function MonitorItem({ ...props }) {
 				</>
 			}
 			isExpanded={expanded}
-			onPress={(_event) => setExpanded(!expanded)}
+			onPress={() => setExpanded(!expanded)}
 			bottomDivider
 		>
-			<ListItem
-				onPress={(event) => {
-					if (props.onPress) props.onPress(event);
-				}}
-				bottomDivider
-			>
+			<ListItem onPress={props.onPress} bottomDivider>
 				<Icon style={styles.icon} name="edit" size={20} color="black" />
 				<ListItem.Content>
 					<ListItem.Title>Edit</ListItem.Title>
@@ -132,10 +111,7 @@ function MonitorItem({ ...props }) {
 				<ListItem.Chevron />
 			</ListItem>
 			{props.monitor.isActive ? (
-				<ListItem
-					onPress={(_event) => onStopPress(props.monitor)}
-					bottomDivider
-				>
+				<ListItem onPress={() => onStopPress(props.monitor)} bottomDivider>
 					<Icon
 						style={styles.icon}
 						name="stop-circle"
@@ -148,10 +124,7 @@ function MonitorItem({ ...props }) {
 				</ListItem>
 			) : (
 				<>
-					<ListItem
-						onPress={(_event) => onStartPress(props.monitor)}
-						bottomDivider
-					>
+					<ListItem onPress={() => onStartPress(props.monitor)} bottomDivider>
 						<Icon
 							style={styles.icon}
 							name="play-circle"
@@ -162,10 +135,7 @@ function MonitorItem({ ...props }) {
 							<ListItem.Title>Start</ListItem.Title>
 						</ListItem.Content>
 					</ListItem>
-					<ListItem
-						onPress={(_event) => onDeletePress(props.monitor)}
-						bottomDivider
-					>
+					<ListItem onPress={() => onDeletePress(props.monitor)} bottomDivider>
 						<Icon style={styles.icon} name="trash-2" size={20} color="black" />
 						<ListItem.Content>
 							<ListItem.Title>Delete</ListItem.Title>
@@ -177,4 +147,4 @@ function MonitorItem({ ...props }) {
 	);
 }
 
-export default MonitorItem;
+export { MonitorItem };

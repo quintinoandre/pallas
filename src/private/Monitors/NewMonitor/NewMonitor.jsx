@@ -5,9 +5,10 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
-import { monitorType, monitorInterval, saveMonitor } from '../../../services';
-import GeneralArea from './General/GeneralArea';
-import IndexesArea from './Indexes/IndexesArea';
+import { MONITOR_TYPE, MONITOR_INTERVAL } from '../../../enums';
+import { saveMonitor } from '../../../services';
+import { GeneralArea } from './General/GeneralArea';
+import { IndexesArea } from './Indexes/IndexesArea';
 import { styles } from './styles';
 
 /**
@@ -19,32 +20,32 @@ function NewMonitor({ ...props }) {
 	const { theme } = useTheme();
 
 	const DEFAULT_MONITOR = {
-		type: monitorType.CANDLES,
+		type: MONITOR_TYPE.CANDLES,
 		symbol: 'BTCUSDT',
-		interval: monitorInterval.oneMinute,
+		interval: MONITOR_INTERVAL.oneMinute,
 		isActive: false,
 		logs: false,
 	};
 
 	const [monitor, setMonitor] = useState(DEFAULT_MONITOR);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [tabIndex, setTabIndex] = useState(0);
 
-	function errorHandling(err) {
-		setError(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		setErrorState(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
-		setError('');
+		setErrorState('');
 
 		if (props.route.params.monitor)
 			setMonitor({ ...props.route.params.monitor });
 		else setMonitor({ ...DEFAULT_MONITOR });
 	}, [props.route.params]);
 
-	function onPress(_event) {
-		setError('');
+	function onPress() {
+		setErrorState('');
 
 		setIsLoading(true);
 
@@ -57,10 +58,10 @@ function NewMonitor({ ...props }) {
 					params: { monitor: result },
 				});
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -84,7 +85,7 @@ function NewMonitor({ ...props }) {
 			<View style={styles.header}>
 				<HeaderRow
 					symbol={monitor.symbol}
-					onBackPress={(_event) =>
+					onBackPress={() =>
 						props.navigation.navigate('Monitors', { screen: 'MonitorsList' })
 					}
 					onSymbolChange={(event) => setMonitor({ ...monitor, symbol: event })}
@@ -105,12 +106,12 @@ function NewMonitor({ ...props }) {
 						<Icon
 							name="bar-chart-2"
 							size={20}
-							color={monitor.type === monitorType.TICKER ? '#ccc' : 'black'}
+							color={monitor.type === MONITOR_TYPE.TICKER ? '#ccc' : 'black'}
 						/>
 					}
 					style={styles.tab}
 					buttonStyle={styles.tabButton}
-					disabled={monitor.type === monitorType.TICKER}
+					disabled={monitor.type === MONITOR_TYPE.TICKER}
 					disabledStyle={styles.tabButton}
 				/>
 			</Tab>
@@ -118,8 +119,8 @@ function NewMonitor({ ...props }) {
 			{tabIndex === 0 ? (
 				<GeneralArea
 					monitor={monitor}
-					onChange={(event) =>
-						setMonitor({ ...monitor, [event.name]: event.value })
+					onChange={({ name, value }) =>
+						setMonitor({ ...monitor, [name]: value })
 					}
 				/>
 			) : (
@@ -133,11 +134,11 @@ function NewMonitor({ ...props }) {
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
 					title={isLoading ? <ActivityIndicator /> : ' Save Monitor'}
-					onPress={(event) => onPress(event)}
+					onPress={onPress}
 					disabled={isLoading}
 				/>
-				{error ? (
-					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				{errorState ? (
+					<Text style={{ ...styles.error, ...theme.alert }}>{errorState}</Text>
 				) : (
 					<></>
 				)}
@@ -146,4 +147,4 @@ function NewMonitor({ ...props }) {
 	);
 }
 
-export default NewMonitor;
+export { NewMonitor };

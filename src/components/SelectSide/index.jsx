@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ButtonGroup } from 'react-native-elements';
 
-import { orderSide } from '../../services';
+import { ORDER_SIDE } from '../../enums';
 import { styles } from './styles';
 
 /**
@@ -10,24 +10,23 @@ import { styles } from './styles';
  * - onChange
  */
 function SelectSide({ ...props }) {
-	const [side, setSide] = useState(0);
+	const [sideState, setSideState] = useState(0);
 
 	useEffect(() => {
-		setSide(props.side === orderSide.BUY ? 0 : 1);
+		setSideState(props.side === ORDER_SIDE.BUY ? 0 : 1);
 	}, [props.side]);
 
-	function onPress(event) {
-		setSide(event);
+	function onPress(side) {
+		setSideState(side);
 
-		if (props.onChange)
-			props.onChange(event === 0 ? orderSide.BUY : orderSide.SELL);
+		props.onChange(side === 0 ? ORDER_SIDE.BUY : ORDER_SIDE.SELL);
 	}
 
 	return (
 		<ButtonGroup
-			selectedIndex={side}
+			selectedIndex={sideState}
 			containerStyle={styles.group}
-			buttons={[orderSide.BUY, orderSide.SELL]}
+			buttons={[ORDER_SIDE.BUY, ORDER_SIDE.SELL]}
 			onPress={(event) => onPress(event)}
 		/>
 	);

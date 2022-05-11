@@ -15,25 +15,25 @@ import { VariableInputStyles as styles } from './styles';
  */
 function VariableInput({ ...props }) {
 	const [indexes, setIndexes] = useState([]);
-	const [value, setValue] = useState('');
+	const [valueState, setValueState] = useState('');
 	const [showInput, setShowInput] = useState(true);
 
 	useEffect(() => {
-		setValue(props.value);
+		setValueState(props.value);
 	}, [props.value]);
 
 	useEffect(() => {
 		setIndexes(props.indexes || []);
 	}, [props.indexes]);
 
-	function onChange(event) {
-		setValue(event);
+	function onChange(value) {
+		setValueState(value);
 
-		if (props.onChange) props.onChange(event);
+		props.onChange(value);
 	}
 
-	function onRefresh(_event) {
-		setValue('');
+	function onRefresh() {
+		setValueState('');
 
 		setShowInput(!showInput);
 	}
@@ -46,7 +46,7 @@ function VariableInput({ ...props }) {
 			color="black"
 			underlayColor="white"
 			backgroundColor="transparent"
-			onPress={(event) => onRefresh(event)}
+			onPress={onRefresh}
 		/>
 	);
 
@@ -55,10 +55,10 @@ function VariableInput({ ...props }) {
 			<View style={styles.row}>
 				<Input
 					leftIcon={icon}
-					placeholder={`${value}`}
+					placeholder={`${valueState}`}
 					keyboardType="default"
 					autoCapitalize="none"
-					value={`${value}`}
+					value={`${valueState}`}
 					onChangeText={(event) => onChange(event)}
 				/>
 			</View>
@@ -82,4 +82,4 @@ function VariableInput({ ...props }) {
 	return <>{showInput ? renderInput() : renderPicker()}</>;
 }
 
-export default VariableInput;
+export { VariableInput };

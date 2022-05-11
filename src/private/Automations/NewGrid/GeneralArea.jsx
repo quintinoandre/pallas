@@ -3,7 +3,7 @@ import { View, ScrollView } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components';
-import QuantityInput from './QuantityInput';
+import { QuantityInput } from './QuantityInput';
 import { GeneralAreaStyles as styles } from './styles';
 
 /**
@@ -50,7 +50,7 @@ function GeneralArea({ ...props }) {
 
 		setGrid(newData);
 
-		if (props.onGridChange) props.onGridChange(newProp);
+		props.onGridChange(newProp);
 	}
 
 	function onAutomationChange(newProp) {
@@ -58,12 +58,12 @@ function GeneralArea({ ...props }) {
 
 		setAutomation(newData);
 
-		if (props.onAutomationChange) props.onAutomationChange(newProp);
+		props.onAutomationChange(newProp);
 	}
 
 	return (
 		<View style={theme.container}>
-			<View style={{ ...theme.inputContainer }}>
+			<View style={theme.inputContainer}>
 				<ScrollView>
 					<Input
 						label="Lower Limit"
@@ -121,4 +121,4 @@ function GeneralArea({ ...props }) {
 	);
 }
 
-export default GeneralArea;
+export { GeneralArea };

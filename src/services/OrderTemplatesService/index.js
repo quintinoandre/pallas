@@ -1,11 +1,7 @@
-import { REACT_APP_API_URL as API_URL } from '@env';
-
-import { axios } from '../BaseService';
+import { api } from '../BaseService';
 
 async function getAllOrderTemplates(symbol) {
-	const getAllOrderTemplatesUrl = `${API_URL}/orderTemplates/all/${symbol}`;
-
-	const response = await axios.get(getAllOrderTemplatesUrl);
+	const response = await api.get(`/orderTemplates/all/${symbol}`);
 
 	return response.data;
 }

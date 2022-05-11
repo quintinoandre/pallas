@@ -11,18 +11,18 @@ import { FilterReportStyles as styles } from './styles';
  * props:
  * onFilter
  */
-function FilterReports({ ...props }) {
+function FilterReport({ ...props }) {
+	const [showFilter, setShowFilter] = useState(false);
 	const [filter, setFilter] = useState({
 		quote: 'USDT',
 		startDate: thirtyDaysAgo(),
 		endDate: Date.now(),
 	});
-	const [showFilter, setShowFilter] = useState(false);
 
-	function onFilter(_event) {
+	function onFilter() {
 		setShowFilter(false);
 
-		if (props.onFilter) props.onFilter(filter);
+		props.onFilter(filter);
 	}
 
 	return (
@@ -30,12 +30,12 @@ function FilterReports({ ...props }) {
 			<FAB
 				title={<Icon name="filter" size={20} color="white" />}
 				placement="right"
-				onPress={(_event) => setShowFilter(true)}
+				onPress={() => setShowFilter(true)}
 			/>
 			<Overlay
 				overlayStyle={styles.overlay}
 				isVisible={showFilter}
-				onBackdropPress={(_event) => setShowFilter(false)}
+				onBackdropPress={() => setShowFilter(false)}
 			>
 				<SelectQuote
 					onChange={(event) =>
@@ -64,11 +64,11 @@ function FilterReports({ ...props }) {
 					icon={<Icon name="filter" size={20} color="white" />}
 					style={styles.button}
 					title=" Filter Report"
-					onPress={(event) => onFilter(event)}
+					onPress={onFilter}
 				/>
 			</Overlay>
 		</>
 	);
 }
 
-export default FilterReports;
+export { FilterReport };

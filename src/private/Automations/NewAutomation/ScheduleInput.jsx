@@ -85,38 +85,38 @@ function ScheduleInput({ ...props }) {
 		return isCron ? 'default' : 'numeric';
 	}
 
-	function onScheduleByClick(_event) {
+	function onScheduleByClick() {
 		setScheduleState('');
 
 		setIsCron(!isCron);
 
-		if (props.onChange) props.onChange('');
+		props.onChange('');
 	}
 
-	function onChangeText(event) {
+	function onChangeText(text) {
 		if (!isCron) {
-			const chars = event.split('');
+			const chars = text.split('');
 
 			const lastChar = chars[chars.length - 1];
 
-			if (event.length === 3 && !event.endsWith('/'))
-				event = `${event.substring(0, 2)}/${lastChar}`;
-			else if (event.length === 6 && !event.endsWith('/'))
-				event = `${event.substring(0, 5)}/${lastChar}`;
-			else if (event.length === 11 && !event.endsWith(' '))
-				event = `${event.substring(0, 10)} ${lastChar}`;
-			else if (event.length === 14 && !event.endsWith(':'))
-				event = `${event.substring(0, 13)}:${lastChar}`;
-			else if (event.length === 17 && !event.endsWith(':'))
-				event = `${event.substring(0, 16)}:${lastChar}`;
-			else if (event.length > 19) event = event.substring(0, 19);
+			if (text.length === 3 && !text.endsWith('/'))
+				text = `${text.substring(0, 2)}/${lastChar}`;
+			else if (text.length === 6 && !text.endsWith('/'))
+				text = `${text.substring(0, 5)}/${lastChar}`;
+			else if (text.length === 11 && !text.endsWith(' '))
+				text = `${text.substring(0, 10)} ${lastChar}`;
+			else if (text.length === 14 && !text.endsWith(':'))
+				text = `${text.substring(0, 13)}:${lastChar}`;
+			else if (text.length === 17 && !text.endsWith(':'))
+				text = `${text.substring(0, 16)}:${lastChar}`;
+			else if (text.length > 19) text = text.substring(0, 19);
 
-			const date = unformatDate(event);
+			const date = unformatDate(text);
 
-			if (props.onChange) props.onChange(date);
-		} else if (props.onChange) props.onChange(event);
+			props.onChange(date);
+		} else props.onChange(text);
 
-		setScheduleState(event);
+		setScheduleState(text);
 	}
 
 	return (
@@ -132,7 +132,7 @@ function ScheduleInput({ ...props }) {
 					color="black"
 					underlayColor="white"
 					backgroundColor="transparent"
-					onPress={(event) => onScheduleByClick(event)}
+					onPress={onScheduleByClick}
 				/>
 			}
 			value={scheduleState}
@@ -141,4 +141,4 @@ function ScheduleInput({ ...props }) {
 	);
 }
 
-export default ScheduleInput;
+export { ScheduleInput };

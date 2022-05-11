@@ -1,13 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import { View, ActivityIndicator, Text } from 'react-native';
-import { useTheme, Tab, Button } from 'react-native-elements';
+import { Tab, Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow, CurrentPrice, WalletSummary } from '../../../components';
-import { automationType, indexType, saveGrid } from '../../../services';
-import GeneralArea from './GeneralArea';
-import GridArea from './GridArea';
+import { AUTOMATION_TYPE, INDEX_TYPE } from '../../../enums';
+import { saveGrid } from '../../../services';
+import { GeneralArea } from './GeneralArea';
+import { GridArea } from './GridArea';
 import { NewGridStyles as styles } from './styles';
 
 /**
@@ -37,16 +38,16 @@ function NewGrid({ ...props }) {
 
 	const [automation, setAutomation] = useState(DEFAULT_AUTOMATION);
 	const [gridState, setGridState] = useState(DEFAULT_GRID);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 	const [isLoading, setIsLoading] = useState(false);
 	const [tabIndex, setTabIndex] = useState(0);
 
-	function errorHandling(err) {
-		setError(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		setErrorState(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
-		setError('');
+		setErrorState('');
 
 		if (props.route.params.automation) {
 			setAutomation(props.route.params.automation);
@@ -73,18 +74,18 @@ function NewGrid({ ...props }) {
 		}
 	}, [props.route.params]);
 
-	function onPress(_event) {
-		setError('');
+	function onPress() {
+		setErrorState('');
 
-		automation.name = `${automationType.GRID.toUpperCase()} ${
+		automation.name = `${AUTOMATION_TYPE.GRID.toUpperCase()} ${
 			automation.symbol
 		} #${gridState.levels}`;
 
-		automation.actions = [{ type: `${automationType.GRID.toUpperCase()}` }];
+		automation.actions = [{ type: `${AUTOMATION_TYPE.GRID.toUpperCase()}` }];
 
-		automation.indexes = `${automation.symbol}:${indexType.BOOK}`;
+		automation.indexes = `${automation.symbol}:${INDEX_TYPE.BOOK}`;
 
-		automation.conditions = `MEMORY['${automation.symbol}:${indexType.BOOK}'].current.bestAsk>${gridState.lowerLimit} && MEMORY['${automation.symbol}:${indexType.BOOK}'].current.bestBid<${gridState.upperLimit}`;
+		automation.conditions = `MEMORY['${automation.symbol}:${INDEX_TYPE.BOOK}'].current.bestAsk>${gridState.lowerLimit} && MEMORY['${automation.symbol}:${INDEX_TYPE.BOOK}'].current.bestBid<${gridState.upperLimit}`;
 
 		setIsLoading(true);
 
@@ -97,8 +98,8 @@ function NewGrid({ ...props }) {
 					params: { result },
 				});
 			})
-			.catch((err) => {
-				errorHandling(err);
+			.catch((error) => {
+				errorHandling(error);
 
 				setIsLoading(false);
 			});
@@ -109,7 +110,7 @@ function NewGrid({ ...props }) {
 			<View style={styles.header}>
 				<HeaderRow
 					symbol={automation.symbol}
-					onBackPress={(_event) =>
+					onBackPress={() =>
 						props.navigation.navigate('Automations', {
 							screen: 'AutomationsList',
 						})
@@ -122,7 +123,7 @@ function NewGrid({ ...props }) {
 				<WalletSummary
 					symbol={automation.symbol}
 					header={false}
-					style={{ paddingHorizontal: 20 }}
+					style={styles.walletSummary}
 				/>
 			</View>
 			<Tab
@@ -153,11 +154,11 @@ function NewGrid({ ...props }) {
 				<GeneralArea
 					automation={automation}
 					grid={gridState}
-					onAutomationChange={(event) =>
-						setAutomation({ ...automation, [event.name]: event.value })
+					onAutomationChange={({ name, value }) =>
+						setAutomation({ ...automation, [name]: value })
 					}
-					onGridChange={(event) =>
-						setGridState({ ...gridState, [event.name]: event.value })
+					onGridChange={({ name, value }) =>
+						setGridState({ ...gridState, [name]: value })
 					}
 				/>
 			) : (
@@ -168,11 +169,13 @@ function NewGrid({ ...props }) {
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
 					title={isLoading ? <ActivityIndicator /> : ' Save Grid'}
-					onPress={(event) => onPress(event)}
+					onPress={onPress}
 					disabled={isLoading}
 				/>
-				{error ? (
-					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				{errorState ? (
+					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>
+						{errorState}
+					</Text>
 				) : (
 					<></>
 				)}
@@ -181,4 +184,4 @@ function NewGrid({ ...props }) {
 	);
 }
 
-export default NewGrid;
+export { NewGrid };

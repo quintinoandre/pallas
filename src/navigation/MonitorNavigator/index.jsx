@@ -2,8 +2,8 @@ import React from 'react';
 
 import { createStackNavigator } from '@react-navigation/stack';
 
-import MonitorsList from '../../private/Monitors/MonitorsList';
-import NewMonitor from '../../private/Monitors/NewMonitor/NewMonitor';
+import { MonitorsList } from '../../private/Monitors/MonitorsList';
+import { NewMonitor } from '../../private/Monitors/NewMonitor/NewMonitor';
 
 const Stack = createStackNavigator();
 

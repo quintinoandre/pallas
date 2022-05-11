@@ -15,7 +15,7 @@ function NewOrderButton({ ...props }) {
 		setSymbol(props.symbol || 'BTCUSDT');
 	}, [props.symbol]);
 
-	function onPress(_event) {
+	function onPress() {
 		props.navigation.navigate('Orders', {
 			screen: 'NewOrder',
 			params: { symbol },
@@ -26,7 +26,7 @@ function NewOrderButton({ ...props }) {
 		<FAB
 			title={<Icon name="dollar-sign" size={20} color="white" />}
 			placement="right"
-			onPress={(event) => onPress(event)}
+			onPress={onPress}
 		/>
 	);
 }

@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Text, View, ActivityIndicator } from 'react-native';
 import {
-	useTheme,
 	Input,
 	Button,
 	Overlay,
 	ListItem,
+	useTheme,
 } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
@@ -26,41 +26,41 @@ function SelectSymbol({ ...props }) {
 	const [showSearch, setShowSearch] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
 	const [symbols, setSymbols] = useState([]);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 
 	useEffect(() => {
 		if (props.symbol) {
 			setSelectedSymbol(props.symbol);
 
-			if (props.onSymbolChange) props.onSymbolChange(props.symbol);
+			props.onSymbolChange(props.symbol);
 		} else {
 			AsyncStorage.getItem('symbol').then((symbol) => {
 				setSelectedSymbol(symbol || 'BTCUSDT');
 
-				if (props.onSymbolChange) props.onSymbolChange(symbol || 'BTCUSDT');
+				props.onSymbolChange(symbol || 'BTCUSDT');
 			});
 		}
 	}, [props.symbol]);
 
-	function onChangeText(event) {
-		setError('');
+	function onChangeText(text) {
+		setErrorState('');
 
-		if (!event) return setSymbols([]);
+		if (!text) return setSymbols([]);
 
 		setIsLoading(true);
 
-		searchSymbols(event)
+		searchSymbols(text)
 			.then((result) => {
 				setSymbols(result.rows);
 
 				setIsLoading(false);
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
 				setSymbols([]);
 
-				setError(err.response ? err.response.data : err.message);
+				setErrorState(error.response ? error.response.data : error.message);
 			});
 	}
 
@@ -69,7 +69,7 @@ function SelectSymbol({ ...props }) {
 
 		setShowSearch(false);
 
-		if (props.onSymbolChange) props.onSymbolChange(symbol);
+		props.onSymbolChange(symbol);
 
 		AsyncStorage.setItem('symbol', symbol);
 	}
@@ -81,16 +81,18 @@ function SelectSymbol({ ...props }) {
 				type="clear"
 				titleStyle={styles.button}
 				icon={<Icon name="chevron-down" size={20} color="black" />}
-				onPress={(_event) => {
+				iconRight
+				onPress={() => {
 					setShowSearch(true);
-					setError('');
+
+					setErrorState('');
+
 					setSymbols([]);
 				}}
-				iconRight
 			/>
 			<Overlay
 				visible={showSearch}
-				onBackdropPress={(_event) => setShowSearch(false)}
+				onBackdropPress={() => setShowSearch(false)}
 				overlayStyle={styles.overlay}
 			>
 				<Input
@@ -110,13 +112,13 @@ function SelectSymbol({ ...props }) {
 							color="black"
 							iconStyle={styles.closeButton}
 							backgroundColor="transparent"
-							onPress={(_event) => setShowSearch(false)}
+							onPress={() => setShowSearch(false)}
 						/>
 					}
 					onChangeText={(event) => onChangeText(event)}
 				/>
-				{error ? (
-					<Text style={{ color: theme.colors.danger }}>{error}</Text>
+				{errorState ? (
+					<Text style={{ color: theme.colors.danger }}>{errorState}</Text>
 				) : (
 					<></>
 				)}
@@ -124,7 +126,7 @@ function SelectSymbol({ ...props }) {
 					{symbols.map((symbol) => (
 						<ListItem
 							key={symbol.symbol}
-							onPress={(_event) => onSymbolPress(symbol.symbol)}
+							onPress={() => onSymbolPress(symbol.symbol)}
 							bottomDivider
 						>
 							<ListItem.Content>

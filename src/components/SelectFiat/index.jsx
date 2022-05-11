@@ -13,8 +13,8 @@ import { pickerSelectStyles } from './styles';
 function SelectFiat({ ...props }) {
 	const [fiat, setFiat] = useState('USD');
 
-	function errorHandling(err) {
-		console.error(err);
+	function errorHandling(error) {
+		console.error(error);
 	}
 
 	useEffect(() => {
@@ -22,11 +22,9 @@ function SelectFiat({ ...props }) {
 			.then((result) => {
 				setFiat(result || 'USD');
 
-				if (props.onChange) props.onChange(result || 'USD');
+				props.onChange(result || 'USD');
 			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.catch((error) => errorHandling(error));
 	}, []);
 
 	return (
@@ -37,7 +35,7 @@ function SelectFiat({ ...props }) {
 
 				setFiat(event);
 
-				if (props.onChange) props.onChange(event);
+				props.onChange(event);
 			}}
 			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
 			useNativeAndroidPickerStyle={false}

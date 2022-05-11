@@ -40,23 +40,22 @@ function DateInput({ ...props }) {
 		return new Date(`${year}-${month}-${day}T00:00:00.000Z`);
 	}
 
-	function onChangeText(event) {
-		const chars = event.split('');
+	function onChangeText(text) {
+		const chars = text.split('');
 
 		const lastChar = chars[chars.length - 1];
 
-		if (event.length === 3 && !event.endsWith('/'))
-			event = `${event.substring(0, 2)}/${lastChar}`;
-		else if (event.length === 6 && !event.endsWith('/'))
-			event = `${event.substring(0, 5)}/${lastChar}`;
-		else if (event.length > 10) event = event.substring(0, 10);
+		if (text.length === 3 && !text.endsWith('/'))
+			text = `${text.substring(0, 2)}/${lastChar}`;
+		else if (text.length === 6 && !text.endsWith('/'))
+			text = `${text.substring(0, 5)}/${lastChar}`;
+		else if (text.length > 10) text = text.substring(0, 10);
 
-		const date = unformatDate(event);
+		const date = unformatDate(text);
 
-		if (date instanceof Date)
-			if (props.onChange) props.onChange(date.getTime());
+		if (date instanceof Date) props.onChange(date.getTime());
 
-		setDateState(event);
+		setDateState(text);
 	}
 
 	return (

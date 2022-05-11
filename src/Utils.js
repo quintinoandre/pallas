@@ -1,14 +1,14 @@
-import { orderStatus, orderSide } from './services';
+import { ORDER_STATUS, ORDER_SIDE } from './enums';
 
 function getColorByOrderStatus(status, theme) {
 	switch (status) {
-		case orderStatus.REJECTED:
-		case orderStatus.CANCELED:
-		case orderStatus.EXPIRED:
+		case ORDER_STATUS.REJECTED:
+		case ORDER_STATUS.CANCELED:
+		case ORDER_STATUS.EXPIRED:
 			return theme.colors.danger;
-		case orderStatus.FILLED:
+		case ORDER_STATUS.FILLED:
 			return theme.colors.success;
-		case orderStatus.PARTIALLY_FILLED:
+		case ORDER_STATUS.PARTIALLY_FILLED:
 			return theme.colors.info;
 		default:
 			return theme.colors.warning;
@@ -17,9 +17,9 @@ function getColorByOrderStatus(status, theme) {
 
 function getColorByOrderSide(side, theme) {
 	switch (side) {
-		case orderSide.SELL:
+		case ORDER_SIDE.SELL:
 			return theme.colors.danger;
-		case orderSide.BUY:
+		case ORDER_SIDE.BUY:
 			return theme.colors.success;
 		default:
 			return 'black';

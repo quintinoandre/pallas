@@ -3,8 +3,8 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
-import { actionType } from '../../../../services';
-import ActionBuilder from './ActionBuilder';
+import { ACTION_TYPE } from '../../../../enums';
+import { ActionBuilder } from './ActionBuilder';
 import { ActionsAreaStyles as styles } from './styles';
 
 /**
@@ -37,22 +37,22 @@ function ActionsArea({ ...props }) {
 
 		setActions(actions);
 
-		if (props.onChange) props.onChange(actions);
+		props.onChange(actions);
 	}
 
 	function getText(action) {
 		switch (action.type) {
-			case actionType.ALERT_EMAIL:
+			case ACTION_TYPE.ALERT_EMAIL:
 				return 'Send E-mail';
-			case actionType.ALERT_SMS:
+			case ACTION_TYPE.ALERT_SMS:
 				return 'Send SMS';
-			case actionType.ALERT_TELEGRAM:
+			case ACTION_TYPE.ALERT_TELEGRAM:
 				return 'Send Telegram';
-			case actionType.ORDER:
+			case ACTION_TYPE.ORDER:
 				return action.orderTemplate.name;
-			case actionType.TRAILING:
+			case ACTION_TYPE.TRAILING:
 				return action.orderTemplate.name;
-			case actionType.WITHDRAW:
+			case ACTION_TYPE.WITHDRAW:
 				return action.withdrawTemplate.name;
 			default:
 				break;
@@ -61,31 +61,31 @@ function ActionsArea({ ...props }) {
 
 	function getIcon(type) {
 		switch (type) {
-			case actionType.ALERT_EMAIL:
+			case ACTION_TYPE.ALERT_EMAIL:
 				return 'mail';
-			case actionType.ALERT_SMS:
+			case ACTION_TYPE.ALERT_SMS:
 				return 'smartphone';
-			case actionType.ALERT_TELEGRAM:
+			case ACTION_TYPE.ALERT_TELEGRAM:
 				return 'message-square';
-			case actionType.ORDER:
+			case ACTION_TYPE.ORDER:
 				return 'shopping-cart';
-			case actionType.TRAILING:
+			case ACTION_TYPE.TRAILING:
 				return 'trending-up';
-			case actionType.WITHDRAW:
+			case ACTION_TYPE.WITHDRAW:
 				return 'dollar-sign';
 			default:
 				break;
 		}
 	}
 
-	function onAddAction(event) {
-		if (actions.some((action) => action.id === event.id)) return;
+	function onAddAction(action) {
+		if (actions.some((item) => item.id === action.id)) return;
 
-		actions.push(event);
+		actions.push(action);
 
 		setActions(actions);
 
-		if (props.onChange) props.onChange(actions);
+		props.onChange(actions);
 	}
 
 	return (
@@ -102,7 +102,7 @@ function ActionsArea({ ...props }) {
 								key={action.id}
 								icon={getIcon(action.type)}
 								text={getText(action)}
-								onDelete={(_event) => onDeleteAction(action.id)}
+								onDelete={() => onDeleteAction(action.id)}
 							/>
 						))
 					) : (
@@ -114,4 +114,4 @@ function ActionsArea({ ...props }) {
 	);
 }
 
-export default ActionsArea;
+export { ActionsArea };

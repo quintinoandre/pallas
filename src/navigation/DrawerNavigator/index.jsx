@@ -3,15 +3,16 @@ import React, { useMemo } from 'react';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 
 import { AlertsButton } from '../../components';
-import Dashboard from '../../private/Dashboard/Dashboard';
-import Logout from '../../private/Logout/Logout';
-import Reports from '../../private/Reports/Reports';
-import Settings from '../../private/Settings/Settings';
-import Wallet from '../../private/Wallet/Wallet';
+import { Dashboard } from '../../private/Dashboard/Dashboard';
+import { Logout } from '../../private/Logout/Logout';
+import { Reports } from '../../private/Reports/Reports';
+import { Settings } from '../../private/Settings/Settings';
+import { Wallet } from '../../private/Wallet/Wallet';
 import { AutomationNavigator } from '../AutomationNavigator';
 import { DrawerIcon } from '../DrawerIcon';
 import { MonitorNavigator } from '../MonitorNavigator';
 import { OrderNavigator } from '../OrderNavigator';
+import { OrderTemplateNavigator } from '../OrderTemplateNavigator';
 
 const Drawer = createDrawerNavigator();
 
@@ -39,43 +40,48 @@ function DrawerNavigator({ ...props }) {
 			<Drawer.Screen
 				name="Dashboard"
 				component={Dashboard}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="pie-chart" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="pie-chart" /> }}
 			/>
 			<Drawer.Screen
 				name="Reports"
 				component={Reports}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="activity" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="activity" /> }}
 			/>
 			<Drawer.Screen
 				name="Wallet"
 				component={Wallet}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="dollar-sign" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="dollar-sign" /> }}
 			/>
 			<Drawer.Screen
 				name="Orders"
 				component={OrderNavigator}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="book-open" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="book-open" /> }}
 			/>
 			<Drawer.Screen
 				name="Automations"
 				component={AutomationNavigator}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="command" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="command" /> }}
+			/>
+			<Drawer.Screen
+				name="Order Templates"
+				component={OrderTemplateNavigator}
+				options={{ drawerIcon: () => <DrawerIcon name="layout" /> }}
 			/>
 			<Drawer.Screen
 				name="Monitors"
 				component={MonitorNavigator}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="monitor" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="monitor" /> }}
 			/>
 			<Drawer.Screen
 				name="Settings"
 				component={Settings}
-				options={{ drawerIcon: (_config) => <DrawerIcon name="settings" /> }}
+				options={{ drawerIcon: () => <DrawerIcon name="settings" /> }}
 			/>
 			<Drawer.Screen
 				name="Logout"
 				component={Logout}
 				options={{
-					drawerIcon: (_config) => <DrawerIcon name="log-out" />,
+					drawerIcon: () => <DrawerIcon name="log-out" />,
 					drawerItemStyle: {
 						borderTopColor: '#374151',
 						borderStyle: 'solid',

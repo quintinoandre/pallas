@@ -1,10 +1,12 @@
 import axios from 'axios';
 
-import { ORIGIN } from '@env';
+import { ORIGIN, REACT_APP_API_URL as baseURL } from '@env';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
+const api = axios.create({ baseURL });
+
 function configBaseService(navigator) {
-	axios.interceptors.request.use(
+	api.interceptors.request.use(
 		async (config) => {
 			config.headers.Authorization = await AsyncStorage.getItem('token');
 
@@ -17,7 +19,7 @@ function configBaseService(navigator) {
 		}
 	);
 
-	axios.interceptors.response.use(
+	api.interceptors.response.use(
 		(response) => response,
 
 		(error) => {
@@ -34,4 +36,4 @@ function configBaseService(navigator) {
 	);
 }
 
-export { axios, configBaseService };
+export { api, configBaseService };

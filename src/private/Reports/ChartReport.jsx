@@ -9,7 +9,7 @@ import { ChartReportStyles as styles } from './styles';
  * props:
  * - data
  */
-function CharReport({ ...props }) {
+function ChartReport({ ...props }) {
 	const { theme } = useTheme();
 
 	const [data, setData] = useState({});
@@ -102,4 +102,4 @@ function CharReport({ ...props }) {
 	);
 }
 
-export default CharReport;
+export { ChartReport };

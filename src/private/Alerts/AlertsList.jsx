@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { FlatList, Text, View } from 'react-native';
-import { useTheme, FAB } from 'react-native-elements';
+import { FAB, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
@@ -24,8 +24,8 @@ function AlertsList({ ...props }) {
 
 	const PAGE_SIZE = 10;
 
-	function errorHandling(err) {
-		console.error(err);
+	function errorHandling(error) {
+		console.error(error);
 	}
 
 	function loadAlerts(page) {
@@ -44,10 +44,10 @@ function AlertsList({ ...props }) {
 					setAlerts(result);
 				}
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -65,12 +65,8 @@ function AlertsList({ ...props }) {
 
 	function deleteAll() {
 		deleteAllAlerts()
-			.then((_result) => {
-				setAlerts([]);
-			})
-			.catch((err) => {
-				errorHandling(err);
-			});
+			.then(() => setAlerts([]))
+			.catch((error) => errorHandling(error));
 	}
 
 	function onEndReached() {
@@ -96,7 +92,7 @@ function AlertsList({ ...props }) {
 					color="black"
 					underlayColor="#ccc"
 					backgroundColor="transparent"
-					onPress={(_event) => props.navigation.goBack()}
+					onPress={() => props.navigation.goBack()}
 				/>
 				<Text style={styles.headerTitle}>Notifications</Text>
 			</View>
@@ -104,11 +100,11 @@ function AlertsList({ ...props }) {
 				data={alerts.reverse()}
 				initialNumToRender={PAGE_SIZE}
 				onEndReachedThreshold={0.3}
-				onEndReached={(_event) => setCanLoadMore(true)}
+				onEndReached={() => setCanLoadMore(true)}
 				refreshing={isLoading}
-				onRefresh={(_event) => setRefresh(Date.now())}
-				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
-				ListEmptyComponent={() => emptyList}
+				onRefresh={() => setRefresh(Date.now())}
+				onMomentumScrollEnd={canLoadMore && onEndReached}
+				ListEmptyComponent={emptyList}
 				renderItem={(obj) => <AlertItem alert={obj.item} />}
 				keyExtractor={(obj) => obj.date}
 			/>
@@ -116,10 +112,10 @@ function AlertsList({ ...props }) {
 				title={<Icon name="trash-2" size={20} color="white" />}
 				placement="right"
 				buttonStyle={{ backgroundColor: theme.colors.danger }}
-				onPress={(event) => deleteAll(event)}
+				onPress={deleteAll}
 			/>
 		</>
 	);
 }
 
-export default AlertsList;
+export { AlertsList };

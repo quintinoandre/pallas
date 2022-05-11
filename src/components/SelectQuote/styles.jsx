@@ -1,5 +1,9 @@
 import { StyleSheet } from 'react-native';
 
+const styles = StyleSheet.create({
+	iconContainer: { top: 10, right: 12 },
+});
+
 const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
 		marginVertical: 10,
@@ -17,4 +21,4 @@ const pickerSelectStyles = StyleSheet.create({
 	},
 });
 
-export { pickerSelectStyles };
+export { styles, pickerSelectStyles };

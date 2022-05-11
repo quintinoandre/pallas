@@ -46,4 +46,4 @@ function WalletItem({ ...props }) {
 	);
 }
 
-export default WalletItem;
+export { WalletItem };

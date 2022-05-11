@@ -1,9 +1,9 @@
 import React from 'react';
-import { Button, ListItem } from 'react-native-elements';
+import { Button, ListItem, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { Styles as styles } from './styles';
+import { styles } from './styles';
 
 /**
  * props:
@@ -13,16 +13,19 @@ import { Styles as styles } from './styles';
  * - style?
  */
 function SmartItem({ ...props }) {
+	const { theme } = useTheme();
+
 	const icon = <Icon name={props.icon} color="black" size={20} />;
 
 	const rightButton = (
 		<Button
 			icon={<Icon name="trash-2" color="white" size={20} />}
 			title="Delete"
-			buttonStyle={styles.rightButton}
-			onPress={(event) => {
-				if (props.onDelete) props.onDelete(event);
+			buttonStyle={{
+				...styles.rightButton,
+				backgroundColor: theme.colors.danger,
 			}}
+			onPress={(event) => props.onDelete(event)}
 		/>
 	);
 

@@ -22,12 +22,12 @@ function SwitchInput({ ...props }) {
 	function onCheck(event) {
 		setChecked(event);
 
-		if (props.onChange) props.onChange(event);
+		props.onChange(event);
 	}
 
 	return (
 		<View style={styles.view}>
-			<Text style={{ ...theme.h2, ...styles.label }}>{props.text}</Text>
+			<Text style={{ ...styles.label, ...theme.h2 }}>{props.text}</Text>
 			<Switch value={checked} onValueChange={(event) => onCheck(event)} />
 		</View>
 	);

@@ -13,10 +13,9 @@ import { styles } from './styles';
  * - navigation
  * - route
  */
-function Settings({ ...props }) {
+function Settings() {
 	const { theme } = useTheme();
 
-	// eslint-disable-next-line no-unused-vars
 	const [limit, setLimit] = useState('');
 	const [name, setName] = useState('');
 	const [email, setEmail] = useState('');
@@ -29,7 +28,7 @@ function Settings({ ...props }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [notification, setNotification] = useState(null);
 
-	function clearScreen(_event) {
+	function clearScreen() {
 		setSecretKey('');
 
 		setPassword('');
@@ -58,17 +57,17 @@ function Settings({ ...props }) {
 
 				clearScreen();
 			})
-			.catch((err) => {
+			.catch((error) => {
 				clearScreen();
 
 				setNotification({
 					type: 'error',
-					text: err.response ? err.response.data : err.message,
+					text: error.response ? error.response.data : error.message,
 				});
 			});
 	}, []);
 
-	function onSavePress(_event) {
+	function onSavePress() {
 		setIsLoading(true);
 
 		if (password && password !== confirmPassword)
@@ -86,19 +85,19 @@ function Settings({ ...props }) {
 			accessKey,
 			secretKey,
 		})
-			.then((_result) => {
+			.then(() => {
 				clearScreen();
 				setNotification({
 					type: 'success',
 					text: 'Settings saved successfully!',
 				});
 			})
-			.catch((err) => {
+			.catch((error) => {
 				clearScreen();
 
 				setNotification({
 					type: 'error',
-					text: err.response ? err.response.data : err.message,
+					text: error.response ? error.response.data : error.message,
 				});
 			});
 	}
@@ -188,7 +187,7 @@ function Settings({ ...props }) {
 					icon={() => <Icon name="save" size={20} color="white" />}
 					title={isLoading ? <ActivityIndicator /> : 'Save Settings'}
 					style={styles.button}
-					onPress={(event) => onSavePress(event)}
+					onPress={onSavePress}
 				/>
 			</View>
 			{notification ? (
@@ -196,7 +195,7 @@ function Settings({ ...props }) {
 					type={notification.type}
 					text={notification.text}
 					visible={!!notification.type}
-					onDismiss={(event) => clearScreen(event)}
+					onDismiss={clearScreen}
 				/>
 			) : (
 				<></>
@@ -205,4 +204,4 @@ function Settings({ ...props }) {
 	);
 }
 
-export default Settings;
+export { Settings };

@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
-import IndexBuilder from './IndexBuilder';
+import { IndexBuilder } from './IndexBuilder';
 import { IndexesAreaStyles as styles } from './styles';
 
 /**
@@ -42,7 +42,7 @@ function IndexesArea({ ...props }) {
 
 		setIndexes(indexes);
 
-		if (props.onChange) props.onChange(indexes);
+		props.onChange(indexes);
 	}
 
 	function getText(index) {
@@ -51,14 +51,14 @@ function IndexesArea({ ...props }) {
 		}`;
 	}
 
-	function onAddIndex(event) {
-		if (indexes.some((index) => index.key === event.key)) return;
+	function onAddIndex(index) {
+		if (indexes.some((item) => item.key === index.key)) return;
 
-		indexes.push(event);
+		indexes.push(index);
 
 		setIndexes(indexes);
 
-		if (props.onChange) props.onChange(indexes);
+		props.onChange(indexes);
 	}
 
 	return (
@@ -72,7 +72,7 @@ function IndexesArea({ ...props }) {
 								key={index.key}
 								icon="bar-chart-2"
 								text={getText(index)}
-								onDelete={(_event) => onRemoveIndex(index.key)}
+								onDelete={() => onRemoveIndex(index.key)}
 							/>
 						))
 					) : (
@@ -84,4 +84,4 @@ function IndexesArea({ ...props }) {
 	);
 }
 
-export default IndexesArea;
+export { IndexesArea };

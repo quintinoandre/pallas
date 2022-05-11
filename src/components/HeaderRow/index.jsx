@@ -13,16 +13,16 @@ import { styles } from './styles';
  * - onSymbolChange
  */
 function HeaderRow({ ...props }) {
-	const [symbol, setSymbol] = useState(props.symbol);
+	const [symbolState, setSymbolState] = useState(props.symbol);
 
 	useEffect(() => {
-		setSymbol(props.symbol);
+		setSymbolState(props.symbol);
 	}, [props.symbol]);
 
-	function onSymbolChange(event) {
-		setSymbol(event);
+	function onSymbolChange(symbol) {
+		setSymbolState(symbol);
 
-		if (props.onSymbolChange) props.onSymbolChange(event);
+		props.onSymbolChange(symbol);
 	}
 
 	return (
@@ -33,13 +33,11 @@ function HeaderRow({ ...props }) {
 				color="black"
 				underlayColor="#ccc"
 				backgroundColor="transparent"
-				onPress={(event) => {
-					if (props.onBackPress) props.onBackPress(event);
-				}}
+				onPress={props.onBackPress}
 			/>
 			<View style={styles.view}>
 				<SelectSymbol
-					symbol={symbol}
+					symbol={symbolState}
 					onSymbolChange={(event) => onSymbolChange(event)}
 				/>
 			</View>

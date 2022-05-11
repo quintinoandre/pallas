@@ -12,19 +12,18 @@ import { IndexSelectStyles as pickerSelectStyles } from './styles';
  */
 function IndexSelect({ ...props }) {
 	const [indexes, setIndexes] = useState([]);
-	const [index, setIndex] = useState('');
+	const [indexState, setIndexState] = useState('');
 
 	useEffect(() => {
 		setIndexes(props.indexes || []);
 	}, [props.indexes]);
 
-	function onChange(event) {
-		if (!event) return;
+	function onChange(index) {
+		if (!index) return;
 
-		setIndex(event);
+		setIndexState(index);
 
-		if (props.onChange)
-			props.onChange(props.indexes.find((ix) => ix.eval === event));
+		props.onChange(props.indexes.find((item) => item.eval === index));
 	}
 
 	function getOptionText(symbol, variable) {
@@ -33,14 +32,14 @@ function IndexSelect({ ...props }) {
 
 	return (
 		<Picker
-			style={{ ...pickerSelectStyles, iconContainer: { top: 0, right: 12 } }}
-			value={index}
+			style={pickerSelectStyles}
+			value={indexState}
 			onValueChange={(event) => onChange(event)}
 			useNativeAndroidPickerStyle={false}
-			items={indexes.map((item) => {
+			items={indexes.map((index) => {
 				return {
-					label: getOptionText(item.symbol, item.variable),
-					value: item.eval,
+					label: getOptionText(index.symbol, index.variable),
+					value: index.eval,
 				};
 			})}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
@@ -48,4 +47,4 @@ function IndexSelect({ ...props }) {
 	);
 }
 
-export default IndexSelect;
+export { IndexSelect };

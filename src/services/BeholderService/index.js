@@ -1,27 +1,21 @@
-import { REACT_APP_API_URL as API_URL } from '@env';
-
-import { axios } from '../BaseService';
+import { api } from '../BaseService';
 
 async function getMemoryIndex(symbol, index, interval = '') {
-	const getMemoryIndexUrl = `${API_URL}/beholder/memory/${symbol}/${index}/${interval}`;
-
-	const response = await axios.get(getMemoryIndexUrl);
+	const response = await api.get(
+		`/beholder/memory/${symbol}/${index}/${interval}`
+	);
 
 	return response.data;
 }
 
 async function getIndexes() {
-	const getIndexesUrl = `${API_URL}/beholder/memory/indexes`;
-
-	const response = await axios.get(getIndexesUrl);
+	const response = await api.get(`/beholder/memory/indexes`);
 
 	return response.data;
 }
 
 async function getAnalysisIndexes() {
-	const getAnalysisIndexesUrl = `${API_URL}/beholder/analysis`;
-
-	const response = await axios.get(getAnalysisIndexesUrl);
+	const response = await api.get(`/beholder/analysis`);
 
 	return response.data;
 }

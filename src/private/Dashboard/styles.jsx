@@ -1,6 +1,7 @@
 import { StyleSheet } from 'react-native';
 
 const BookStyles = StyleSheet.create({
+	iconContainer: { paddingRight: 5 },
 	column: {
 		flex: 1,
 		flexDirection: 'column',
@@ -27,6 +28,7 @@ const SymbolChartStyles = StyleSheet.create({
 });
 
 const TickerStyles = StyleSheet.create({
+	iconContainer: { paddingRight: 5 },
 	column: {
 		flex: 1,
 		flexDirection: 'column',

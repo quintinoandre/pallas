@@ -1,16 +1,13 @@
 import { StyleSheet } from 'react-native';
-import { useTheme } from 'react-native-elements';
 
 function IndexBuilderStyles(analysis) {
-	const { theme } = useTheme();
-
-	const indexBuilderStyles = StyleSheet.create({
+	const styles = StyleSheet.create({
 		collapsed: { marginVertical: 15, height: 80, flex: 0 },
 		build: { marginVertical: 15, height: analysis.params ? 220 : 125, flex: 0 },
-		button: { backgroundColor: theme.colors.secondary, marginHorizontal: 10 },
+		button: { marginHorizontal: 10 },
 	});
 
-	return indexBuilderStyles;
+	return styles;
 }
 
 const IndexesAreaStyles = StyleSheet.create({
@@ -36,6 +33,7 @@ const MonitorIndexStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 0, right: 12 },
 });
 
 export { IndexBuilderStyles, IndexesAreaStyles, MonitorIndexStyles };

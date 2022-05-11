@@ -23,7 +23,7 @@ function Book({ ...props }) {
 	return (
 		<Block color="white">
 			<Text style={theme.h2}>
-				<View style={{ paddingRight: 5 }}>
+				<View style={styles.iconContainer}>
 					<Icon name="book-open" size={20} color="black" />
 				</View>
 				Book
@@ -54,4 +54,4 @@ function Book({ ...props }) {
 	);
 }
 
-export default Book;
+export { Book };

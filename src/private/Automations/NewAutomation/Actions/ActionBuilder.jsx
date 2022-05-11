@@ -4,15 +4,15 @@ import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
+import { ACTION_TYPE } from '../../../../enums';
 import {
-	actionType,
 	getAllOrderTemplates,
 	getSymbol,
 	getWithdrawTemplates,
 } from '../../../../services';
-import ActionSelect from './ActionSelect';
+import { ActionSelect } from './ActionSelect';
 import { ActionBuilderStyles } from './styles';
-import TemplateSelect from './TemplateSelect';
+import { TemplateSelect } from './TemplateSelect';
 
 /**
  * props:
@@ -29,8 +29,8 @@ function ActionBuilder({ ...props }) {
 	const [orderTemplates, setOrderTemplates] = useState([]);
 	const [withdrawTemplates, setWithdrawTemplates] = useState([]);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -44,10 +44,10 @@ function ActionBuilder({ ...props }) {
 
 				setIsLoaded(isLoaded + 1);
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoaded(isLoaded + 1);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 
 		getSymbol(props.symbol)
@@ -58,17 +58,17 @@ function ActionBuilder({ ...props }) {
 					setIsLoaded(isLoaded + 1);
 				});
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoaded(isLoaded + 1);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}, [props.symbol]);
 
-	function onPress(_event) {
+	function onPress() {
 		const newAction = { type };
 
-		if ([actionType.ORDER, actionType.TRAILING].includes(newAction.type)) {
+		if ([ACTION_TYPE.ORDER, ACTION_TYPE.TRAILING].includes(newAction.type)) {
 			if (!template) return;
 
 			newAction.id = `ot${template.id}`;
@@ -76,7 +76,7 @@ function ActionBuilder({ ...props }) {
 			newAction.orderTemplateId = template.id;
 
 			newAction.orderTemplate = template;
-		} else if (newAction.type === actionType.WITHDRAW) {
+		} else if (newAction.type === ACTION_TYPE.WITHDRAW) {
 			if (!template) return;
 
 			newAction.id = `wt${template.id}`;
@@ -86,7 +86,7 @@ function ActionBuilder({ ...props }) {
 			newAction.orderTemplate = template;
 		} else newAction.id = newAction.type;
 
-		if (props.onAddAction) props.onAddAction(newAction);
+		props.onAddAction(newAction);
 
 		setShowBuilder(false);
 	}
@@ -96,16 +96,19 @@ function ActionBuilder({ ...props }) {
 	function renderSelect() {
 		if (!type || type.indexOf('ALERT') !== -1) return <></>;
 
-		if (type === actionType.WITHDRAW && isLoaded < 2)
+		if (type === ACTION_TYPE.WITHDRAW && isLoaded < 2)
 			return <ActivityIndicator />;
 
-		if ([actionType.ORDER, actionType.TRAILING].includes(type) && isLoaded < 1)
+		if (
+			[ACTION_TYPE.ORDER, ACTION_TYPE.TRAILING].includes(type) &&
+			isLoaded < 1
+		)
 			return <ActivityIndicator />;
 
 		return (
 			<TemplateSelect
 				templates={
-					type === actionType.WITHDRAW ? withdrawTemplates : orderTemplates
+					type === ACTION_TYPE.WITHDRAW ? withdrawTemplates : orderTemplates
 				}
 				onChange={(event) => setTemplate(event)}
 			/>
@@ -113,10 +116,9 @@ function ActionBuilder({ ...props }) {
 	}
 
 	return (
-		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
 			{showBuilder ? (
-				<View style={{ ...theme.inputContainer, ...styles.build }}>
+				<View style={{ ...styles.build, ...theme.inputContainer }}>
 					{isLoaded < 1 ? (
 						<ActivityIndicator />
 					) : (
@@ -126,24 +128,23 @@ function ActionBuilder({ ...props }) {
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{
+							...styles.showBuilderButton,
 							backgroundColor: theme.colors.secondary,
-							marginHorizontal: 10,
-							marginTop: 10,
 						}}
 						title=" Add Action"
-						onPress={(event) => onPress(event)}
+						onPress={onPress}
 					/>
 				</View>
 			) : (
-				<View style={{ ...theme.inputContainer, ...styles.collapsed }}>
+				<View style={{ ...styles.collapsed, ...theme.inputContainer }}>
 					<Button
 						icon={() => <Icon name="plus" color="black" size={20} />}
 						buttonStyle={{
+							...styles.hideBuilderButton,
 							backgroundColor: theme.colors.secondary,
-							marginHorizontal: 10,
 						}}
 						title=" Add Action"
-						onPress={(_event) => setShowBuilder(true)}
+						onPress={() => setShowBuilder(true)}
 					/>
 				</View>
 			)}
@@ -151,4 +152,4 @@ function ActionBuilder({ ...props }) {
 	);
 }
 
-export default ActionBuilder;
+export { ActionBuilder };

@@ -52,4 +52,4 @@ function SymbolChart({ ...props }) {
 	);
 }
 
-export default SymbolChart;
+export { SymbolChart };

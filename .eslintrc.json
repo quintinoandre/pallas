@@ -4,10 +4,10 @@
 		"es2021": true
 	},
 	"extends": [
-		"plugin:react/recommended",
 		"airbnb",
 		"prettier",
-		"plugin:prettier/recommended"
+		"plugin:prettier/recommended",
+		"plugin:react/recommended"
 	],
 	"parserOptions": {
 		"ecmaFeatures": {
@@ -16,17 +16,39 @@
 		"ecmaVersion": "latest",
 		"sourceType": "module"
 	},
-	"plugins": ["react", "eslint-plugin-import-helpers", "prettier"],
+	"plugins": [
+		"eslint-plugin-import-helpers",
+		"react",
+		"prettier",
+		"unused-imports"
+	],
 	"rules": {
 		"prettier/prettier": "error",
-		"consistent-return": "warn",
-		"import/no-unresolved": "warn",
-		"react/jsx-no-useless-fragment": "warn",
-		"no-param-reassign": "warn",
+		"arrow-body-style": "off",
+		"prefer-arrow-callback": "off",
+		"consistent-return": "off",
+		"import/no-unresolved": "off",
+		"react/jsx-no-useless-fragment": "off",
+		"no-param-reassign": "off",
 		"react/prop-types": "off",
 		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
-		"import/prefer-default-export": "warn",
+		"import/prefer-default-export": "off",
 		"no-unused-expressions": "warn",
+		"react/jsx-uses-react": 1,
+		"react/jsx-uses-vars": 1,
+		"no-alert": "off",
+		"no-console": "off",
+		"react/jsx-no-bind": "off",
+		"unused-imports/no-unused-imports": "error",
+		"unused-imports/no-unused-vars": [
+			"warn",
+			{
+				"vars": "all",
+				"varsIgnorePattern": "^_",
+				"args": "after-used",
+				"argsIgnorePattern": "^_"
+			}
+		],
 		"no-unused-vars": [
 			"warn",
 			{

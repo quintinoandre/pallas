@@ -11,13 +11,13 @@ import { doLogout } from '../../services';
 function Logout({ ...props }) {
 	useEffect(() => {
 		doLogout()
-			.then((_result) =>
+			.then(() =>
 				props.navigation.navigate('Login', {
 					text: 'Logged out successfully!',
 					type: 'info',
 				})
 			)
-			.catch((_error) =>
+			.catch(() =>
 				props.navigation.navigate('Login', {
 					text: 'Logged out successfully!',
 					type: 'info',
@@ -28,4 +28,4 @@ function Logout({ ...props }) {
 	return <ActivityIndicator />;
 }
 
-export default Logout;
+export { Logout };

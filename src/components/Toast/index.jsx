@@ -22,18 +22,20 @@ function Toast({ ...props }) {
 
 	useEffect(() => {
 		setText(props.text);
+
 		setType(props.type);
+
 		setVisible(props.visible);
 	}, [props.type, props.text, props.visible]);
 
-	function onDismiss(_event) {
+	function onDismiss() {
 		setVisible(false);
 
-		if (props.onDismiss) props.onDismiss();
+		props.onDismiss();
 	}
 
 	return (
-		<Overlay isVisible={visible} onBackdropPress={(event) => onDismiss(event)}>
+		<Overlay isVisible={visible} onBackdropPress={onDismiss}>
 			<View style={styles.logo}>
 				{type === 'error' ? (
 					<Icon name="alert-triangle" size={32} color={theme.colors.danger} />
@@ -49,11 +51,7 @@ function Toast({ ...props }) {
 			>
 				{text}
 			</Text>
-			<Button
-				title="Ok"
-				style={{ marginTop: 10 }}
-				onPress={(event) => onDismiss(event)}
-			/>
+			<Button title="Ok" style={styles.button} onPress={onDismiss} />
 		</Overlay>
 	);
 }

@@ -29,23 +29,23 @@ import { styles } from './styles';
  * - route
  */
 function Login({ ...props }) {
+	const { theme } = useTheme();
+
 	configBaseService(props.navigation);
 
 	const [email, setEmail] = useState('');
 	const [password, setPassword] = useState('');
 	const [rememberMe, setRememberMe] = useState(false);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 	const [info, setInfo] = useState('');
-
-	const { theme } = useTheme();
 
 	function clearScreen() {
 		if (!rememberMe) setEmail('');
 
 		setPassword('');
 
-		setError('');
+		setErrorState('');
 
 		setInfo('');
 
@@ -57,7 +57,7 @@ function Login({ ...props }) {
 			clearScreen();
 
 			if (props.route.params.type === 'info') setInfo(props.route.params.text);
-			else setError(props.route.params.text);
+			else setErrorState(props.route.params.text);
 		}
 
 		AsyncStorage.getItem('email').then((result) => {
@@ -111,7 +111,7 @@ function Login({ ...props }) {
 		return token;
 	}
 
-	async function onSignInPress(_event) {
+	async function onSignInPress() {
 		setIsLoading(true);
 
 		if (rememberMe) AsyncStorage.setItem('email', email);
@@ -133,10 +133,10 @@ function Login({ ...props }) {
 
 				props.navigation.navigate('DrawerNavigator');
 			}
-		} catch (err) {
+		} catch (error) {
 			clearScreen();
 
-			setError(err.response ? err.response.data : err.message);
+			setErrorState(error.response ? error.response.data : error.message);
 		}
 	}
 
@@ -152,7 +152,7 @@ function Login({ ...props }) {
 						autoCapitalize="none"
 						keyboardType="email-address"
 						value={email}
-						onChangeText={(text) => setEmail(text)}
+						onChangeText={(event) => setEmail(event)}
 						leftIcon={<Icon size={24} color="black" name="user" />}
 					/>
 					<Input
@@ -160,7 +160,7 @@ function Login({ ...props }) {
 						autoComplete="password"
 						value={password}
 						secureTextEntry
-						onChangeText={(text) => setPassword(text)}
+						onChangeText={(event) => setPassword(event)}
 						leftIcon={<Icon size={24} color="black" name="key" />}
 					/>
 					<CheckBox
@@ -171,9 +171,9 @@ function Login({ ...props }) {
 					<Button
 						title={isLoading ? <ActivityIndicator /> : 'Sign In'}
 						style={{ padding: 10 }}
-						onPress={(event) => onSignInPress(event)}
+						onPress={onSignInPress}
 					/>
-					{error ? <Text style={theme.alert}>{error}</Text> : <></>}
+					{errorState ? <Text style={theme.alert}>{errorState}</Text> : <></>}
 					{info ? <Text style={theme.info}>{info}</Text> : <></>}
 				</View>
 			</View>
@@ -181,4 +181,4 @@ function Login({ ...props }) {
 	);
 }
 
-export default Login;
+export { Login };

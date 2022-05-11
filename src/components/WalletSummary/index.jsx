@@ -49,7 +49,7 @@ function WalletSummary({ ...props }) {
 	}
 
 	return (
-		<View style={{ alignItems: 'center', ...props.style }}>
+		<View style={{ ...styles.container, ...props.style }}>
 			{props.header ? (
 				<Text style={theme.h2}>
 					<Icon name="dollar-sign" size={20} color="black" />

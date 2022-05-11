@@ -10,28 +10,22 @@ import { OperatorSelectStyles as styles } from './styles';
 function OperatorSelect({ ...props }) {
 	const [operator, setOperator] = useState(2);
 
-	function onPress(event) {
-		setOperator(event);
+	function onPress(value) {
+		setOperator(value);
 
-		switch (event) {
+		switch (value) {
 			case 0:
-				if (props.onChange) return props.onChange('<');
-				break;
+				return props.onChange('<');
 			case 1:
-				if (props.onChange) return props.onChange('<=');
-				break;
+				return props.onChange('<=');
 			case 2:
-				if (props.onChange) return props.onChange('==');
-				break;
+				return props.onChange('==');
 			case 3:
-				if (props.onChange) return props.onChange('!==');
-				break;
+				return props.onChange('!==');
 			case 4:
-				if (props.onChange) return props.onChange('>=');
-				break;
+				return props.onChange('>=');
 			case 5:
-				if (props.onChange) return props.onChange('>');
-				break;
+				return props.onChange('>');
 			default:
 				break;
 		}
@@ -47,4 +41,4 @@ function OperatorSelect({ ...props }) {
 	);
 }
 
-export default OperatorSelect;
+export { OperatorSelect };

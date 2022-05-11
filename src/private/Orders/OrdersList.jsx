@@ -3,7 +3,7 @@ import { FlatList, Text, View } from 'react-native';
 
 import { NewOrderButton, SelectSymbol } from '../../components';
 import { getOrders } from '../../services';
-import OrderItem from './OrderItem';
+import { OrderItem } from './OrderItem';
 import { OrdersListStyles as styles } from './styles';
 
 const PAGE_SIZE = 10;
@@ -21,8 +21,8 @@ function OrdersList({ ...props }) {
 	const [canLoadMore, setCanLoadMore] = useState(false);
 	const [refresh, setRefresh] = useState(0);
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	function loadOrders(symbol, page) {
@@ -37,10 +37,10 @@ function OrdersList({ ...props }) {
 					setOrders(orders);
 				}
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -98,15 +98,12 @@ function OrdersList({ ...props }) {
 				initialNumToRender={PAGE_SIZE}
 				refreshing={isLoading}
 				ListEmptyComponent={emptyList}
-				onRefresh={(_event) => setRefresh(Date.now())}
-				onEndReached={(_event) => setCanLoadMore(true)}
+				onRefresh={() => setRefresh(Date.now())}
+				onEndReached={() => setCanLoadMore(true)}
 				onEndReachedThreshold={0.3}
-				onMomentumScrollEnd={(event) => canLoadMore && onEndReached(event)}
+				onMomentumScrollEnd={canLoadMore && onEndReached}
 				renderItem={(obj) => (
-					<OrderItem
-						order={obj.item}
-						onPress={(_event) => viewDetails(obj.item)}
-					/>
+					<OrderItem order={obj.item} onPress={() => viewDetails(obj.item)} />
 				)}
 				keyExtractor={(order) => order.id}
 			/>
@@ -115,4 +112,4 @@ function OrdersList({ ...props }) {
 	);
 }
 
-export default OrdersList;
+export { OrdersList };

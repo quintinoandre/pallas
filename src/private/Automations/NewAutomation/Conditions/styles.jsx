@@ -1,12 +1,23 @@
 import { StyleSheet } from 'react-native';
 
 const ConditionBuilderStyles = StyleSheet.create({
-	build: { marginVertical: 15, height: 240, flex: 0 },
-	collapsed: { marginVertical: 15, height: 80, flex: 0 },
+	build: {
+		marginVertical: 15,
+		height: 240,
+		flex: 0,
+	},
+	button: { marginHorizontal: 10 },
+	collapsed: {
+		marginVertical: 15,
+		height: 80,
+		flex: 0,
+	},
 });
 
 const ConditionsAreaStyles = StyleSheet.create({
 	list: { flex: 1, width: '100%', paddingHorizontal: 20 },
+	scrollView: { flexGrow: 1 },
+	smartItem: { fontSize: 12 },
 });
 
 const IndexSelectStyles = StyleSheet.create({
@@ -28,6 +39,7 @@ const IndexSelectStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 0, right: 12 },
 });
 
 const OperatorSelectStyles = StyleSheet.create({

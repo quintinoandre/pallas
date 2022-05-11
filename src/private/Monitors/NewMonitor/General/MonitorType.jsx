@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { monitorType } from '../../../../services';
+import { MONITOR_TYPE } from '../../../../enums';
 import {
 	MonitorTypePickerSelectStyles as pickerSelectStyles,
 	MonitorTypeStyles as styles,
@@ -16,16 +16,16 @@ import {
  * - onChange
  */
 function MonitorType({ ...props }) {
-	const [type, setType] = useState(monitorType.CANDLES);
+	const [typeState, setTypeState] = useState(MONITOR_TYPE.CANDLES);
 
 	useEffect(() => {
-		setType(props.type || monitorType.CANDLES);
+		setTypeState(props.type || MONITOR_TYPE.CANDLES);
 	}, [props.type]);
 
-	function onChange(event) {
-		setType(event);
+	function onChange(type) {
+		setTypeState(type);
 
-		if (props.onChange) props.onChange(event);
+		props.onChange(type);
 	}
 
 	return (
@@ -33,12 +33,12 @@ function MonitorType({ ...props }) {
 			<Text style={styles.label}>Type</Text>
 			<Picker
 				Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-				style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 5 } }}
-				value={type}
+				style={pickerSelectStyles}
+				value={typeState}
 				useNativeAndroidPickerStyle={false}
 				items={[
-					{ label: 'Candles', value: monitorType.CANDLES },
-					{ label: 'Ticker', value: monitorType.TICKER },
+					{ label: 'Candles', value: MONITOR_TYPE.CANDLES },
+					{ label: 'Ticker', value: MONITOR_TYPE.TICKER },
 				]}
 				onValueChange={(event) => onChange(event)}
 			/>
@@ -46,4 +46,4 @@ function MonitorType({ ...props }) {
 	);
 }
 
-export default MonitorType;
+export { MonitorType };

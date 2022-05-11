@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ActivityIndicator, Text, View } from 'react-native';
-import { useTheme, Tab, Button } from 'react-native-elements';
+import { Tab, Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
 import { saveAutomation } from '../../../services';
-import ActionsArea from './Actions/ActionsArea';
-import ConditionsArea from './Conditions/ConditionsArea';
-import GeneralArea from './GeneralArea';
+import { ActionsArea } from './Actions/ActionsArea';
+import { ConditionsArea } from './Conditions/ConditionsArea';
+import { GeneralArea } from './GeneralArea';
 import { NewAutomationStyles as styles } from './styles';
 
 /**
@@ -32,10 +32,10 @@ function NewAutomation({ ...props }) {
 	const [automation, setAutomation] = useState(DEFAULT_AUTOMATION);
 	const [tabIndex, setTabIndex] = useState(0);
 	const [isLoading, setIsLoading] = useState(false);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 
-	function errorHandling(err) {
-		setError(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		setErrorState(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -43,17 +43,17 @@ function NewAutomation({ ...props }) {
 			setAutomation(props.route.params.automation);
 		else setAutomation({ ...DEFAULT_AUTOMATION });
 
-		setError('');
+		setErrorState('');
 	}, [props.route.params]);
 
-	function onPress(_event) {
-		setError('');
+	function onPress() {
+		setErrorState('');
 
 		if (!automation.actions || automation.actions.length < 1)
-			return setError('You need to have at least one action!');
+			return setErrorState('You need to have at least one action!');
 
 		if (!automation.conditions && !automation.schedule)
-			return setError('You need to have at least one condition!');
+			return setErrorState('You need to have at least one condition!');
 
 		const indexes = automation.conditions
 			.split(' && ')
@@ -74,22 +74,22 @@ function NewAutomation({ ...props }) {
 					params: { result },
 				});
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
 	return (
-		<View style={theme.page}>
+		<View style={{ ...theme.page }}>
 			<View style={styles.header}>
 				<HeaderRow
 					symbol={automation.symbol}
 					onSymbolChange={(event) =>
 						setAutomation({ ...DEFAULT_AUTOMATION, symbol: event })
 					}
-					onBackPress={(_event) => props.navigation.navigate('AutomationsList')}
+					onBackPress={() => props.navigation.navigate('AutomationsList')}
 				/>
 			</View>
 			<Tab
@@ -117,8 +117,8 @@ function NewAutomation({ ...props }) {
 				<GeneralArea
 					automation={automation}
 					type={props.route.params.type}
-					onChange={(event) =>
-						setAutomation({ ...automation, [event.name]: event.value })
+					onChange={({ name, value }) =>
+						setAutomation({ ...automation, [name]: value })
 					}
 				/>
 			) : (
@@ -150,11 +150,13 @@ function NewAutomation({ ...props }) {
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
 					title={isLoading ? <ActivityIndicator /> : ' Save Automation'}
-					onPress={(event) => onPress(event)}
+					onPress={onPress}
 					disabled={isLoading}
 				/>
-				{error ? (
-					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				{errorState ? (
+					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>
+						{errorState}
+					</Text>
 				) : (
 					<></>
 				)}
@@ -163,4 +165,4 @@ function NewAutomation({ ...props }) {
 	);
 }
 
-export default NewAutomation;
+export { NewAutomation };

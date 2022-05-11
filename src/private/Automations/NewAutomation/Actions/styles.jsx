@@ -1,16 +1,27 @@
 import { StyleSheet } from 'react-native';
 
 function ActionBuilderStyles(type) {
-	const actionBuilderStyles = StyleSheet.create({
+	const styles = StyleSheet.create({
 		build: {
 			marginVertical: 15,
 			height: type && type.indexOf('ALERT') === -1 ? 220 : 150,
 			flex: 0,
 		},
-		collapsed: { marginVertical: 15, height: 80, flex: 0 },
+		collapsed: {
+			marginVertical: 15,
+			height: 80,
+			flex: 0,
+		},
+		showBuilderButton: {
+			marginHorizontal: 10,
+			marginTop: 10,
+		},
+		hideBuilderButton: {
+			marginHorizontal: 10,
+		},
 	});
 
-	return actionBuilderStyles;
+	return styles;
 }
 
 const ActionsAreaStyles = StyleSheet.create({
@@ -36,6 +47,7 @@ const ActionSelectStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 10, right: 12 },
 });
 
 const TemplateSelectStyles = StyleSheet.create({
@@ -57,6 +69,7 @@ const TemplateSelectStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 10, right: 12 },
 });
 
 export {

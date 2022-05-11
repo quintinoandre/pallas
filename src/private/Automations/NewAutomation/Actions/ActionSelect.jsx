@@ -3,7 +3,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { actionType } from '../../../../services';
+import { ACTION_TYPE } from '../../../../enums';
 import { ActionSelectStyles as pickerSelectStyles } from './styles';
 
 /**
@@ -11,31 +11,31 @@ import { ActionSelectStyles as pickerSelectStyles } from './styles';
  * - onChange
  */
 function ActionSelect({ ...props }) {
-	const [type, setType] = useState('');
+	const [typeState, setTypeState] = useState('');
 
-	function onChange(event) {
-		setType(event);
+	function onChange(type) {
+		setTypeState(type);
 
-		if (props.onChange) props.onChange(event);
+		props.onChange(type);
 	}
 
 	return (
 		<Picker
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
-			value={type}
+			style={pickerSelectStyles}
+			value={typeState}
 			useNativeAndroidPickerStyle={false}
 			items={[
-				{ label: 'alert via E-mail', value: actionType.ALERT_EMAIL },
-				{ label: 'alert via SMS', value: actionType.ALERT_SMS },
-				{ label: 'alert via Telegram', value: actionType.ALERT_TELEGRAM },
-				{ label: 'Place Order', value: actionType.ORDER },
-				{ label: 'Place Trailing', value: actionType.TRAILING },
-				{ label: 'Withdraw Crypto', value: actionType.WITHDRAW },
+				{ label: 'alert via E-mail', value: ACTION_TYPE.ALERT_EMAIL },
+				{ label: 'alert via SMS', value: ACTION_TYPE.ALERT_SMS },
+				{ label: 'alert via Telegram', value: ACTION_TYPE.ALERT_TELEGRAM },
+				{ label: 'Place Order', value: ACTION_TYPE.ORDER },
+				{ label: 'Place Trailing', value: ACTION_TYPE.TRAILING },
+				{ label: 'Withdraw Crypto', value: ACTION_TYPE.WITHDRAW },
 			]}
 			onValueChange={(event) => onChange(event)}
 		/>
 	);
 }
 
-export default ActionSelect;
+export { ActionSelect };

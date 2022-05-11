@@ -5,11 +5,8 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { quantityType } from '../../../services';
-import {
-	QuantityInputPickerSelectStyles as pickerSelectStyles,
-	QuantityInputStyles as styles,
-} from './styles';
+import { QUANTITY_TYPE } from '../../../enums';
+import { QuantityInputStyles as styles } from './styles';
 
 /**
  * props:
@@ -17,37 +14,37 @@ import {
  * - onChange
  */
 function QuantityInput({ ...props }) {
-	const [value, setValue] = useState('');
+	const [valueState, setValueState] = useState('');
 	const [showInput, setShowInput] = useState(true);
 
 	useEffect(() => {
 		if (!props.value) return;
 
-		setValue(props.value);
+		setValueState(props.value);
 
 		setShowInput(
-			![quantityType.MAX_WALLET, quantityType.MIN_NOTIONAL].includes(
+			![QUANTITY_TYPE.MAX_WALLET, QUANTITY_TYPE.MIN_NOTIONAL].includes(
 				props.value
 			)
 		);
 	}, [props.value]);
 
-	function onRefresh(_event) {
-		setValue('');
+	function onRefresh() {
+		setValueState('');
 
 		setShowInput(!showInput);
 
-		if (props.onChange) props.onChange('');
+		props.onChange('');
 	}
 
-	function onChange(event) {
-		if (!event) return;
+	function onChange(value) {
+		if (!value) return;
 
-		const text = event.replace(',', '.');
+		const text = value.replace(',', '.');
 
-		setValue(text);
+		setValueState(text);
 
-		if (props.onChange) props.onChange(text);
+		props.onChange(text);
 	}
 
 	const icon = (
@@ -58,7 +55,7 @@ function QuantityInput({ ...props }) {
 			color="black"
 			underlayColor="white"
 			backgroundColor="transparent"
-			onPress={(event) => onRefresh(event)}
+			onPress={onRefresh}
 		/>
 	);
 
@@ -66,9 +63,9 @@ function QuantityInput({ ...props }) {
 		return (
 			<Input
 				leftIcon={icon}
-				placeholder={`${value}`}
+				placeholder={`${valueState}`}
 				keyboardType="decimal-pad"
-				value={`${value}`}
+				value={`${valueState}`}
 				onChangeText={(event) => onChange(event)}
 			/>
 		);
@@ -78,18 +75,15 @@ function QuantityInput({ ...props }) {
 		return (
 			<View style={styles.row}>
 				{icon}
-				<View style={{ flex: 1 }}>
+				<View style={styles.pickerContainer}>
 					<Picker
 						Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-						style={{
-							...pickerSelectStyles,
-							iconContainer: { top: 20, right: 12 },
-						}}
+						style={styles.pickerSelectStyles}
 						useNativeAndroidPickerStyle={false}
-						value={`${value}`}
+						value={`${valueState}`}
 						items={[
-							{ label: 'Max. Wallet', value: quantityType.MAX_WALLET },
-							{ label: 'Min. Notional', value: quantityType.MIN_NOTIONAL },
+							{ label: 'Max. Wallet', value: QUANTITY_TYPE.MAX_WALLET },
+							{ label: 'Min. Notional', value: QUANTITY_TYPE.MIN_NOTIONAL },
 						]}
 						onValueChange={(event) => onChange(event)}
 					/>
@@ -98,7 +92,6 @@ function QuantityInput({ ...props }) {
 		);
 	}
 
-	// eslint-disable-next-line react/jsx-no-useless-fragment
 	return (
 		<>
 			<Text style={styles.label}>Quantity</Text>
@@ -107,4 +100,4 @@ function QuantityInput({ ...props }) {
 	);
 }
 
-export default QuantityInput;
+export { QuantityInput };

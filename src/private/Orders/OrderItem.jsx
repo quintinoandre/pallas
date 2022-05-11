@@ -49,11 +49,11 @@ function OrderItem({ ...props }) {
 	}
 
 	return (
-		<ListItem onPress={(event) => props.onPress(event)} bottomDivider>
+		<ListItem onPress={props.onPress} bottomDivider>
 			<Avatar
 				size="small"
 				title={props.order.side}
-				titleStyle={{ fontSize: 12 }}
+				titleStyle={styles.avatar}
 				overlayContainerStyle={{
 					backgroundColor: getColorByOrderStatus(props.order.status, theme),
 				}}
@@ -71,4 +71,4 @@ function OrderItem({ ...props }) {
 	);
 }
 
-export default OrderItem;
+export { OrderItem };

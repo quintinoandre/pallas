@@ -3,8 +3,8 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { orderType } from '../../services';
-import { pickerSelectStyles } from './styles';
+import { ORDER_TYPE } from '../../enums';
+import { styles, pickerSelectStyles } from './styles';
 
 /**
  * props:
@@ -12,7 +12,7 @@ import { pickerSelectStyles } from './styles';
  * - onChange
  */
 function SelectType({ ...props }) {
-	const [type, setType] = useState(orderType.MARKET);
+	const [type, setType] = useState(ORDER_TYPE.MARKET);
 
 	useEffect(() => {
 		setType(props.type);
@@ -24,17 +24,17 @@ function SelectType({ ...props }) {
 			onValueChange={(event) => {
 				setType(event);
 
-				if (props.onChange) props.onChange(event);
+				props.onChange(event);
 			}}
-			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
+			style={{ ...styles.iconContainer, ...pickerSelectStyles }}
 			useNativeAndroidPickerStyle={false}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			items={[
-				{ label: 'Limit', value: orderType.LIMIT },
-				{ label: 'Market', value: orderType.MARKET },
-				{ label: 'Stop Loss Limit', value: orderType.STOP_LOSS_LIMIT },
-				{ label: 'Take Profit Limit', value: orderType.TAKE_PROFIT_LIMIT },
-				{ label: 'Trailing Stop', value: orderType.TRAILING_STOP },
+				{ label: 'Limit', value: ORDER_TYPE.LIMIT },
+				{ label: 'Market', value: ORDER_TYPE.MARKET },
+				{ label: 'Stop Loss Limit', value: ORDER_TYPE.STOP_LOSS_LIMIT },
+				{ label: 'Take Profit Limit', value: ORDER_TYPE.TAKE_PROFIT_LIMIT },
+				{ label: 'Trailing Stop', value: ORDER_TYPE.TRAILING_STOP },
 			]}
 		/>
 	);

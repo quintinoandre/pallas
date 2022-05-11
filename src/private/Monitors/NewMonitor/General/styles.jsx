@@ -23,6 +23,7 @@ const MonitorIntervalPickerSelectStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 10, right: 5 },
 });
 
 const MonitorIntervalStyles = StyleSheet.create({
@@ -48,6 +49,7 @@ const MonitorTypePickerSelectStyles = StyleSheet.create({
 		fontWeight: 'bold',
 		color: 'black',
 	},
+	iconContainer: { top: 10, right: 5 },
 });
 
 const MonitorTypeStyles = StyleSheet.create({

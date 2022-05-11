@@ -7,9 +7,12 @@ const NewOrderStyles = StyleSheet.create({
 	totalTitle: { fontWeight: 'bold', fontSize: 16, color: 'grey' },
 	total: { marginTop: 10, fontSize: 18 },
 	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
+	symbolContainer: { flex: 1, alignItems: 'center' },
+	error: { marginHorizontal: 0 },
 });
 
 const OrderItemStyles = StyleSheet.create({
+	avatar: { fontSize: 12 },
 	subtitleView: { marginTop: 5, flexDirection: 'row' },
 	subtitle: { color: 'gray', fontSize: 10 },
 });
@@ -26,6 +29,7 @@ const OrderViewStyles = StyleSheet.create({
 		backgroundColor: '#ccc',
 		alignItems: 'center',
 	},
+	iconChevronLeft: { marginTop: 3 },
 	p: {
 		marginTop: 10,
 		paddingRight: 10,
@@ -33,6 +37,8 @@ const OrderViewStyles = StyleSheet.create({
 		flex: 0,
 		height: 30,
 	},
+	text: { marginRight: 20, marginTop: 3 },
+	block: { flex: 0, marginTop: 0 },
 	status: { color: 'white', marginLeft: 10, fontSize: 10 },
 	row: { flexDirection: 'row', alignItems: 'center' },
 	bold: { fontWeight: 'bold', marginLeft: 10 },

@@ -2,14 +2,14 @@ import React, { useState, useMemo } from 'react';
 import { ScrollView, View } from 'react-native';
 import useWebSocket from 'react-use-websocket';
 
-import { REACT_APP_BWS_URL } from '@env';
+import { REACT_APP_BWS_URL as APP_BWS_URL } from '@env';
 import { useIsFocused } from '@react-navigation/native';
 
 import { NewOrderButton, SelectSymbol, WalletSummary } from '../../components';
-import Book from './Book';
+import { Book } from './Book';
 import { DashboardStyles as styles } from './styles';
-import SymbolChart from './SymbolChart';
-import Ticker from './Ticker';
+import { SymbolChart } from './SymbolChart';
+import { Ticker } from './Ticker';
 
 /**
  * props:
@@ -19,28 +19,28 @@ import Ticker from './Ticker';
 function Dashboard({ ...props }) {
 	const isFocused = useIsFocused();
 
-	const [symbol, setSymbol] = useState('BTCUSDT');
+	const [symbolState, setSymbolState] = useState('BTCUSDT');
 	const [data, setData] = useState(null);
 
-	function onSymbolChange(event) {
-		setSymbol(event);
+	function onSymbolChange(symbol) {
+		setSymbolState(symbol);
 	}
 
 	const cachedComponents = useMemo(() => {
 		return (
 			<>
 				<SelectSymbol
-					symbol={symbol}
+					symbol={symbolState}
 					onSymbolChange={(event) => onSymbolChange(event)}
 				/>
-				<SymbolChart symbol={symbol} />
-				<WalletSummary symbol={symbol} header />
+				<SymbolChart symbol={symbolState} />
+				<WalletSummary symbol={symbolState} header />
 			</>
 		);
-	}, [symbol]);
+	}, [symbolState]);
 
 	const { lastJsonMessage } = useWebSocket(
-		`${REACT_APP_BWS_URL}/${symbol.toLowerCase()}@ticker`,
+		`${APP_BWS_URL}/${symbolState.toLowerCase()}@ticker`,
 		{
 			onOpen: () => {},
 			onMessage: () => {
@@ -75,9 +75,9 @@ function Dashboard({ ...props }) {
 					<Book data={data} />
 				</View>
 			</ScrollView>
-			<NewOrderButton navigation={props.navigation} symbol={symbol} />
+			<NewOrderButton navigation={props.navigation} symbol={symbolState} />
 		</>
 	);
 }
 
-export default Dashboard;
+export { Dashboard };

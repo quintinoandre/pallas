@@ -3,9 +3,9 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../../components';
-import { monitorType, monitorInterval } from '../../../../services';
-import MonitorInterval from './MonitorInterval';
-import MonitorType from './MonitorType';
+import { MONITOR_TYPE, MONITOR_INTERVAL } from '../../../../enums';
+import { MonitorInterval } from './MonitorInterval';
+import { MonitorType } from './MonitorType';
 import { GeneralAreaStyles as styles } from './styles';
 
 /**
@@ -17,9 +17,9 @@ function GeneralArea({ ...props }) {
 	const { theme } = useTheme();
 
 	const DEFAULT_MONITOR = {
-		type: monitorType.CANDLES,
+		type: MONITOR_TYPE.CANDLES,
 		symbol: 'BTCUSDT',
-		interval: monitorInterval.oneMinute,
+		interval: MONITOR_INTERVAL.oneMinute,
 		isActive: false,
 		logs: false,
 	};
@@ -33,7 +33,7 @@ function GeneralArea({ ...props }) {
 	function onChange(newProp) {
 		setMonitor((prevData) => ({ ...prevData, [newProp.name]: newProp.value }));
 
-		if (props.onChange) props.onChange(newProp);
+		props.onChange(newProp);
 	}
 
 	return (
@@ -44,7 +44,7 @@ function GeneralArea({ ...props }) {
 						type={monitor.type}
 						onChange={(event) => onChange({ name: 'type', value: event })}
 					/>
-					{monitor.type === monitorType.CANDLES ? (
+					{monitor.type === MONITOR_TYPE.CANDLES ? (
 						<MonitorInterval
 							interval={monitor.interval}
 							onChange={(event) => onChange({ name: 'interval', value: event })}
@@ -70,4 +70,4 @@ function GeneralArea({ ...props }) {
 	);
 }
 
-export default GeneralArea;
+export { GeneralArea };

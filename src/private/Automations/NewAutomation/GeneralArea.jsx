@@ -3,8 +3,8 @@ import { ScrollView, View } from 'react-native';
 import { Input, useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../components/SwitchInput';
-import { automationType } from '../../../services';
-import ScheduleInput from './ScheduleInput';
+import { AUTOMATION_TYPE } from '../../../enums';
+import { ScheduleInput } from './ScheduleInput';
 import { GeneralAreaStyles as styles } from './styles';
 
 /**
@@ -27,12 +27,12 @@ function GeneralArea({ ...props }) {
 
 		setAutomation(newData);
 
-		if (props.onChange) props.onChange(newProp);
+		props.onChange(newProp);
 	}
 
 	return (
-		<View style={theme.container}>
-			<View style={theme.inputContainer}>
+		<View style={{ ...theme.container }}>
+			<View style={{ ...theme.inputContainer }}>
 				<ScrollView>
 					<Input
 						label="Name"
@@ -42,7 +42,7 @@ function GeneralArea({ ...props }) {
 						value={automation.name}
 						onChangeText={(event) => onChange({ name: 'name', value: event })}
 					/>
-					{props.type === automationType.SCHEDULE || automation.schedule ? (
+					{props.type === AUTOMATION_TYPE.SCHEDULE || automation.schedule ? (
 						<ScheduleInput
 							schedule={automation.schedule}
 							onChange={(event) => onChange({ name: 'schedule', value: event })}
@@ -68,4 +68,4 @@ function GeneralArea({ ...props }) {
 	);
 }
 
-export default GeneralArea;
+export { GeneralArea };

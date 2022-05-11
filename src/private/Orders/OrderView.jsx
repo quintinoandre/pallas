@@ -5,12 +5,11 @@ import { useTheme, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../../components';
-import { getOrder, orderStatus, syncOrder, cancelOrder } from '../../services';
+import { ORDER_STATUS } from '../../enums';
+import { getOrder, syncOrder, cancelOrder } from '../../services';
 import { getColorByOrderStatus, getColorByOrderSide } from '../../Utils';
-
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
-
 import { OrderViewStyles as styles } from './styles';
 
 /**
@@ -23,8 +22,8 @@ function OrderView({ ...props }) {
 
 	const [orderState, setOrderState] = useState({});
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -37,8 +36,8 @@ function OrderView({ ...props }) {
 			.then((result) => {
 				setOrderState({ ...result, isSyncing: false });
 			})
-			.catch((err) => {
-				errorHandling(err);
+			.catch((error) => {
+				errorHandling(error);
 			});
 	}, [props.route.params]);
 
@@ -55,33 +54,33 @@ function OrderView({ ...props }) {
 		return frm;
 	}
 
-	function doSyncPress(_event) {
+	function doSyncPress() {
 		setOrderState({ ...orderState, isSyncing: true });
 
 		syncOrder(orderState.id)
 			.then((result) => {
 				setOrderState({ ...result, isSyncing: false });
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setOrderState({ ...orderState, isSyncing: false });
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
-	function doCancelPress(_event) {
+	function doCancelPress() {
 		setOrderState({ ...orderState, isCanceling: true });
 
 		cancelOrder(orderState.symbol, orderState.orderId)
-			.then((_result) => {
+			.then(() => {
 				setOrderState({ ...orderState, isCanceling: false });
 
 				props.navigation.navigate('OrdersList', { symbol: orderState.symbol });
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setOrderState({ ...orderState, isCanceling: false });
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}
 
@@ -90,24 +89,24 @@ function OrderView({ ...props }) {
 			<View style={styles.header}>
 				<Icon.Button
 					name="chevron-left"
-					style={{ marginTop: 3 }}
+					style={styles.iconChevronLeft}
 					size={24}
 					color="black"
 					underlayColor="#ccc"
 					backgroundColor="transparent"
-					onPress={(_event) =>
+					onPress={() =>
 						props.navigation.navigate('OrdersList', {
 							symbol: orderState.symbol,
 						})
 					}
 				/>
 				<View style={styles.p}>
-					<Text style={{ ...theme.h2, marginRight: 20, marginTop: 3 }}>
+					<Text style={{ ...styles.text, ...theme.h2 }}>
 						{orderState.symbol} #{orderState.id}
 					</Text>
 					<Block
 						color={getColorByOrderStatus(orderState.status, theme)}
-						style={{ flex: 0, marginTop: 0 }}
+						style={styles.block}
 					>
 						<View style={styles.row}>
 							{orderState.automationId ? (
@@ -185,7 +184,7 @@ function OrderView({ ...props }) {
 							<Text style={styles.bold}>Date: </Text>
 							<Text>{getDate(orderState)}</Text>
 						</View>
-						{orderState.status === orderStatus.FILLED ? (
+						{orderState.status === ORDER_STATUS.FILLED ? (
 							<>
 								<View style={styles.p}>
 									<Text style={styles.bold}>Commission: </Text>
@@ -211,14 +210,14 @@ function OrderView({ ...props }) {
 						)
 					}
 					buttonStyle={{ backgroundColor: theme.colors.primary }}
-					onPress={(event) => doSyncPress(event)}
+					onPress={doSyncPress}
 					disabled={
 						orderState.avgPrice ||
 						orderState.isSyncing ||
 						[
-							orderStatus.CANCELED,
-							orderStatus.REJECTED,
-							orderStatus.EXPIRED,
+							ORDER_STATUS.CANCELED,
+							ORDER_STATUS.REJECTED,
+							ORDER_STATUS.EXPIRED,
 						].includes(orderState.status)
 					}
 				/>
@@ -234,9 +233,9 @@ function OrderView({ ...props }) {
 						)
 					}
 					buttonStyle={{ backgroundColor: theme.colors.danger }}
-					onPress={(event) => doCancelPress(event)}
+					onPress={doCancelPress}
 					disabled={
-						orderState.status !== orderStatus.NEW || orderState.isCanceling
+						orderState.status !== ORDER_STATUS.NEW || orderState.isCanceling
 					}
 				/>
 			</View>
@@ -244,4 +243,4 @@ function OrderView({ ...props }) {
 	);
 }
 
-export default OrderView;
+export { OrderView };

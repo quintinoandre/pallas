@@ -14,10 +14,10 @@ import { MonitorIndexStyles as pickerSelectStyles } from './styles';
 function MonitorIndex({ ...props }) {
 	const [isLoading, setIsLoading] = useState(false);
 	const [analysis, setAnalysis] = useState([]);
-	const [index, setIndex] = useState('');
+	const [indexState, setIndexState] = useState('');
 
-	function errorHandling(err) {
-		console.error(err.response ? err.response.data : err.message);
+	function errorHandling(error) {
+		console.error(error.response ? error.response.data : error.message);
 	}
 
 	useEffect(() => {
@@ -37,37 +37,33 @@ function MonitorIndex({ ...props }) {
 						})
 				);
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				errorHandling(err);
+				errorHandling(error);
 			});
 	}, []);
 
-	function onChange(event) {
-		if (!event) return;
+	function onChange(index) {
+		if (!index) return;
 
-		setIndex(event);
+		setIndexState(index);
 
-		if (props.onChange) props.onChange(analysis.find((a) => a.key === event));
+		props.onChange(analysis.find((item) => item.key === index));
 	}
 
 	return (
-		// eslint-disable-next-line react/jsx-no-useless-fragment
 		<>
 			{isLoading ? (
 				<ActivityIndicator />
 			) : (
 				<Picker
 					Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-					style={{
-						...pickerSelectStyles,
-						iconContainer: { top: 0, right: 12 },
-					}}
-					value={index}
+					style={pickerSelectStyles}
+					value={indexState}
 					useNativeAndroidPickerStyle={false}
-					items={analysis.map((item) => {
-						return { label: item.name, value: item.key };
+					items={analysis.map(({ name, key }) => {
+						return { label: name, value: key };
 					})}
 					onValueChange={(event) => onChange(event)}
 				/>
@@ -76,4 +72,4 @@ function MonitorIndex({ ...props }) {
 	);
 }
 
-export default MonitorIndex;
+export { MonitorIndex };

@@ -5,6 +5,7 @@ const styles = StyleSheet.create({
 	tabButton: { backgroundColor: '#ccc' },
 	tab: { paddingBottom: 6, backgroundColor: '#ccc' },
 	button: { margin: 10, marginTop: 0, paddingHorizontal: 10 },
+	error: { marginHorizontal: 0 },
 });
 
 export { styles };

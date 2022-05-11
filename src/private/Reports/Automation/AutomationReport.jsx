@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { ScrollView, Text, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
-import AutomationItem from './AutomationItem';
+import { AutomationItem } from './AutomationItem';
 import { AutomationReportStyles as styles } from './styles';
 
 /**
@@ -21,7 +21,7 @@ function AutomationReport({ ...props }) {
 	}, [props.data]);
 
 	return (
-		<View style={{ ...theme.inputContainer, ...styles.automations }}>
+		<View style={{ ...styles.automations, ...theme.inputContainer }}>
 			<Text style={theme.h2}>Automations</Text>
 			<ScrollView>
 				{automationState.map((automation) => (
@@ -32,4 +32,4 @@ function AutomationReport({ ...props }) {
 	);
 }
 
-export default AutomationReport;
+export { AutomationReport };

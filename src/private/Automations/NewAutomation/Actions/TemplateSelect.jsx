@@ -18,19 +18,18 @@ function TemplateSelect({ ...props }) {
 		setTemplates(props.templates || []);
 	}, [props.templates]);
 
-	function onChange(event) {
-		if (!event) return;
+	function onChange(template) {
+		if (!template) return;
 
-		setSelected(event);
+		setSelected(template);
 
-		if (props.onChange)
-			props.onChange(templates.find((template) => template.id === event));
+		props.onChange(templates.find((item) => item.id === template));
 	}
 
 	return (
 		<Picker
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
-			style={{ ...pickerSelectStyles, iconContainer: { top: 10, right: 12 } }}
+			style={pickerSelectStyles}
 			value={selected}
 			useNativeAndroidPickerStyle={false}
 			items={templates.map((template) => {
@@ -41,4 +40,4 @@ function TemplateSelect({ ...props }) {
 	);
 }
 
-export default TemplateSelect;
+export { TemplateSelect };

@@ -11,7 +11,8 @@ import {
 	SelectSide,
 	SelectType,
 } from '../../components';
-import { orderSide, orderType, placeOrder } from '../../services';
+import { ORDER_SIDE, ORDER_TYPE } from '../../enums';
+import { placeOrder } from '../../services';
 import { NewOrderStyles as styles } from './styles';
 
 /**
@@ -20,20 +21,20 @@ import { NewOrderStyles as styles } from './styles';
  * - route
  */
 function NewOrder({ ...props }) {
+	const { theme } = useTheme();
+
 	const DEFAULT_ORDER = {
 		symbol: '',
-		side: orderSide.BUY,
-		type: orderType.MARKET,
+		side: ORDER_SIDE.BUY,
+		type: ORDER_TYPE.MARKET,
 		quantity: '0',
 		limitPrice: '0',
 		stopPrice: '0',
 		stopPriceMultiplier: '0',
 	};
 
-	const { theme } = useTheme();
-
 	const [order, setOrder] = useState(DEFAULT_ORDER);
-	const [error, setError] = useState('');
+	const [errorState, setErrorState] = useState('');
 	const [price, setPrice] = useState(0);
 	const [symbol, setSymbol] = useState({});
 	const [isLoading, setIsLoading] = useState(false);
@@ -44,7 +45,7 @@ function NewOrder({ ...props }) {
 			symbol: props.route.params.symbol || 'BTCUSDT',
 		});
 
-		setError('');
+		setErrorState('');
 
 		setPrice(0);
 	}, [props.route.params]);
@@ -52,7 +53,7 @@ function NewOrder({ ...props }) {
 	function getTotal() {
 		const quantity = parseFloat(order.quantity.replace(',', '.'));
 
-		if (order.type === orderType.MARKET && quantity && price)
+		if (order.type === ORDER_TYPE.MARKET && quantity && price)
 			return `${quantity * price}`.substring(0, 10);
 
 		const limitPrice = parseFloat(order.limitPrice.replace(',', '.'));
@@ -65,48 +66,48 @@ function NewOrder({ ...props }) {
 		);
 
 		if (
-			order.type === orderType.TRAILING_STOP &&
+			order.type === ORDER_TYPE.TRAILING_STOP &&
 			callbackRate &&
 			quantity &&
 			limitPrice
 		) {
 			const percentage = callbackRate / 100;
 
-			const multipler =
-				order.side === orderSide.BUY ? 1 + percentage : 1 - percentage;
+			const multiplier =
+				order.side === ORDER_SIDE.BUY ? 1 + percentage : 1 - percentage;
 
-			return `${quantity * limitPrice * multipler}`.substring(0, 10);
+			return `${quantity * limitPrice * multiplier}`.substring(0, 10);
 		}
 
 		return '0';
 	}
 
-	function doPlaceOrder(_event) {
+	function doPlaceOrder() {
 		const total = parseFloat(getTotal());
 
 		if (total < symbol.minNotional)
-			return setError(`Min. Notional: ${symbol.minNotional}`);
+			return setErrorState(`Min. Notional: ${symbol.minNotional}`);
 
 		const quantity = parseFloat(order.quantity);
 
-		if (order.side === orderSide.SELL && symbol.baseQty < quantity)
-			return setError(`You haven´t enough ${symbol.base} to sell!`);
+		if (order.side === ORDER_SIDE.SELL && symbol.baseQty < quantity)
+			return setErrorState(`You haven´t enough ${symbol.base} to sell!`);
 
-		if (order.side === orderSide.BUY && symbol.quoteQty < total)
-			return setError(`You haven´t enough ${symbol.quote} to buy!`);
+		if (order.side === ORDER_SIDE.BUY && symbol.quoteQty < total)
+			return setErrorState(`You haven´t enough ${symbol.quote} to buy!`);
 
 		setIsLoading(true);
 
 		placeOrder(order)
-			.then((_result) => {
+			.then(() => {
 				setIsLoading(false);
 
 				props.navigation.navigate('OrdersList', { symbol: order.symbol });
 			})
-			.catch((err) => {
+			.catch((error) => {
 				setIsLoading(false);
 
-				setError(err.response ? err.response.data : err.message);
+				setErrorState(error.response ? error.response.data : error.message);
 			});
 	}
 
@@ -120,13 +121,13 @@ function NewOrder({ ...props }) {
 						color="black"
 						underlayColor="#ccc"
 						backgroundColor="transparent"
-						onPress={(_event) =>
+						onPress={() =>
 							props.navigation.navigate('OrdersList', {
 								symbol: order.symbol,
 							})
 						}
 					/>
-					<View style={{ flex: 1, alignItems: 'center' }}>
+					<View style={styles.symbolContainer}>
 						<SelectSymbol
 							symbol={order.symbol}
 							onSymbolChange={(event) =>
@@ -168,9 +169,10 @@ function NewOrder({ ...props }) {
 						) : (
 							<></>
 						)}
-						{[orderType.STOP_LOSS_LIMIT, orderType.TAKE_PROFIT_LIMIT].includes(
-							order.type
-						) ? (
+						{[
+							ORDER_TYPE.STOP_LOSS_LIMIT,
+							ORDER_TYPE.TAKE_PROFIT_LIMIT,
+						].includes(order.type) ? (
 							<Input
 								label="Stop Price"
 								keyboardType="decimal-pad"
@@ -182,7 +184,7 @@ function NewOrder({ ...props }) {
 						) : (
 							<></>
 						)}
-						{order.type === orderType.TRAILING_STOP ? (
+						{order.type === ORDER_TYPE.TRAILING_STOP ? (
 							<>
 								<Input
 									label="Activation Price"
@@ -227,10 +229,10 @@ function NewOrder({ ...props }) {
 				<Button
 					title={isLoading ? <ActivityIndicator /> : ' Place Order'}
 					icon={() => <Icon name="dollar-sign" size={20} color="white" />}
-					onPress={(event) => doPlaceOrder(event)}
+					onPress={doPlaceOrder}
 				/>
-				{error ? (
-					<Text style={{ ...theme.alert, marginHorizontal: 0 }}>{error}</Text>
+				{errorState ? (
+					<Text style={{ ...styles.error, ...theme.alert }}>{errorState}</Text>
 				) : (
 					<></>
 				)}
@@ -239,4 +241,4 @@ function NewOrder({ ...props }) {
 	);
 }
 
-export default NewOrder;
+export { NewOrder };
