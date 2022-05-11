@@ -60,28 +60,34 @@ function AlertItem({ ...props }) {
 	}
 
 	return (
-		<ListItem.Accordion
-			content={
-				<>
-					{getAvatar(props.alert.type)}
-					<ListItem.Content style={styles.content}>
-						<ListItem.Title>{`${props.alert.text.substring(
-							0,
-							20
-						)}...`}</ListItem.Title>
-						{getDate(props.alert.date)}
-					</ListItem.Content>
-				</>
-			}
-			isExpanded={expanded}
-			onPress={() => setExpanded(!expanded)}
-			topDivider
-		>
-			<View style={styles.fullView}>
-				<Text>{props.alert.text}</Text>
-			</View>
-		</ListItem.Accordion>
+		<>
+			{props.alert ? (
+				<ListItem.Accordion
+					content={
+						<>
+							{getAvatar(props.alert.type)}
+							<ListItem.Content style={styles.content}>
+								<ListItem.Title>{`${props.alert.text.substring(
+									0,
+									20
+								)}...`}</ListItem.Title>
+								{getDate(props.alert.date)}
+							</ListItem.Content>
+						</>
+					}
+					isExpanded={expanded}
+					onPress={() => setExpanded(!expanded)}
+					topDivider
+				>
+					<View style={styles.fullView}>
+						<Text>{props.alert.text}</Text>
+					</View>
+				</ListItem.Accordion>
+			) : (
+				<></>
+			)}
+		</>
 	);
 }
 
-export default AlertItem;
+export { AlertItem };

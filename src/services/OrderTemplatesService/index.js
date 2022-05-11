@@ -6,4 +6,10 @@ async function getAllOrderTemplates(symbol) {
 	return response.data;
 }
 
-export { getAllOrderTemplates };
+async function deleteOrderTemplate(id) {
+	const response = await api.delete(`/ordertemplates/${id}`);
+
+	return response.data;
+}
+
+export { getAllOrderTemplates, deleteOrderTemplate };

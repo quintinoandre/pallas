@@ -33,7 +33,7 @@
 		"react/prop-types": "off",
 		"react/no-unstable-nested-components": ["error", { "allowAsProps": true }],
 		"import/prefer-default-export": "off",
-		"no-unused-expressions": "warn",
+		"no-unused-expressions": "off",
 		"react/jsx-uses-react": 1,
 		"react/jsx-uses-vars": 1,
 		"no-alert": "off",

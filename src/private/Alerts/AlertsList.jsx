@@ -5,7 +5,7 @@ import { FAB, useTheme } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { deleteAllAlerts, getAlerts } from '../../services';
-import AlertItem from './AlertItem';
+import { AlertItem } from './AlertItem';
 import { AlertsListStyles as styles } from './styles';
 
 /**
@@ -106,7 +106,7 @@ function AlertsList({ ...props }) {
 				onMomentumScrollEnd={canLoadMore && onEndReached}
 				ListEmptyComponent={emptyList}
 				renderItem={(obj) => <AlertItem alert={obj.item} />}
-				keyExtractor={(obj) => obj.date}
+				keyExtractor={(obj) => (obj ? obj.date : 1)}
 			/>
 			<FAB
 				title={<Icon name="trash-2" size={20} color="white" />}
