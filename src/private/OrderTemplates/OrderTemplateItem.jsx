@@ -73,7 +73,7 @@ function OrderTemplateItem({ ...props }) {
 			isExpanded={expanded}
 			onPress={() => setExpanded(!expanded)}
 		>
-			<ListItem bottomDivider onPress={(event) => props.onPress(event)}>
+			<ListItem bottomDivider onPress={props.onPress}>
 				<Icon name="edit" size={20} color="black" style={styles.icon} />
 				<ListItem.Content>
 					<ListItem.Title>Edit</ListItem.Title>

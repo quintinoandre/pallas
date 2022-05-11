@@ -185,7 +185,7 @@ function Settings() {
 			<View>
 				<Button
 					icon={() => <Icon name="save" size={20} color="white" />}
-					title={isLoading ? <ActivityIndicator /> : 'Save Settings'}
+					title={isLoading ? <ActivityIndicator /> : ' Save Settings'}
 					style={styles.button}
 					onPress={onSavePress}
 				/>
