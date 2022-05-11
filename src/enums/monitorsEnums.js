@@ -1,4 +1,4 @@
-const MONITOR_TYPE = Object.freeze({
+const ENUM_MONITOR_TYPE = Object.freeze({
 	BOOK: 'BOOK',
 	CANDLES: 'CANDLES',
 	MINI_TICKER: 'MINI_TICKER',
@@ -6,7 +6,7 @@ const MONITOR_TYPE = Object.freeze({
 	USER_DATA: 'USER_DATA',
 });
 
-const MONITOR_INTERVAL = Object.freeze({
+const ENUM_MONITOR_INTERVAL = Object.freeze({
 	oneMinute: '1m',
 	threeMinutes: '3m',
 	fiveMinutes: '5m',
@@ -24,4 +24,4 @@ const MONITOR_INTERVAL = Object.freeze({
 	oneMonth: '1M',
 });
 
-export { MONITOR_TYPE, MONITOR_INTERVAL };
+export { ENUM_MONITOR_TYPE, ENUM_MONITOR_INTERVAL };

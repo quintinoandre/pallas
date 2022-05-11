@@ -1,4 +1,4 @@
-const ORDER_STATUS = Object.freeze({
+const ENUM_ORDER_STATUS = Object.freeze({
 	CANCELED: 'CANCELED',
 	EXPIRED: 'EXPIRED',
 	FILLED: 'FILLED',
@@ -7,12 +7,12 @@ const ORDER_STATUS = Object.freeze({
 	REJECTED: 'REJECTED',
 });
 
-const ORDER_SIDE = Object.freeze({
+const ENUM_ORDER_SIDE = Object.freeze({
 	BUY: 'BUY',
 	SELL: 'SELL',
 });
 
-const ORDER_TYPE = Object.freeze({
+const ENUM_ORDER_TYPE = Object.freeze({
 	LIMIT: 'LIMIT',
 	MARKET: 'MARKET',
 	STOP_LOSS_LIMIT: 'STOP_LOSS_LIMIT',
@@ -20,4 +20,4 @@ const ORDER_TYPE = Object.freeze({
 	TRAILING_STOP: 'TRAILING_STOP',
 });
 
-export { ORDER_STATUS, ORDER_SIDE, ORDER_TYPE };
+export { ENUM_ORDER_STATUS, ENUM_ORDER_SIDE, ENUM_ORDER_TYPE };

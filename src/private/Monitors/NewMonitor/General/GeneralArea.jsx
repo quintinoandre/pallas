@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SwitchInput } from '../../../../components';
-import { MONITOR_TYPE, MONITOR_INTERVAL } from '../../../../enums';
+import { ENUM_MONITOR_TYPE, ENUM_MONITOR_INTERVAL } from '../../../../enums';
 import { MonitorInterval } from './MonitorInterval';
 import { MonitorType } from './MonitorType';
 import { GeneralAreaStyles as styles } from './styles';
@@ -17,9 +17,9 @@ function GeneralArea({ ...props }) {
 	const { theme } = useTheme();
 
 	const DEFAULT_MONITOR = {
-		type: MONITOR_TYPE.CANDLES,
+		type: ENUM_MONITOR_TYPE.CANDLES,
 		symbol: 'BTCUSDT',
-		interval: MONITOR_INTERVAL.oneMinute,
+		interval: ENUM_MONITOR_INTERVAL.oneMinute,
 		isActive: false,
 		logs: false,
 	};
@@ -44,7 +44,7 @@ function GeneralArea({ ...props }) {
 						type={monitor.type}
 						onChange={(event) => onChange({ name: 'type', value: event })}
 					/>
-					{monitor.type === MONITOR_TYPE.CANDLES ? (
+					{monitor.type === ENUM_MONITOR_TYPE.CANDLES ? (
 						<MonitorInterval
 							interval={monitor.interval}
 							onChange={(event) => onChange({ name: 'interval', value: event })}

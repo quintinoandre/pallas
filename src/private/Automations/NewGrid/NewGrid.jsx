@@ -5,7 +5,7 @@ import { Tab, Button, useTheme } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow, CurrentPrice, WalletSummary } from '../../../components';
-import { AUTOMATION_TYPE, INDEX_TYPE } from '../../../enums';
+import { ENUM_AUTOMATION_TYPE, ENUM_INDEX_TYPE } from '../../../enums';
 import { saveGrid } from '../../../services';
 import { GeneralArea } from './GeneralArea';
 import { GridArea } from './GridArea';
@@ -77,15 +77,17 @@ function NewGrid({ ...props }) {
 	function onPress() {
 		setErrorState('');
 
-		automation.name = `${AUTOMATION_TYPE.GRID.toUpperCase()} ${
+		automation.name = `${ENUM_AUTOMATION_TYPE.GRID.toUpperCase()} ${
 			automation.symbol
 		} #${gridState.levels}`;
 
-		automation.actions = [{ type: `${AUTOMATION_TYPE.GRID.toUpperCase()}` }];
+		automation.actions = [
+			{ type: `${ENUM_AUTOMATION_TYPE.GRID.toUpperCase()}` },
+		];
 
-		automation.indexes = `${automation.symbol}:${INDEX_TYPE.BOOK}`;
+		automation.indexes = `${automation.symbol}:${ENUM_INDEX_TYPE.BOOK}`;
 
-		automation.conditions = `MEMORY['${automation.symbol}:${INDEX_TYPE.BOOK}'].current.bestAsk>${gridState.lowerLimit} && MEMORY['${automation.symbol}:${INDEX_TYPE.BOOK}'].current.bestBid<${gridState.upperLimit}`;
+		automation.conditions = `MEMORY['${automation.symbol}:${ENUM_INDEX_TYPE.BOOK}'].current.bestAsk>${gridState.lowerLimit} && MEMORY['${automation.symbol}:${ENUM_INDEX_TYPE.BOOK}'].current.bestBid<${gridState.upperLimit}`;
 
 		setIsLoading(true);
 

@@ -1,5 +1,5 @@
-const INDEX_TYPE = Object.freeze({
+const ENUM_INDEX_TYPE = Object.freeze({
 	BOOK: 'BOOK',
 });
 
-export { INDEX_TYPE };
+export { ENUM_INDEX_TYPE };

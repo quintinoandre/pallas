@@ -5,7 +5,7 @@ import { useTheme, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { Block } from '../../components';
-import { ORDER_STATUS } from '../../enums';
+import { ENUM_ORDER_STATUS } from '../../enums';
 import { getOrder, syncOrder, cancelOrder } from '../../services';
 import { getColorByOrderStatus, getColorByOrderSide } from '../../Utils';
 import 'intl';
@@ -184,7 +184,7 @@ function OrderView({ ...props }) {
 							<Text style={styles.bold}>Date: </Text>
 							<Text>{getDate(orderState)}</Text>
 						</View>
-						{orderState.status === ORDER_STATUS.FILLED ? (
+						{orderState.status === ENUM_ORDER_STATUS.FILLED ? (
 							<>
 								<View style={styles.p}>
 									<Text style={styles.bold}>Commission: </Text>
@@ -215,9 +215,9 @@ function OrderView({ ...props }) {
 						orderState.avgPrice ||
 						orderState.isSyncing ||
 						[
-							ORDER_STATUS.CANCELED,
-							ORDER_STATUS.REJECTED,
-							ORDER_STATUS.EXPIRED,
+							ENUM_ORDER_STATUS.CANCELED,
+							ENUM_ORDER_STATUS.REJECTED,
+							ENUM_ORDER_STATUS.EXPIRED,
 						].includes(orderState.status)
 					}
 				/>
@@ -235,7 +235,8 @@ function OrderView({ ...props }) {
 					buttonStyle={{ backgroundColor: theme.colors.danger }}
 					onPress={doCancelPress}
 					disabled={
-						orderState.status !== ORDER_STATUS.NEW || orderState.isCanceling
+						orderState.status !== ENUM_ORDER_STATUS.NEW ||
+						orderState.isCanceling
 					}
 				/>
 			</View>

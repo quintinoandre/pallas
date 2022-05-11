@@ -1,7 +1,7 @@
-const ALERT_TYPE = Object.freeze({
+const ENUM_ALERT_TYPE = Object.freeze({
 	error: 'error',
 	success: 'success',
 	info: 'info',
 });
 
-export { ALERT_TYPE };
+export { ENUM_ALERT_TYPE };

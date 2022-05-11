@@ -3,7 +3,7 @@ import { ScrollView, Text, View } from 'react-native';
 import { ListItem, useTheme } from 'react-native-elements';
 
 import { Block } from '../../../components';
-import { ORDER_SIDE } from '../../../enums';
+import { ENUM_ORDER_SIDE } from '../../../enums';
 import { GridAreaStyles as styles } from './styles';
 
 /**
@@ -23,13 +23,13 @@ function GridArea({ ...props }) {
 				<Block style={styles.block} color={theme.colors.success}>
 					<Text style={styles.columnTitle}>{`BUY Levels (${
 						props.grids.filter(
-							(grid) => grid.orderTemplate.side === ORDER_SIDE.BUY
+							(grid) => grid.orderTemplate.side === ENUM_ORDER_SIDE.BUY
 						).length
 					})`}</Text>
 				</Block>
 				<ScrollView>
 					{props.grids
-						.filter((grid) => grid.orderTemplate.side === ORDER_SIDE.BUY)
+						.filter((grid) => grid.orderTemplate.side === ENUM_ORDER_SIDE.BUY)
 						.map((grid) => (
 							<ListItem key={grid.id} bottomDivider>
 								<ListItem.Content>
@@ -45,13 +45,13 @@ function GridArea({ ...props }) {
 				<Block style={styles.block} color={theme.colors.danger}>
 					<Text style={styles.columnTitle}>{`SELL Levels (${
 						props.grids.filter(
-							(grid) => grid.orderTemplate.side === ORDER_SIDE.SELL
+							(grid) => grid.orderTemplate.side === ENUM_ORDER_SIDE.SELL
 						).length
 					})`}</Text>
 				</Block>
 				<ScrollView>
 					{props.grids
-						.filter((grid) => grid.orderTemplate.side === ORDER_SIDE.SELL)
+						.filter((grid) => grid.orderTemplate.side === ENUM_ORDER_SIDE.SELL)
 						.map((grid) => (
 							<ListItem key={grid.id} bottomDivider>
 								<ListItem.Content>

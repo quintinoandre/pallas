@@ -4,7 +4,7 @@ import { useTheme, ListItem, Avatar } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { MONITOR_TYPE } from '../../enums';
+import { ENUM_MONITOR_TYPE } from '../../enums';
 import { startMonitor, stopMonitor, deleteMonitor } from '../../services';
 import { MonitorItemStyles as styles } from './styles';
 
@@ -27,15 +27,15 @@ function MonitorItem({ ...props }) {
 		const icon = { type: 'feather', color: 'white' };
 
 		switch (type) {
-			case MONITOR_TYPE.CANDLES:
+			case ENUM_MONITOR_TYPE.CANDLES:
 				return { ...icon, name: 'bar-chart-2' };
-			case MONITOR_TYPE.TICKER:
+			case ENUM_MONITOR_TYPE.TICKER:
 				return { ...icon, name: 'clock' };
-			case MONITOR_TYPE.MINI_TICKER:
+			case ENUM_MONITOR_TYPE.MINI_TICKER:
 				return { ...icon, name: 'activity' };
-			case MONITOR_TYPE.BOOK:
+			case ENUM_MONITOR_TYPE.BOOK:
 				return { ...icon, name: 'book-open' };
-			case MONITOR_TYPE.USER_DATA:
+			case ENUM_MONITOR_TYPE.USER_DATA:
 				return { ...icon, name: 'user' };
 			default:
 				break;

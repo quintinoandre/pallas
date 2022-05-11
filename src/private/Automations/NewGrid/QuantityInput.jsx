@@ -5,7 +5,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { QUANTITY_TYPE } from '../../../enums';
+import { ENUM_QUANTITY_TYPE } from '../../../enums';
 import { QuantityInputStyles as styles } from './styles';
 
 /**
@@ -23,9 +23,10 @@ function QuantityInput({ ...props }) {
 		setValueState(props.value);
 
 		setShowInput(
-			![QUANTITY_TYPE.MAX_WALLET, QUANTITY_TYPE.MIN_NOTIONAL].includes(
-				props.value
-			)
+			![
+				ENUM_QUANTITY_TYPE.MAX_WALLET,
+				ENUM_QUANTITY_TYPE.MIN_NOTIONAL,
+			].includes(props.value)
 		);
 	}, [props.value]);
 
@@ -82,8 +83,11 @@ function QuantityInput({ ...props }) {
 						useNativeAndroidPickerStyle={false}
 						value={`${valueState}`}
 						items={[
-							{ label: 'Max. Wallet', value: QUANTITY_TYPE.MAX_WALLET },
-							{ label: 'Min. Notional', value: QUANTITY_TYPE.MIN_NOTIONAL },
+							{ label: 'Max. Wallet', value: ENUM_QUANTITY_TYPE.MAX_WALLET },
+							{
+								label: 'Min. Notional',
+								value: ENUM_QUANTITY_TYPE.MIN_NOTIONAL,
+							},
 						]}
 						onValueChange={(event) => onChange(event)}
 					/>

@@ -1,14 +1,14 @@
-import { ORDER_STATUS, ORDER_SIDE } from './enums';
+import { ENUM_ORDER_STATUS, ENUM_ORDER_SIDE } from './enums';
 
 function getColorByOrderStatus(status, theme) {
 	switch (status) {
-		case ORDER_STATUS.REJECTED:
-		case ORDER_STATUS.CANCELED:
-		case ORDER_STATUS.EXPIRED:
+		case ENUM_ORDER_STATUS.REJECTED:
+		case ENUM_ORDER_STATUS.CANCELED:
+		case ENUM_ORDER_STATUS.EXPIRED:
 			return theme.colors.danger;
-		case ORDER_STATUS.FILLED:
+		case ENUM_ORDER_STATUS.FILLED:
 			return theme.colors.success;
-		case ORDER_STATUS.PARTIALLY_FILLED:
+		case ENUM_ORDER_STATUS.PARTIALLY_FILLED:
 			return theme.colors.info;
 		default:
 			return theme.colors.warning;
@@ -17,9 +17,9 @@ function getColorByOrderStatus(status, theme) {
 
 function getColorByOrderSide(side, theme) {
 	switch (side) {
-		case ORDER_SIDE.SELL:
+		case ENUM_ORDER_SIDE.SELL:
 			return theme.colors.danger;
-		case ORDER_SIDE.BUY:
+		case ENUM_ORDER_SIDE.BUY:
 			return theme.colors.success;
 		default:
 			return 'black';

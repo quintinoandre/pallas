@@ -4,7 +4,7 @@ import { Button, useTheme } from 'react-native-elements';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { ACTION_TYPE } from '../../../../enums';
+import { ENUM_ACTION_TYPE } from '../../../../enums';
 import {
 	getAllOrderTemplates,
 	getSymbol,
@@ -68,7 +68,11 @@ function ActionBuilder({ ...props }) {
 	function onPress() {
 		const newAction = { type };
 
-		if ([ACTION_TYPE.ORDER, ACTION_TYPE.TRAILING].includes(newAction.type)) {
+		if (
+			[ENUM_ACTION_TYPE.ORDER, ENUM_ACTION_TYPE.TRAILING].includes(
+				newAction.type
+			)
+		) {
 			if (!template) return;
 
 			newAction.id = `ot${template.id}`;
@@ -76,7 +80,7 @@ function ActionBuilder({ ...props }) {
 			newAction.orderTemplateId = template.id;
 
 			newAction.orderTemplate = template;
-		} else if (newAction.type === ACTION_TYPE.WITHDRAW) {
+		} else if (newAction.type === ENUM_ACTION_TYPE.WITHDRAW) {
 			if (!template) return;
 
 			newAction.id = `wt${template.id}`;
@@ -96,11 +100,11 @@ function ActionBuilder({ ...props }) {
 	function renderSelect() {
 		if (!type || type.indexOf('ALERT') !== -1) return <></>;
 
-		if (type === ACTION_TYPE.WITHDRAW && isLoaded < 2)
+		if (type === ENUM_ACTION_TYPE.WITHDRAW && isLoaded < 2)
 			return <ActivityIndicator />;
 
 		if (
-			[ACTION_TYPE.ORDER, ACTION_TYPE.TRAILING].includes(type) &&
+			[ENUM_ACTION_TYPE.ORDER, ENUM_ACTION_TYPE.TRAILING].includes(type) &&
 			isLoaded < 1
 		)
 			return <ActivityIndicator />;
@@ -108,7 +112,9 @@ function ActionBuilder({ ...props }) {
 		return (
 			<TemplateSelect
 				templates={
-					type === ACTION_TYPE.WITHDRAW ? withdrawTemplates : orderTemplates
+					type === ENUM_ACTION_TYPE.WITHDRAW
+						? withdrawTemplates
+						: orderTemplates
 				}
 				onChange={(event) => setTemplate(event)}
 			/>

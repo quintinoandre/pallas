@@ -1,6 +1,6 @@
-const AUTOMATION_TYPE = Object.freeze({
+const ENUM_AUTOMATION_TYPE = Object.freeze({
 	SCHEDULE: 'schedule',
 	GRID: 'grid',
 });
 
-export { AUTOMATION_TYPE };
+export { ENUM_AUTOMATION_TYPE };

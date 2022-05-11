@@ -3,7 +3,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { ORDER_TYPE } from '../../enums';
+import { ENUM_ORDER_TYPE } from '../../enums';
 import { styles, pickerSelectStyles } from './styles';
 
 /**
@@ -12,7 +12,7 @@ import { styles, pickerSelectStyles } from './styles';
  * - onChange
  */
 function SelectType({ ...props }) {
-	const [type, setType] = useState(ORDER_TYPE.MARKET);
+	const [type, setType] = useState(ENUM_ORDER_TYPE.MARKET);
 
 	useEffect(() => {
 		setType(props.type);
@@ -30,11 +30,14 @@ function SelectType({ ...props }) {
 			useNativeAndroidPickerStyle={false}
 			Icon={() => <Icon name="chevron-down" size={24} color="black" />}
 			items={[
-				{ label: 'Limit', value: ORDER_TYPE.LIMIT },
-				{ label: 'Market', value: ORDER_TYPE.MARKET },
-				{ label: 'Stop Loss Limit', value: ORDER_TYPE.STOP_LOSS_LIMIT },
-				{ label: 'Take Profit Limit', value: ORDER_TYPE.TAKE_PROFIT_LIMIT },
-				{ label: 'Trailing Stop', value: ORDER_TYPE.TRAILING_STOP },
+				{ label: 'Limit', value: ENUM_ORDER_TYPE.LIMIT },
+				{ label: 'Market', value: ENUM_ORDER_TYPE.MARKET },
+				{ label: 'Stop Loss Limit', value: ENUM_ORDER_TYPE.STOP_LOSS_LIMIT },
+				{
+					label: 'Take Profit Limit',
+					value: ENUM_ORDER_TYPE.TAKE_PROFIT_LIMIT,
+				},
+				{ label: 'Trailing Stop', value: ENUM_ORDER_TYPE.TRAILING_STOP },
 			]}
 		/>
 	);

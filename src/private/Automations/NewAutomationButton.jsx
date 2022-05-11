@@ -10,7 +10,7 @@ import {
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { AUTOMATION_TYPE } from '../../enums';
+import { ENUM_AUTOMATION_TYPE } from '../../enums';
 import { NewAutomationButtonStyles as styles } from './styles';
 
 /**
@@ -25,7 +25,7 @@ function NewAutomationButton({ ...props }) {
 	function onPress(type) {
 		setShowModal(false);
 
-		if (type === AUTOMATION_TYPE.GRID)
+		if (type === ENUM_AUTOMATION_TYPE.GRID)
 			return props.navigation.navigate('Automations', {
 				screen: 'NewGrid',
 				params: { type },
@@ -40,9 +40,10 @@ function NewAutomationButton({ ...props }) {
 	function getIcon(type) {
 		const icon = { color: 'white', type: 'feather' };
 
-		if (type === AUTOMATION_TYPE.SCHEDULE) return { ...icon, name: 'calendar' };
+		if (type === ENUM_AUTOMATION_TYPE.SCHEDULE)
+			return { ...icon, name: 'calendar' };
 
-		if (type === AUTOMATION_TYPE.GRID)
+		if (type === ENUM_AUTOMATION_TYPE.GRID)
 			return { ...icon, name: 'align-justify' };
 
 		return { ...icon, name: 'command' };

@@ -3,7 +3,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { ACTION_TYPE } from '../../../../enums';
+import { ENUM_ACTION_TYPE } from '../../../../enums';
 import { ActionSelectStyles as pickerSelectStyles } from './styles';
 
 /**
@@ -26,12 +26,12 @@ function ActionSelect({ ...props }) {
 			value={typeState}
 			useNativeAndroidPickerStyle={false}
 			items={[
-				{ label: 'alert via E-mail', value: ACTION_TYPE.ALERT_EMAIL },
-				{ label: 'alert via SMS', value: ACTION_TYPE.ALERT_SMS },
-				{ label: 'alert via Telegram', value: ACTION_TYPE.ALERT_TELEGRAM },
-				{ label: 'Place Order', value: ACTION_TYPE.ORDER },
-				{ label: 'Place Trailing', value: ACTION_TYPE.TRAILING },
-				{ label: 'Withdraw Crypto', value: ACTION_TYPE.WITHDRAW },
+				{ label: 'alert via E-mail', value: ENUM_ACTION_TYPE.ALERT_EMAIL },
+				{ label: 'alert via SMS', value: ENUM_ACTION_TYPE.ALERT_SMS },
+				{ label: 'alert via Telegram', value: ENUM_ACTION_TYPE.ALERT_TELEGRAM },
+				{ label: 'Place Order', value: ENUM_ACTION_TYPE.ORDER },
+				{ label: 'Place Trailing', value: ENUM_ACTION_TYPE.TRAILING },
+				{ label: 'Withdraw Crypto', value: ENUM_ACTION_TYPE.WITHDRAW },
 			]}
 			onValueChange={(event) => onChange(event)}
 		/>

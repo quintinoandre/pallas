@@ -3,7 +3,7 @@ import { ScrollView, View } from 'react-native';
 import { useTheme } from 'react-native-elements';
 
 import { SmartItem } from '../../../../components';
-import { ACTION_TYPE } from '../../../../enums';
+import { ENUM_ACTION_TYPE } from '../../../../enums';
 import { ActionBuilder } from './ActionBuilder';
 import { ActionsAreaStyles as styles } from './styles';
 
@@ -42,17 +42,17 @@ function ActionsArea({ ...props }) {
 
 	function getText(action) {
 		switch (action.type) {
-			case ACTION_TYPE.ALERT_EMAIL:
+			case ENUM_ACTION_TYPE.ALERT_EMAIL:
 				return 'Send E-mail';
-			case ACTION_TYPE.ALERT_SMS:
+			case ENUM_ACTION_TYPE.ALERT_SMS:
 				return 'Send SMS';
-			case ACTION_TYPE.ALERT_TELEGRAM:
+			case ENUM_ACTION_TYPE.ALERT_TELEGRAM:
 				return 'Send Telegram';
-			case ACTION_TYPE.ORDER:
+			case ENUM_ACTION_TYPE.ORDER:
 				return action.orderTemplate.name;
-			case ACTION_TYPE.TRAILING:
+			case ENUM_ACTION_TYPE.TRAILING:
 				return action.orderTemplate.name;
-			case ACTION_TYPE.WITHDRAW:
+			case ENUM_ACTION_TYPE.WITHDRAW:
 				return action.withdrawTemplate.name;
 			default:
 				break;
@@ -61,17 +61,17 @@ function ActionsArea({ ...props }) {
 
 	function getIcon(type) {
 		switch (type) {
-			case ACTION_TYPE.ALERT_EMAIL:
+			case ENUM_ACTION_TYPE.ALERT_EMAIL:
 				return 'mail';
-			case ACTION_TYPE.ALERT_SMS:
+			case ENUM_ACTION_TYPE.ALERT_SMS:
 				return 'smartphone';
-			case ACTION_TYPE.ALERT_TELEGRAM:
+			case ENUM_ACTION_TYPE.ALERT_TELEGRAM:
 				return 'message-square';
-			case ACTION_TYPE.ORDER:
+			case ENUM_ACTION_TYPE.ORDER:
 				return 'shopping-cart';
-			case ACTION_TYPE.TRAILING:
+			case ENUM_ACTION_TYPE.TRAILING:
 				return 'trending-up';
-			case ACTION_TYPE.WITHDRAW:
+			case ENUM_ACTION_TYPE.WITHDRAW:
 				return 'dollar-sign';
 			default:
 				break;

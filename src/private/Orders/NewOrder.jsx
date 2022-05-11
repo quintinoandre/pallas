@@ -11,7 +11,7 @@ import {
 	SelectSide,
 	SelectType,
 } from '../../components';
-import { ORDER_SIDE, ORDER_TYPE } from '../../enums';
+import { ENUM_ORDER_SIDE, ENUM_ORDER_TYPE } from '../../enums';
 import { placeOrder } from '../../services';
 import { NewOrderStyles as styles } from './styles';
 
@@ -25,8 +25,8 @@ function NewOrder({ ...props }) {
 
 	const DEFAULT_ORDER = {
 		symbol: '',
-		side: ORDER_SIDE.BUY,
-		type: ORDER_TYPE.MARKET,
+		side: ENUM_ORDER_SIDE.BUY,
+		type: ENUM_ORDER_TYPE.MARKET,
 		quantity: '0',
 		limitPrice: '0',
 		stopPrice: '0',
@@ -53,7 +53,7 @@ function NewOrder({ ...props }) {
 	function getTotal() {
 		const quantity = parseFloat(order.quantity.replace(',', '.'));
 
-		if (order.type === ORDER_TYPE.MARKET && quantity && price)
+		if (order.type === ENUM_ORDER_TYPE.MARKET && quantity && price)
 			return `${quantity * price}`.substring(0, 10);
 
 		const limitPrice = parseFloat(order.limitPrice.replace(',', '.'));
@@ -66,7 +66,7 @@ function NewOrder({ ...props }) {
 		);
 
 		if (
-			order.type === ORDER_TYPE.TRAILING_STOP &&
+			order.type === ENUM_ORDER_TYPE.TRAILING_STOP &&
 			callbackRate &&
 			quantity &&
 			limitPrice
@@ -74,7 +74,7 @@ function NewOrder({ ...props }) {
 			const percentage = callbackRate / 100;
 
 			const multiplier =
-				order.side === ORDER_SIDE.BUY ? 1 + percentage : 1 - percentage;
+				order.side === ENUM_ORDER_SIDE.BUY ? 1 + percentage : 1 - percentage;
 
 			return `${quantity * limitPrice * multiplier}`.substring(0, 10);
 		}
@@ -90,10 +90,10 @@ function NewOrder({ ...props }) {
 
 		const quantity = parseFloat(order.quantity);
 
-		if (order.side === ORDER_SIDE.SELL && symbol.baseQty < quantity)
+		if (order.side === ENUM_ORDER_SIDE.SELL && symbol.baseQty < quantity)
 			return setErrorState(`You haven´t enough ${symbol.base} to sell!`);
 
-		if (order.side === ORDER_SIDE.BUY && symbol.quoteQty < total)
+		if (order.side === ENUM_ORDER_SIDE.BUY && symbol.quoteQty < total)
 			return setErrorState(`You haven´t enough ${symbol.quote} to buy!`);
 
 		setIsLoading(true);
@@ -170,8 +170,8 @@ function NewOrder({ ...props }) {
 							<></>
 						)}
 						{[
-							ORDER_TYPE.STOP_LOSS_LIMIT,
-							ORDER_TYPE.TAKE_PROFIT_LIMIT,
+							ENUM_ORDER_TYPE.STOP_LOSS_LIMIT,
+							ENUM_ORDER_TYPE.TAKE_PROFIT_LIMIT,
 						].includes(order.type) ? (
 							<Input
 								label="Stop Price"
@@ -184,7 +184,7 @@ function NewOrder({ ...props }) {
 						) : (
 							<></>
 						)}
-						{order.type === ORDER_TYPE.TRAILING_STOP ? (
+						{order.type === ENUM_ORDER_TYPE.TRAILING_STOP ? (
 							<>
 								<Input
 									label="Activation Price"

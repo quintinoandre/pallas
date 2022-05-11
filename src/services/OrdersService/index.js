@@ -1,4 +1,4 @@
-import { ORDER_TYPE } from '../../enums';
+import { ENUM_ORDER_TYPE } from '../../enums';
 import { api } from '../BaseService';
 
 async function getOrders(symbol, page = 1) {
@@ -37,25 +37,26 @@ async function placeOrder(order) {
 
 	if (
 		[
-			ORDER_TYPE.LIMIT,
-			ORDER_TYPE.STOP_LOSS_LIMIT,
-			ORDER_TYPE.TAKE_PROFIT_LIMIT,
-			ORDER_TYPE.TRAILING_STOP,
+			ENUM_ORDER_TYPE.LIMIT,
+			ENUM_ORDER_TYPE.STOP_LOSS_LIMIT,
+			ENUM_ORDER_TYPE.TAKE_PROFIT_LIMIT,
+			ENUM_ORDER_TYPE.TRAILING_STOP,
 		].includes(postOrder.options.type)
 	)
 		postOrder.limitPrice = order.limitPrice;
 
-	if (postOrder.options.type === ORDER_TYPE.ICEBERG)
+	if (postOrder.options.type === ENUM_ORDER_TYPE.ICEBERG)
 		postOrder.options.icebergQty = order.icebergQty;
 
 	if (
-		[ORDER_TYPE.STOP_LOSS_LIMIT, ORDER_TYPE.TAKE_PROFIT_LIMIT].includes(
-			postOrder.options.type
-		)
+		[
+			ENUM_ORDER_TYPE.STOP_LOSS_LIMIT,
+			ENUM_ORDER_TYPE.TAKE_PROFIT_LIMIT,
+		].includes(postOrder.options.type)
 	)
 		postOrder.options.stopPrice = order.stopPrice;
 
-	if (postOrder.options.type === ORDER_TYPE.TRAILING_STOP)
+	if (postOrder.options.type === ENUM_ORDER_TYPE.TRAILING_STOP)
 		postOrder.options.stopPriceMultiplier = order.stopPriceMultiplier;
 
 	const response = await api.post(`/orders`, postOrder);

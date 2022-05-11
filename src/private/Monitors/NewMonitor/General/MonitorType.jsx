@@ -4,7 +4,7 @@ import Picker from 'react-native-picker-select';
 
 import { Feather as Icon } from '@expo/vector-icons';
 
-import { MONITOR_TYPE } from '../../../../enums';
+import { ENUM_MONITOR_TYPE } from '../../../../enums';
 import {
 	MonitorTypePickerSelectStyles as pickerSelectStyles,
 	MonitorTypeStyles as styles,
@@ -16,10 +16,10 @@ import {
  * - onChange
  */
 function MonitorType({ ...props }) {
-	const [typeState, setTypeState] = useState(MONITOR_TYPE.CANDLES);
+	const [typeState, setTypeState] = useState(ENUM_MONITOR_TYPE.CANDLES);
 
 	useEffect(() => {
-		setTypeState(props.type || MONITOR_TYPE.CANDLES);
+		setTypeState(props.type || ENUM_MONITOR_TYPE.CANDLES);
 	}, [props.type]);
 
 	function onChange(type) {
@@ -37,8 +37,8 @@ function MonitorType({ ...props }) {
 				value={typeState}
 				useNativeAndroidPickerStyle={false}
 				items={[
-					{ label: 'Candles', value: MONITOR_TYPE.CANDLES },
-					{ label: 'Ticker', value: MONITOR_TYPE.TICKER },
+					{ label: 'Candles', value: ENUM_MONITOR_TYPE.CANDLES },
+					{ label: 'Ticker', value: ENUM_MONITOR_TYPE.TICKER },
 				]}
 				onValueChange={(event) => onChange(event)}
 			/>

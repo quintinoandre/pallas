@@ -5,7 +5,7 @@ import { ListItem, Avatar, useTheme } from 'react-native-elements';
 import 'intl';
 import 'intl/locale-data/jsonp/pt-PT';
 
-import { ALERT_TYPE } from '../../enums';
+import { ENUM_ALERT_TYPE } from '../../enums';
 import { AlertItemStyles as styles } from './styles';
 
 /**
@@ -21,13 +21,13 @@ function AlertItem({ ...props }) {
 		let color = '';
 
 		switch (type) {
-			case ALERT_TYPE.error:
+			case ENUM_ALERT_TYPE.error:
 				color = theme.colors.danger;
 				break;
-			case ALERT_TYPE.success:
+			case ENUM_ALERT_TYPE.success:
 				color = theme.colors.success;
 				break;
-			case ALERT_TYPE.info:
+			case ENUM_ALERT_TYPE.info:
 				color = theme.colors.info;
 				break;
 			default:

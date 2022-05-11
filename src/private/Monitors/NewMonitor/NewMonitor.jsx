@@ -5,7 +5,7 @@ import { useTheme, Tab, Button } from 'react-native-elements';
 import { Feather as Icon } from '@expo/vector-icons';
 
 import { HeaderRow } from '../../../components';
-import { MONITOR_TYPE, MONITOR_INTERVAL } from '../../../enums';
+import { ENUM_MONITOR_TYPE, ENUM_MONITOR_INTERVAL } from '../../../enums';
 import { saveMonitor } from '../../../services';
 import { GeneralArea } from './General/GeneralArea';
 import { IndexesArea } from './Indexes/IndexesArea';
@@ -20,9 +20,9 @@ function NewMonitor({ ...props }) {
 	const { theme } = useTheme();
 
 	const DEFAULT_MONITOR = {
-		type: MONITOR_TYPE.CANDLES,
+		type: ENUM_MONITOR_TYPE.CANDLES,
 		symbol: 'BTCUSDT',
-		interval: MONITOR_INTERVAL.oneMinute,
+		interval: ENUM_MONITOR_INTERVAL.oneMinute,
 		isActive: false,
 		logs: false,
 	};
@@ -106,12 +106,14 @@ function NewMonitor({ ...props }) {
 						<Icon
 							name="bar-chart-2"
 							size={20}
-							color={monitor.type === MONITOR_TYPE.TICKER ? '#ccc' : 'black'}
+							color={
+								monitor.type === ENUM_MONITOR_TYPE.TICKER ? '#ccc' : 'black'
+							}
 						/>
 					}
 					style={styles.tab}
 					buttonStyle={styles.tabButton}
-					disabled={monitor.type === MONITOR_TYPE.TICKER}
+					disabled={monitor.type === ENUM_MONITOR_TYPE.TICKER}
 					disabledStyle={styles.tabButton}
 				/>
 			</Tab>
