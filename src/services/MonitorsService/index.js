@@ -6,6 +6,12 @@ async function getMonitors(page = 1) {
 	return response.data.rows;
 }
 
+async function getMonitorsBySymbol(symbol) {
+	const response = await api.get(`/monitors/?symbol=${symbol}`);
+
+	return response.data.rows;
+}
+
 async function startMonitor(id) {
 	const response = await api.post(`/monitors/${id}/start`, {});
 
@@ -33,4 +39,11 @@ async function saveMonitor(id, newMonitor) {
 	return response.data;
 }
 
-export { getMonitors, startMonitor, stopMonitor, deleteMonitor, saveMonitor };
+export {
+	getMonitors,
+	getMonitorsBySymbol,
+	startMonitor,
+	stopMonitor,
+	deleteMonitor,
+	saveMonitor,
+};
