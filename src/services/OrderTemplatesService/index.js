@@ -12,4 +12,12 @@ async function deleteOrderTemplate(id) {
 	return response.data;
 }
 
-export { getAllOrderTemplates, deleteOrderTemplate };
+async function getOrderTemplates(symbol = '', page = 1) {
+	const response = await api.get(
+		`/orderTemplates/${symbol || ''}?page=${page}`
+	);
+
+	return response.data; // {count, rows}
+}
+
+export { getAllOrderTemplates, deleteOrderTemplate, getOrderTemplates };
