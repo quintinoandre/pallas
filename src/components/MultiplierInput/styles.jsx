@@ -19,7 +19,7 @@ const styles = StyleSheet.create({
 
 const pickerSelectStyles = StyleSheet.create({
 	inputAndroid: {
-		marginTop: 15,
+		marginVertical: 15,
 		height: 30,
 		paddingHorizontal: 10,
 		fontSize: 16,
@@ -28,7 +28,7 @@ const pickerSelectStyles = StyleSheet.create({
 		color: 'black',
 	},
 	inputIOS: {
-		marginTop: 15,
+		marginVertical: 15,
 		height: 30,
 		paddingHorizontal: 10,
 		fontSize: 16,

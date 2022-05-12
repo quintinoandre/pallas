@@ -24,7 +24,7 @@ async function saveOrderTemplate(id, newOrderTemplate) {
 	const regex = /^(\d+([,.]\d+)?)$/;
 
 	if (
-		typeof newOrderTemplate.quantityMultiplier !== 'string' &&
+		typeof newOrderTemplate.quantityMultiplier === 'string' &&
 		regex.test(newOrderTemplate.quantityMultiplier)
 	)
 		newOrderTemplate.quantityMultiplier = Number(
@@ -32,7 +32,7 @@ async function saveOrderTemplate(id, newOrderTemplate) {
 		);
 
 	if (
-		typeof newOrderTemplate.limitPriceMultiplier !== 'string' &&
+		typeof newOrderTemplate.limitPriceMultiplier === 'string' &&
 		regex.test(newOrderTemplate.limitPriceMultiplier)
 	)
 		newOrderTemplate.limitPriceMultiplier = Number(
@@ -40,7 +40,7 @@ async function saveOrderTemplate(id, newOrderTemplate) {
 		);
 
 	if (
-		typeof newOrderTemplate.stopPriceMultiplier !== 'string' &&
+		typeof newOrderTemplate.stopPriceMultiplier === 'string' &&
 		regex.test(newOrderTemplate.stopPriceMultiplier)
 	)
 		newOrderTemplate.stopPriceMultiplier = Number(

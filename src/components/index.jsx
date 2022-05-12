@@ -4,6 +4,7 @@ export * from './CurrentPrice';
 export * from './DateInput';
 export * from './HeaderRow';
 export * from './InfoBlock';
+export * from './MultiplierInput';
 export * from './NewOrderButton';
 export * from './SelectFiat';
 export * from './SelectQuote';

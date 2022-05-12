@@ -28,7 +28,7 @@ function MultiplierInput({ ...props }) {
 
 		setValueMultiplier(props.valueMultiplier);
 
-		setShowInput(!/[A-Z ]/i.text(props.value));
+		setShowInput(!/[A-Z ]/i.test(props.value));
 	}, [props.value, props.valueMultiplier]);
 
 	function onRefresh() {
@@ -99,7 +99,7 @@ function MultiplierInput({ ...props }) {
 				icon={<Icon name="edit" size={20} color="black" />}
 			/>
 			<Overlay
-				style={styles.overlay}
+				overlayStyle={styles.overlay}
 				isVisible={showOverlay}
 				onBackdropPress={() => setShowOverlay(false)}
 			>
