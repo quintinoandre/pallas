@@ -40,12 +40,12 @@ function ChartReport({ ...props }) {
 
 		if (!data.profitPerc) data.profitPerc = 0;
 
-		const profit = data.profit >= 0 ? `+${data.profit}` : `-${data.profit}`;
+		const profit = data.profit >= 0 ? `+${data.profit}` : `${data.profit}`;
 
 		const profitPerc =
 			data.profitPerc >= 0
-				? `+${data.profitPerc.toFixed(2)}%`
-				: `-${data.profitPerc.toFixed(2)}%`;
+				? `(+${data.profitPerc.toFixed(2)}%)`
+				: `(${data.profitPerc.toFixed(2)}%)`;
 
 		return (
 			<Text style={theme.h1}>
